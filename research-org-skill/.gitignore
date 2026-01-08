@@ -1,0 +1,37 @@
+# Configuration & Credentials (NEVER commit these!)
+config.json
+.env
+.env.local
+.env.*.local
+
+# Node modules (if used)
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.venv
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*.bak
+.backup/

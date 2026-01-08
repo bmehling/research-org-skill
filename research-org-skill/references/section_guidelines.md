@@ -1,0 +1,486 @@
+# Research Section Guidelines
+
+This document provides detailed guidance for each section of the company research report. Follow these guidelines to ensure comprehensive, well-structured research that provides strategic value.
+
+## Research Mantras
+
+Strong research combines:
+1. **Depth** - 7,000-10,000 word comprehensive report (each section includes target lengths)
+2. **Accuracy** - Verifiable sources and citations throughout. Do not make claims that cannot be verified. Note when information is derived or estimated.
+3. **Balance** - Both positive (strengths/opportunities) and negative (weaknesses/risks) perspectives. Do not be biased.
+4. **Clarity** - Accessible prose that explains specialized concepts
+5. **Strategic Value** - Insights that inform decision-making, not just information collection
+
+## Citation and Reference Best Practices
+
+**Purpose:** Make research verifiable and allow readers to explore sources independently.
+
+**Guidelines:**
+- **Link to primary sources** wherever possible:
+  - Company website sections
+  - Official press releases (PR Newswire, Business Wire, etc.)
+  - Investor announcements (Crunchbase, investor websites)
+  - Analyst reports (Gartner, Forrester, etc. with dates)
+  - News articles (TechCrunch, VentureBeat, etc.)
+  - Academic papers or technical blogs for technical claims
+- **Format citations** clearly:
+  - Use markdown link syntax: `[source description](URL)`
+  - Include publication name and date for news/reports
+  - Example: "According to [PR Newswire announcement](URL) from March 2022, the company raised $80M Series C"
+- **Distribute links throughout** rather than clustering at end:
+  - Link at the point where fact is mentioned, not separately
+  - This makes verification easier during reading
+- **Balance with readability:**
+  - Don't link every sentence; link key claims, metrics, and pivotal facts
+  - Group related claims under one link when appropriate
+
+---
+
+# Example research reports to use as a reference
+ - reference the ```example_reports``` array in the config.json file. Read each listed example for context. If the example is in Notion, use your Notion tool to access the report. If the example is elsewhere, use your web browser to access the report.
+ - the examples provide desired tone, voice, and target content
+ - note: the structure of the examples may differ from the report sequence and structure prescribed here. Use the structure outlined in this document
+
+# 0. Structure
+
+## Company Overview
+### Founding Story
+### Mission and Vision
+### Thesis
+### Business Model
+## Executive Team
+## Investors, Funding Rounds, and Valuation
+### Funding rounds table and summary
+### Valuation narrative & investor outlook
+## Products and Services
+## Notable Partnerships and Customers
+## Market
+### Customer
+### Market size
+### Competitive landscape
+### Competitors
+### Traction
+## Opportunities and Risks
+### Key Opportunities
+### Key Risks
+### SWOT Analysis
+#### Strengths
+#### Weaknesses
+#### Opportunities
+#### Threats
+
+---
+
+## 1. Company Overview
+
+**Purpose:** Provide a clear, compelling summary of what the company does, who they serve, and their value proposition.
+
+**Guidelines:**
+- Open with a 2-3 sentence description of the company's core business
+- Clearly articulate the problem they solve and for whom
+- Highlight key differentiators or unique approach
+- Include founding year and headquarters location
+- Mention current scale indicators (employees, customers, geographic presence) if available
+- Write 2-4 paragraphs in clear, engaging prose
+- Avoid jargon; use language that would be clear to someone unfamiliar with the company
+- Focus on what makes them distinctive in their market
+- Include reference links to key sources (company website, prominent news articles, analyst reports)
+
+**Expected Length:** 2-4 paragraphs (400-600 words)
+
+---
+
+### 1a. Founding Story
+
+**Purpose:** Provide context on how and why the company was started.
+
+**Guidelines:**
+- Describe the origin story and founding team's background
+- Explain what problem or insight led to the company's creation
+- Include founding year and initial focus
+- Mention key pivots or evolution in the company's direction if relevant
+- Highlight founder credentials, previous experience, or domain expertise that informed the founding
+- Write 2-3 paragraphs in narrative form
+- Include citations or links to founding announcements and early coverage
+
+**Expected Length:** 2-3 paragraphs (300-450 words)
+
+---
+
+### 1b. Mission and Vision
+
+**Purpose:** Articulate the company's stated purpose and long-term ambitions.
+
+**Guidelines:**
+- Identify explicit mission and vision statements from official sources (website, investor decks, founder interviews)
+- Paraphrase in company's own language if official statements are unclear
+- Explain the core philosophy or values driving the company
+- Connect mission to founding story and current strategy
+- Distinguish between mission (current purpose) and vision (future state)
+- Write 2-3 focused paragraphs
+- Link to official sources (company manifesto, founder interviews, mission statements)
+
+**Expected Length:** 1-2 paragraphs or a bulleted list (200-300 words)
+
+---
+
+### 1c. Thesis
+
+**Purpose:**
+
+Write a compelling Company Thesis section that articulates why this company represents an exceptional investment opportunity. Structure your analysis using these guidelines:
+
+- Market Convergence & Timing: Open by identifying 2-3 major trends or market forces that converged to create the opportunity. Include specific market size data, growth rates, or supply-demand imbalances that quantify the opportunity. Explain why now is the right time for this solution.
+- Competitive Differentiation: Articulate the company's unique approach versus competitors. Be specific about what competitors do (name them) and how this company's solution is fundamentally different or more comprehensive. Focus on structural advantages, not just features.
+- Technology & Capability Inflection: Identify the technological or market inflection point that makes this solution possible now but wasn't feasible before. Reference specific timeframes, technological breakthroughs, or capability thresholds that enable the business model.
+- Economic Disruption: Quantify the improvement in unit economics, speed, cost, or accessibility compared to traditional approaches. Use specific numbers (10x, 100x) and concrete before/after comparisons that demonstrate the magnitude of improvement.
+Synthesis: Ensure the thesis flows as a cohesive narrative that connects market opportunity → unique solution → right team → right time → validated traction → massive potential. Each element should reinforce the others to build conviction.
+
+**Expected Length:** 2-4 paragraphs (300-450 words)
+
+---
+
+### 1d. Business Model
+
+**Purpose:** Explain how the company makes money and scales.
+
+**Guidelines:**
+- Describe revenue model:
+  - Pricing approach (per-seat, per-transaction, subscription, hybrid, etc.)
+  - Typical deal size or contract terms
+  - Customer acquisition cost (CAC) if available
+  - Customer lifetime value (LTV) if available
+- Explain go-to-market strategy:
+  - Sales motion (direct sales, self-serve, marketplace, partnerships)
+  - Sales cycle length
+  - Channel strategy (if applicable)
+- Describe unit economics where possible:
+  - Gross margins
+  - Customer acquisition cost
+  - Net revenue retention / expansion revenue
+- Discuss competitive pricing and positioning
+- Include links to pricing pages or case studies that reveal business model
+
+**Expected Length:** 4-8 paragraphs
+
+---
+
+## 2. Executive Team
+
+**Purpose:** Showcase leadership depth and relevant expertise.
+
+**Guidelines:**
+- List key executives with titles
+- For each leader at C-level or SVP level, include:
+  - Relevant background and previous companies/roles
+  - Notable achievements or domain expertise
+  - How long they've been with the company
+  - Their specific role in current strategy
+- Present in a structured format (can use a table or formatted list)
+- Focus on C-suite, SVP-level roles, and specialized expertise areas
+- Include educational background when relevant to credibility
+- Explain how executive team composition strengthens company positioning
+- Include LinkedIn profile links where relevant for verification
+
+**Expected Length:** Varies (typically 1 paragraph per executive)
+
+---
+
+## 3. Investors, Funding Rounds, and Valuation
+
+**Purpose:** Document the company's funding history and financial backing.
+
+### 3a. Investors & Funding Rounds**
+
+** Funding Rounds (table) and summary**
+Create a comprehensive funding table with columns:
+- **Round** (Seed, Series A, Series B, include any M&A activity in the timeline, etc.)
+- **Date** (when the round closed)
+- **Amount Raised** (dollar amount)
+- **Valuation** (post-money valuation; note if estimated*)
+- **Lead Investors** (primary investors in that round)
+- **Notes** (other investors, relevant context or conditions, and relevant metrics)
+  - List prominent investors and their significance:
+    - First institutional investors and their relevance
+    - Strategic investors (customers, partners) and their strategic importance
+    - Notable repeat investors across rounds
+    - Board observers or board members from investor firms
+
+**Table Guidelines:**
+- Include all known funding rounds in chronological order
+- For M&A activity: 
+  - note which company was acquired, when, for how much, and strategic rationale as a separate row in the table, e.g.,:
+    - | M&A: Acquires TechCo | Q3 2023 | Acquisition | $50M | - | Strategic product acquisition for vertical expansion |
+- Valuation Estimation: If valuations are missing for some rounds, use the method outlined in references/valuation_guide.md
+  - Clearly mark estimated valuations as "~$XX (estimated)"
+
+**Summary Guidelines** -- add after the funding rounds table
+- Include a summary of the funding rounds, valuation, and lead investors below the table e.g.,
+  - **Total Funding:** $276M across 7 rounds
+  - **Current Implied Valuation:** ~$2.0B (estimated from Series D round)
+  - **Key Investors:** Andreessen Horowitz, Greylock Partners, Sequoia Capital, ... 
+
+---
+
+### 3b. Valuation (narrative)
+- Valuation growth rate between rounds (e.g., "2.5x growth from Series A to Series B")
+- Comparison to industry benchmarks where available
+- Notable jumps or slowdowns and possible explanations
+- Current implied valuation based on latest secondary market data if available
+- Investor outlook and comparables/benchmarks
+
+**Expected Length:** 2-4 paragraphs (narrative analysis)
+
+---
+
+## 4. Products and Services
+
+**Purpose:** Provide detailed breakdown of what the company sells or builds.
+
+**Guidelines:**
+- List each major product/service with clear descriptions
+- For each offering:
+  - What problem does it solve?
+  - Who is the target user?
+  - Key features and capabilities
+  - How is it positioned vs. alternatives?
+  - Notable metrics or customer outcomes
+- Include pricing information if available (or note if private)
+- Mention product roadmap items or recent launches
+- Describe any proprietary technology, algorithms, or approaches
+- Highlight evolution of product suite over time
+- Include links to product pages, demo videos, or case studies
+
+**Expected Length:** 1 introductory paragraph plus 1 paragraph per product/service. If the Products and Services are logically grouped into families or categories, organize the section into subsections.
+
+---
+
+## 5. Notable Partnerships and Customers
+
+**Purpose:** Demonstrate market traction and credibility through customer and partnership validation.
+
+**Guidelines:**
+- List major customers by name where possible
+- Include customer testimonials with specific metrics if available
+- Describe strategic partnerships:
+  - Co-marketing or distribution partnerships
+  - Technology integration partnerships
+  - Investor relationships that became partnerships
+- For major customers, note:
+  - Industry or vertical they represent
+  - Scale or significance
+  - Known outcomes or case studies
+- Explain what customer composition reveals about go-to-market strategy
+- Include press releases or case study links
+
+**Expected Length:** 4-8 paragraphs
+
+---
+
+## 6. Market
+
+**Purpose:** Define the addressable market, customer characteristics, and market dynamics.
+
+---
+
+### 6a. Customer
+
+Describe the ideal customer:
+- Company size, industry, geographic focus
+- Specific pain points the company solves
+- Decision-making process and buying committee
+- Budget range or typical deal size (if known)
+- Examples of customer types already won
+
+**Expected Length:** 4-6 paragraphs
+
+---
+
+### 6b. Market Size and Opportunity
+
+Provide quantitative market analysis:
+- Total addressable market (TAM) with source and date
+- Serviceable available market (SAM) if different from TAM
+- Market growth rate (CAGR) and projection period
+- Key drivers of market growth
+- Market segmentation (by vertical, geography, company size, etc.)
+- Cited sources and links to market research reports
+
+**Expected Length:** 4-6 paragraphs
+
+---
+
+### 6c. Market Dynamics and Trends
+
+Analyze what's driving adoption:
+- Industry tailwinds (regulatory changes, technology shifts, etc.)
+- Customer priorities and changing needs
+- Competitive intensity
+- Consolidation trends
+- Link to relevant industry reports and analyses
+
+**Expected Length:** 4-6 paragraphs
+
+---
+
+### 6d. Competitive Landscape Overview 
+
+**Purpose:** Position the company within the competitive landscape.
+
+- Identify categories of competitors:
+  - Direct competitors (similar product, similar customer)
+  - Indirect competitors (alternative solutions)
+  - Potential future competitors (platform players, adjacent vendors)
+- Explain competitive dynamics and market maturity
+
+**Expected Length:** 2-4 paragraphs
+
+---
+
+### 6e. Key Competitors (table)
+
+For each major competitor, include:
+- Company name (linked to their website)
+- Founded year and funding/valuation
+- Company and focus and positioning
+- Key differentiators vs. the company being researched
+- Links to competitor websites and key resources
+
+---
+
+### 6f. Competitive Positioning Matrix (optional)
+
+- Create a visual positioning grid (similar to Gartner Magic Quadrant) showing how company compares on key dimensions to it's competitors 
+- generate this as an image and include it inline within the report
+
+---
+
+### 6g. Competitive Advantages
+
+- What defensible advantages does the company have?
+- Data moats, brand, switching costs, technical depth, etc.
+- How sustainable are these advantages?
+
+**Expected Length:** 2-3 paragraphs
+
+---
+
+## 7. Traction
+
+**Purpose:** Demonstrate momentum and successful execution.
+
+**Guidelines:**
+- Quantify revenue growth with specific numbers and time periods
+- Include customer growth metrics (number of customers, customer logos, growth rate)
+- Highlight key milestones (you can skip funding rounds as we cover that in the funding section):
+  - Product launches
+  - Partnership announcements
+  - Award/recognition wins
+  - Geographic expansion
+  - Team growth
+- Provide financial metrics:
+  - ARR/MRR if available
+  - Net revenue retention (NRR)
+  - Growth rate (YoY %)
+  - Unit economics improvements
+- Date all metrics and note sources
+- Include links to press releases and announcements supporting key milestones
+
+**Expected Length:** 3-5 paragraphs
+
+---
+
+## 8. Opportunities and Risks
+
+---
+
+### 8a. Key Opportunities
+
+**Purpose:** Identify 3-5 major growth opportunities and strategic options.
+
+**Guidelines:**
+- For each opportunity:
+  - Clearly state the opportunity
+  - Explain why it's significant (market size, competitive advantage)
+  - Describe how the company could pursue it
+  - Identify risks or execution challenges
+  - Estimate potential impact on the business
+- Distinguish between:
+  - Product expansion (new features, new verticals)
+  - Geographic expansion
+  - Business model evolution
+  - Strategic partnerships or M&A
+  - Data or technology leverage (data moats, IP)
+- Write objectively, not as marketing
+- Ground opportunities in company strengths and market trends identified in earlier sections
+
+**Expected Length:** 2-4 paragraphs
+
+---
+
+### 8b. Key Risks
+
+**Purpose:** Identify material risks to the company's success.
+
+**Guidelines:**
+- For each risk:
+  - Clearly state the risk
+  - Explain why it's significant
+  - Assess probability (high/medium/low)
+  - Assess impact (high/medium/low)
+  - Identify mitigation strategies if company is pursuing them
+  - Note how risk might manifest
+- Categories of risks to consider:
+  - Market/competitive risks
+  - Execution/operational risks
+  - Financial/unit economics risks
+  - Regulatory/compliance risks
+  - Technology/product risks
+  - Key person risks
+  - Customer concentration risks
+- Write objectively and balanced
+- Avoid speculation; ground in evidence
+
+**Expected Length:** 2-4 paragraphs
+
+---
+
+### 9. SWOT Analysis
+
+**Purpose:** Synthesize strengths, weaknesses, opportunities, and threats.
+
+**Guidelines:**
+
+#### 9a. Strengths: Internal capabilities, assets, competitive advantages
+  - Proprietary technology
+  - Team depth/expertise
+  - Customer relationships/references
+  - Data or information advantages
+  - Brand or market position
+
+#### 9b. Weaknesses: Internal limitations or gaps
+  - Execution gaps
+  - Resource constraints
+  - Limited market presence
+  - Product gaps vs. competitors
+  - Dependency on key people/technologies
+
+#### 9c. Opportunities: External positive factors (from earlier opportunities section)
+  - Market growth
+  - Adjacency expansion
+  - Partnership/ecosystem plays
+  - Strategic acquisition targets
+  
+#### 9d. Threats: External negative factors (from earlier risks section)
+  - Competitive threats
+  - Market downturns
+  - Regulatory changes
+  - Technology disruption
+  - Customer concentration
+
+**Expected Length:** 3-5 paragraphs per each subsection (Strengths, Weaknesses, Opportunities, Threats) with each sub-sub-section clearly labeled with the theme and including 1-2 sentences summarizing the key points.
+
+---
+
+
+

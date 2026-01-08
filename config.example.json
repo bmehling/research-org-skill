@@ -1,0 +1,34 @@
+{
+  "notion": {
+    "databaseId": "<YOUR_DATABASE_ID_HERE>",
+    "databaseUrl": "https://www.notion.so/<YOUR_DATABASE_ID_HERE>",
+    "dataSourceId": "<YOUR_DATA_SOURCE_ID_HERE>",
+    "databaseName": "Solutions & Vendors"
+  },
+  "research": {
+    "targetWordCount": "7000-10000",
+    "reportStyle": "contrary-research",
+  },
+  "example_reports": [
+    "https://research.contrary.com/company/hippocratic-ai",
+    "<other example report url>"
+  ],
+  "categories": [
+    "AI",
+    "Voice",
+    "Agentic",
+    "Real-time",
+    "Analytics",
+    "Automation",
+    "Data",
+    "Security",
+    "Compliance",
+    "Healthcare",
+    "SaaS"
+  ],
+  "notes": {
+    "databaseId": "Found in Notion URL: https://www.notion.so/{databaseId}",
+    "dataSourceId": "Get from Notion API or database view settings",
+    "categories": "Customize this list to match your Notion database's Category field options"
+  }
+}
