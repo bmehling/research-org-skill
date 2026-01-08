@@ -41,33 +41,126 @@ Strong research combines:
  - the examples provide desired tone, voice, and target content
  - note: the structure of the examples may differ from the report sequence and structure prescribed here. Use the structure outlined in this document
 
+---
+
 # 0. Structure
 
-## Company Overview
-### Founding Story
-### Mission and Vision
-### Thesis
-### Business Model
-## Executive Team
-## Investors, Funding Rounds, and Valuation
-### Funding rounds table and summary
-### Valuation narrative & investor outlook
-## Products and Services
-## Notable Partnerships and Customers
-## Market
-### Customer
-### Market size
-### Competitive landscape
-### Competitors
-### Traction
-## Opportunities and Risks
-### Key Opportunities
-### Key Risks
-### SWOT Analysis
-#### Strengths
-#### Weaknesses
-#### Opportunities
-#### Threats
+# Company Overview
+## Founding Story
+## Mission and Vision
+## Thesis
+## Business Model
+# Executive Team
+# Investors, Funding Rounds, and Valuation
+## Funding rounds table and summary
+## Valuation narrative & investor outlook
+# Products and Services
+# Notable Partnerships and Customers
+# Market
+## Customer
+## Market size
+## Competitive landscape
+## Competitors
+## Traction
+# Opportunities and Risks
+## Key Opportunities
+## Key Risks
+## SWOT Analysis
+### Strengths
+### Weaknesses
+### Opportunities
+### Threats
+
+---
+
+## ⚠️ CRITICAL REMINDERS BEFORE WRITING
+
+### Section Order is MANDATORY
+
+The structure above (lines 45-70) is the EXACT order that must be followed. Specifically:
+
+**Business Model MUST appear as section 1d (after Thesis, before Executive Team)**
+- ❌ WRONG: Business Model after SWOT Analysis or at end of report
+- ✅ CORRECT: Business Model appears after Thesis, before Executive Team
+
+**Report Structure:**
+```
+# Company Overview
+## Founding Story
+## Mission and Vision
+## Thesis
+## Business Model  ← MUST BE HERE (subsection 1d)
+
+# Executive Team  ← Next major section
+
+# Investors, Funding Rounds, and Valuation
+...
+```
+
+### Reference Links are REQUIRED Throughout
+
+Every major claim, metric, or fact must be linked to its source at the point where it's mentioned.
+
+**Examples of Required Links:**
+- Funding amounts: "raised [$53M Series A](https://techcrunch.com/...) in June 2024"
+- Partnerships: "partnered with [Equinox](https://www.prnewswire.com/...) in May 2024"  
+- Metrics: "According to [their S-1 filing](https://sec.gov/...), revenue grew 200%"
+- Competitors: "[Prenuvo](https://www.prenuvo.com) offers similar full-body MRI scans"
+- Market data: "The market will reach [$50B by 2028](https://gartner.com/report) per Gartner"
+
+**Target Link Density:** Aim for 15-30+ links distributed throughout the report. More is better than fewer.
+
+**See lines 14-35 above for complete citation guidelines.**
+
+### Funding Summary Positioning
+
+The funding/valuation summary MUST appear BELOW the funding table as a separate narrative section.
+
+**❌ WRONG Format:**
+```markdown
+<table>
+<tr><td>Series A</td><td>June 2023</td><td>$50M</td><td>$200M</td><td>Investor A</td></tr>
+<tr><td>Series B</td><td>Nov 2024</td><td>$100M</td><td>$500M</td><td>Investor B</td></tr>
+<tr><td colspan="5"><strong>Total Funding:</strong> $150M across 2 rounds</td></tr>  ← Inside table
+</table>
+```
+
+**✅ CORRECT Format:**
+```markdown
+<table header-row="true">
+<tr>
+<td>Round</td>
+<td>Date</td>
+<td>Amount</td>
+<td>Valuation</td>
+<td>Lead Investors</td>
+</tr>
+<tr>
+<td>Series A</td>
+<td>June 2023</td>
+<td>$50M</td>
+<td>$200M</td>
+<td>Investor A</td>
+</tr>
+<tr>
+<td>Series B</td>
+<td>Nov 2024</td>
+<td>$100M</td>
+<td>$500M</td>
+<td>Investor B (lead), Investor A</td>
+</tr>
+</table>
+
+← SUMMARY STARTS HERE, BELOW TABLE
+
+**Total Funding:** $150M across 2 rounds from June 2023 to November 2024
+
+**Lead Investors:** The company has attracted support from tier-1 venture firms including Investor B (known for enterprise software investments) and Investor A (early-stage specialist). Investor A participated in both rounds, demonstrating continued conviction.
+
+**Valuation Trajectory:** The company increased valuation by 2.5x from Series A to Series B over 17 months, suggesting strong revenue growth and investor confidence in the market opportunity. The premium valuation relative to peers reflects [specific competitive advantages or traction metrics]...
+
+[Continue with 2-3 more paragraphs of narrative analysis]
+```
 
 ---
 
@@ -90,7 +183,7 @@ Strong research combines:
 
 ---
 
-### 1a. Founding Story
+## 1a. Founding Story
 
 **Purpose:** Provide context on how and why the company was started.
 
@@ -107,7 +200,7 @@ Strong research combines:
 
 ---
 
-### 1b. Mission and Vision
+## 1b. Mission and Vision
 
 **Purpose:** Articulate the company's stated purpose and long-term ambitions.
 
@@ -124,7 +217,7 @@ Strong research combines:
 
 ---
 
-### 1c. Thesis
+## 1c. Thesis
 
 **Purpose:**
 
@@ -140,7 +233,9 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 
 ---
 
-### 1d. Business Model
+## 1d. Business Model
+
+**⚠️ REMINDER:** Business Model section appears HERE in the report structure (position 1d, after Thesis, before Executive Team). Do NOT place it later in the report.
 
 **Purpose:** Explain how the company makes money and scales.
 
@@ -190,82 +285,108 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 
 **Purpose:** Document the company's funding history and financial backing.
 
-### 3a. Investors & Funding Rounds**
+### 3a. Funding Rounds Table
 
-** Funding Rounds (table) and summary**
 Create a comprehensive funding table with columns:
 - **Round** (Seed, Series A, Series B, include any M&A activity in the timeline, etc.)
 - **Date** (when the round closed)
 - **Amount Raised** (dollar amount)
-- **Valuation** (post-money valuation; note if estimated*)
+- **Valuation** (post-money valuation; note if estimated)
 - **Lead Investors** (primary investors in that round)
 - **Notes** (other investors, relevant context or conditions, and relevant metrics)
-  - List prominent investors and their significance:
-    - First institutional investors and their relevance
-    - Strategic investors (customers, partners) and their strategic importance
-    - Notable repeat investors across rounds
-    - Board observers or board members from investor firms
 
 **Table Guidelines:**
 - Include all known funding rounds in chronological order
 - For M&A activity: 
-  - note which company was acquired, when, for how much, and strategic rationale as a separate row in the table, e.g.,:
+  - Note which company was acquired, when, for how much, and strategic rationale as a separate row in the table, e.g.:
     - | M&A: Acquires TechCo | Q3 2023 | Acquisition | $50M | - | Strategic product acquisition for vertical expansion |
 - Valuation Estimation: If valuations are missing for some rounds, use the method outlined in references/valuation_guide.md
   - Clearly mark estimated valuations as "~$XX (estimated)"
+  - Mark unavailable valuations as "Not available"
 
-**Summary Guidelines** -- add after the funding rounds table
-- Include a summary of the funding rounds, valuation, and lead investors below the table e.g.,
-  - **Total Funding:** $276M across 7 rounds
-  - **Current Implied Valuation:** ~$2.0B (estimated from Series D round)
-  - **Key Investors:** Andreessen Horowitz, Greylock Partners, Sequoia Capital, ... 
+**Table Format Example:**
 
----
+```markdown
+<table header-row="true">
+<tr>
+<td>Round</td>
+<td>Date</td>
+<td>Amount Raised</td>
+<td>Valuation</td>
+<td>Lead Investors</td>
+<td>Notes</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>Q1 2022</td>
+<td>$5M</td>
+<td>$25M</td>
+<td>Investor A</td>
+<td>First institutional funding</td>
+</tr>
+<tr>
+<td>Series A</td>
+<td>Q3 2023</td>
+<td>$50M</td>
+<td>~$200M (estimated)</td>
+<td>Investor B (lead), Investor A</td>
+<td>Estimated using 4x ratio</td>
+</tr>
+</table>
+```
 
-### 3b. Valuation (narrative)
-- Valuation growth rate between rounds (e.g., "2.5x growth from Series A to Series B")
-- Comparison to industry benchmarks where available
-- Notable jumps or slowdowns and possible explanations
-- Current implied valuation based on latest secondary market data if available
-- Investor outlook and comparables/benchmarks
+### 3b. Funding Summary (Below Table)
 
-**Expected Length:** 2-4 paragraphs (narrative analysis)
+**⚠️ CRITICAL:** The funding/valuation summary MUST appear BELOW the table as narrative prose. Do NOT embed summary in table footer or final row. See example format in lines 100-115 above.
+
+Include a summary covering:
+- **Total Funding:** Total amount raised and number of rounds
+- **Lead Investors:** List prominent investors and their significance:
+  - First institutional investors and their relevance
+  - Strategic investors (customers, partners) and their strategic importance
+  - Notable repeat investors across rounds
+  - Board observers or board members from investor firms
+- **Valuation Trajectory:** Analyze valuation changes:
+  - Growth rate between rounds
+  - Comparison to industry benchmarks
+  - What valuation trends reveal about company progress
+  - Investor sentiment and market positioning
+
+**Expected Length:** 2-4 paragraphs of narrative analysis BELOW the table
 
 ---
 
 ## 4. Products and Services
 
-**Purpose:** Provide detailed breakdown of what the company sells or builds.
+**Purpose:** Detail what the company offers and how their solutions work.
 
 **Guidelines:**
-- List each major product/service with clear descriptions
-- For each offering:
-  - What problem does it solve?
-  - Who is the target user?
-  - Key features and capabilities
-  - How is it positioned vs. alternatives?
-  - Notable metrics or customer outcomes
-- Include pricing information if available (or note if private)
-- Mention product roadmap items or recent launches
-- Describe any proprietary technology, algorithms, or approaches
-- Highlight evolution of product suite over time
-- Include links to product pages, demo videos, or case studies
+- Describe each major product or service offering
+- Explain key features and capabilities
+- Detail the technology stack or approach where relevant
+- Describe the user experience or customer journey
+- Highlight unique or innovative aspects of their offerings
+- Include specific examples of use cases
+- Note any integrations or platform partnerships
+- Organize by product line if they have multiple offerings
+- Include links to product pages, demos, or technical documentation
 
-**Expected Length:** 1 introductory paragraph plus 1 paragraph per product/service. If the Products and Services are logically grouped into families or categories, organize the section into subsections.
+**Expected Length:** 4-8 paragraphs
 
 ---
 
 ## 5. Notable Partnerships and Customers
 
-**Purpose:** Demonstrate market traction and credibility through customer and partnership validation.
+**Purpose:** Demonstrate market validation and go-to-market strength.
 
 **Guidelines:**
-- List major customers by name where possible
-- Include customer testimonials with specific metrics if available
-- Describe strategic partnerships:
-  - Co-marketing or distribution partnerships
-  - Technology integration partnerships
-  - Investor relationships that became partnerships
+- List major customers (with permission/if public)
+- Describe key partnership relationships
+- Highlight notable logos or case studies
+- Include customer testimonials or results if available
+- Note any channel partnerships or distribution agreements
+- Mention customer segments served (e.g., enterprise, mid-market, SMB)
+- Provide specific examples of customer success or adoption
 - For major customers, note:
   - Industry or vertical they represent
   - Scale or significance
@@ -283,7 +404,7 @@ Create a comprehensive funding table with columns:
 
 ---
 
-### 6a. Customer
+## 6a. Customer
 
 Describe the ideal customer:
 - Company size, industry, geographic focus
@@ -296,7 +417,7 @@ Describe the ideal customer:
 
 ---
 
-### 6b. Market Size and Opportunity
+## 6b. Market Size and Opportunity
 
 Provide quantitative market analysis:
 - Total addressable market (TAM) with source and date
@@ -310,7 +431,7 @@ Provide quantitative market analysis:
 
 ---
 
-### 6c. Market Dynamics and Trends
+## 6c. Market Dynamics and Trends
 
 Analyze what's driving adoption:
 - Industry tailwinds (regulatory changes, technology shifts, etc.)
@@ -323,7 +444,7 @@ Analyze what's driving adoption:
 
 ---
 
-### 6d. Competitive Landscape Overview 
+## 6d. Competitive Landscape Overview 
 
 **Purpose:** Position the company within the competitive landscape.
 
@@ -337,25 +458,46 @@ Analyze what's driving adoption:
 
 ---
 
-### 6e. Key Competitors (table)
+## 6e. Key Competitors (table)
 
 For each major competitor, include:
 - Company name (linked to their website)
 - Founded year and funding/valuation
-- Company and focus and positioning
+- Company focus and positioning
 - Key differentiators vs. the company being researched
 - Links to competitor websites and key resources
 
+**Table Format Example:**
+
+```markdown
+<table header-row="true">
+<tr>
+<td>Company</td>
+<td>URL</td>
+<td>Founded</td>
+<td>Focus/Positioning</td>
+<td>Key Differentiators</td>
+</tr>
+<tr>
+<td>Competitor A</td>
+<td>competitora.com</td>
+<td>2019</td>
+<td>Enterprise-focused platform</td>
+<td>Strong in healthcare vertical, raised $200M</td>
+</tr>
+</table>
+```
+
 ---
 
-### 6f. Competitive Positioning Matrix (optional)
+## 6f. Competitive Positioning Matrix (optional)
 
-- Create a visual positioning grid (similar to Gartner Magic Quadrant) showing how company compares on key dimensions to it's competitors 
-- generate this as an image and include it inline within the report
+- Create a visual positioning grid (similar to Gartner Magic Quadrant) showing how company compares on key dimensions to its competitors 
+- Generate this as an image and include it inline within the report
 
 ---
 
-### 6g. Competitive Advantages
+## 6g. Competitive Advantages
 
 - What defensible advantages does the company have?
 - Data moats, brand, switching costs, technical depth, etc.
@@ -372,7 +514,7 @@ For each major competitor, include:
 **Guidelines:**
 - Quantify revenue growth with specific numbers and time periods
 - Include customer growth metrics (number of customers, customer logos, growth rate)
-- Highlight key milestones (you can skip funding rounds as we cover that in the funding section):
+- Highlight key milestones:
   - Product launches
   - Partnership announcements
   - Award/recognition wins
@@ -394,7 +536,7 @@ For each major competitor, include:
 
 ---
 
-### 8a. Key Opportunities
+## 8a. Key Opportunities
 
 **Purpose:** Identify 3-5 major growth opportunities and strategic options.
 
@@ -418,7 +560,7 @@ For each major competitor, include:
 
 ---
 
-### 8b. Key Risks
+## 8b. Key Risks
 
 **Purpose:** Identify material risks to the company's success.
 
@@ -445,42 +587,39 @@ For each major competitor, include:
 
 ---
 
-### 9. SWOT Analysis
+## 9. SWOT Analysis
 
 **Purpose:** Synthesize strengths, weaknesses, opportunities, and threats.
 
 **Guidelines:**
 
-#### 9a. Strengths: Internal capabilities, assets, competitive advantages
+### 9a. Strengths: Internal capabilities, assets, competitive advantages
   - Proprietary technology
   - Team depth/expertise
   - Customer relationships/references
   - Data or information advantages
   - Brand or market position
 
-#### 9b. Weaknesses: Internal limitations or gaps
+### 9b. Weaknesses: Internal limitations or gaps
   - Execution gaps
   - Resource constraints
   - Limited market presence
   - Product gaps vs. competitors
   - Dependency on key people/technologies
 
-#### 9c. Opportunities: External positive factors (from earlier opportunities section)
+### 9c. Opportunities: External positive factors (from earlier opportunities section)
   - Market growth
   - Adjacency expansion
   - Partnership/ecosystem plays
   - Strategic acquisition targets
   
-#### 9d. Threats: External negative factors (from earlier risks section)
+### 9d. Threats: External negative factors (from earlier risks section)
   - Competitive threats
   - Market downturns
   - Regulatory changes
   - Technology disruption
   - Customer concentration
 
-**Expected Length:** 3-5 paragraphs per each subsection (Strengths, Weaknesses, Opportunities, Threats) with each sub-sub-section clearly labeled with the theme and including 1-2 sentences summarizing the key points.
+**Expected Length:** 3-7 bullet points per subsection (Strengths, Weaknesses, Opportunities, Threats) with each bullet including a 1-4 word title (bolded) followed by 1-2 sentences summarizing the key points.
 
 ---
-
-
-

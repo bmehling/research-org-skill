@@ -2,6 +2,185 @@
 
 This guide establishes the tone, style, and analytical depth expected for research reports. The goal is to produce professional, credible research that serves as authoritative reference material.
 
+---
+
+## Reference Links - Required Throughout Report
+
+### Why Reference Links Matter
+
+Research credibility depends on verifiable sources. Every major claim, metric, or fact should link to its source at the point where it's mentioned in the report.
+
+### Link Density Target
+
+**Aim for 15-30+ links distributed throughout your report.** More is better than fewer.
+
+### What to Link
+
+**Always link these items when they appear in your report:**
+
+1. **Funding Information**
+   - Dollar amounts raised
+   - Funding round announcements
+   - Investor names (to their website or portfolio page)
+   - Valuation milestones
+
+2. **Partnerships and Customers**
+   - Partnership announcements
+   - Customer logos or names
+   - Case studies or success stories
+   - Integration announcements
+
+3. **Market Data**
+   - Market size figures
+   - Industry growth rates (CAGR)
+   - Analyst reports or research studies
+   - Regulatory changes or policy announcements
+
+4. **Company Milestones**
+   - Product launches
+   - Geographic expansion
+   - Award or recognition wins
+   - Acquisitions (either direction)
+
+5. **Competitors**
+   - Competitor company names (to their homepage)
+   - Competitor product pages
+   - Competitive analysis reports
+   - Head-to-head comparisons
+
+6. **Metrics and Traction**
+   - Revenue figures
+   - Customer count or growth rates
+   - User statistics
+   - Performance benchmarks
+
+7. **Executive Information**
+   - LinkedIn profiles for key executives
+   - Background on previous companies
+   - Notable achievements or credentials
+
+### Formatting Reference Links
+
+Use markdown link syntax: `[descriptive text](URL)`
+
+**Good Examples:**
+
+✅ "The company raised [$53M in Series A funding](https://techcrunch.com/2024/06/15/company-series-a) led by Andreessen Horowitz in June 2024"
+
+✅ "According to [Gartner's 2024 Market Guide](https://gartner.com/report), the healthcare analytics market will reach $50B by 2028"
+
+✅ "Major customers include [Equinox](https://www.equinox.com), [SoulCycle](https://soul-cycle.com), and several Fortune 500 employers"
+
+✅ "CEO [Jane Smith](https://linkedin.com/in/janesmith) previously led product at Google Health for five years"
+
+**Poor Examples (Missing Links):**
+
+❌ "The company raised $53M in Series A funding" (no link to announcement)
+
+❌ "The market will reach $50B by 2028" (no source link)
+
+❌ "Major customers include Equinox and SoulCycle" (no links to verify)
+
+❌ "CEO Jane Smith previously led product at Google Health" (no LinkedIn profile)
+
+### Where to Place Links
+
+**Link at the point of mention**, not in a separate references section at the end.
+
+✅ **CORRECT - Inline linking:**
+```markdown
+Function Health raised [$53M in Series A](https://techcrunch.com/...) from 
+Andreessen Horowitz in June 2024, following their [$6.3M seed round](https://businesswire.com/...) 
+led by Founders Fund in October 2023. The company partnered with 
+[Equinox](https://www.prnewswire.com/...) in May 2024 to offer their 
+full-body diagnostic service to Equinox members.
+```
+
+❌ **WRONG - Clustering at end:**
+```markdown
+Function Health raised $53M in Series A from Andreessen Horowitz in June 2024, 
+following their $6.3M seed round led by Founders Fund in October 2023. 
+The company partnered with Equinox in May 2024 to offer their full-body 
+diagnostic service to Equinox members.
+
+Sources:
+- TechCrunch article
+- Business Wire announcement
+- PR Newswire partnership
+```
+
+### Link Distribution Strategy
+
+**Spread links across all sections:**
+
+- **Company Overview**: 2-3 links (company website, major news coverage)
+- **Founding Story**: 1-2 links (founder interviews, early coverage)
+- **Executive Team**: 3-5 links (LinkedIn profiles, backgrounds)
+- **Funding**: 5-8 links (press releases, Crunchbase, investor sites)
+- **Products**: 2-4 links (product pages, demos, technical docs)
+- **Partnerships**: 3-5 links (partnership announcements, press releases)
+- **Market**: 3-5 links (market research reports, analyst studies)
+- **Competition**: 4-6 links (competitor websites, comparison reports)
+- **Traction**: 2-4 links (metrics sources, milestone announcements)
+
+**Total: 25-45+ links** across a comprehensive report
+
+### Common Sources to Link
+
+**Primary Sources (Preferred):**
+- Company website sections
+- Official press releases (PR Newswire, Business Wire, GlobeNewswire)
+- Company blog posts
+- SEC filings (S-1, 10-K for public companies)
+- Investor portfolio pages
+- LinkedIn profiles
+
+**Secondary Sources (Also Good):**
+- TechCrunch, VentureBeat, Forbes articles
+- Crunchbase company profiles
+- Industry analyst reports (Gartner, Forrester, IDC)
+- Trade publications
+- Academic research papers
+- Industry association reports
+
+### Verification Tips
+
+Before finalizing your report:
+
+1. **Count your links**: Use Find function (Ctrl/Cmd+F) and search for `](http` to count markdown links
+2. **Check distribution**: Ensure links appear in every major section, not clustered
+3. **Test links**: Verify URLs are not broken (especially for press releases and news articles)
+4. **Update dates**: Include publication dates for time-sensitive sources
+
+### Example: Well-Linked Paragraph
+
+**Good density and distribution:**
+
+> Function Health offers [comprehensive full-body diagnostics](https://functionhealth.com/diagnostics) 
+> combining over 100 lab tests with advanced imaging (MRI, CT, ultrasound, DEXA scan) for 
+> [$499 per year](https://functionhealth.com/pricing). The service launched in [October 2023](https://techcrunch.com/2023/10/function-health-launch) 
+> and attracted early partnerships with [Equinox](https://www.prnewswire.com/news/function-equinox) 
+> and [SoulCycle](https://businesswire.com/news/function-soulcycle) by mid-2024. 
+> According to [Crunchbase](https://crunchbase.com/organization/function-health), 
+> the company has raised $59.3M total, with their Series A representing one of the 
+> [largest preventive health rounds in 2024](https://techcrunch.com/2024/06/function-series-a).
+
+**Links in this paragraph: 7** (diagnostics page, pricing page, launch announcement, Equinox partnership, SoulCycle partnership, Crunchbase profile, Series A coverage)
+
+### Example: Poorly Linked Paragraph
+
+**Missing necessary links:**
+
+> Function Health offers comprehensive full-body diagnostics combining over 100 lab tests 
+> with advanced imaging for $499 per year. The service launched in October 2023 and 
+> attracted early partnerships with Equinox and SoulCycle by mid-2024. The company 
+> has raised $59.3M total, with their Series A representing one of the largest 
+> preventive health rounds in 2024.
+
+**Links in this paragraph: 0** ❌
+
+---
+
 ## Tone and Voice
 
 **Professional and Analytical**
@@ -75,7 +254,7 @@ Use: "As of July 2025, the platform was used across 10,000 hospitals and by 40% 
 **Cite Sources**
 - Include dates and sources for claims
 - Use direct quotes when they add clarity or credibility
-- Provide links to source material where relevant
+- Provide links to source material where relevant (see "Reference Links" section above)
 - When citing company claims, distinguish them from third-party validation
 
 **Example of Specific, Well-Sourced Writing:**
@@ -180,6 +359,7 @@ When you don't know something:
 - Use [company website](https://example.com) or [announcement](https://example.com) format
 - Provide URLs in brackets: [link text](URL)
 - Include dates when sourcing from time-sensitive material
+- See "Reference Links" section at the top of this document for comprehensive guidance
 
 **Quote Appropriately**
 - Use direct quotes for unique insights or particularly well-stated points
@@ -244,6 +424,8 @@ When discussing competitors:
 ## Style Checklist Before Publishing
 
 - [ ] Does the opening paragraph clearly establish what the company does?
+- [ ] **Have I included 15-30+ reference links distributed throughout the report?**
+- [ ] **Are funding amounts, partnerships, metrics, and competitors linked to sources?**
 - [ ] Are key claims supported by data, examples, or sources?
 - [ ] Have I avoided speculation and clearly noted information gaps?
 - [ ] Is the tone professional and balanced?
