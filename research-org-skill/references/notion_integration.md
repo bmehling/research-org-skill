@@ -1,5 +1,129 @@
 # Notion Integration Reference
 
+---
+
+## ⚠️ QUICK REFERENCE: Two-Step Database Entry Process
+
+### Critical: Creating Page ≠ Populating Fields
+
+When creating a Notion database entry, you MUST perform TWO separate operations:
+
+**Step 1: Create the Page** (`Notion:notion-create-pages`)
+- Creates the page with markdown content
+- Sets Organization name and URL only
+- Multi-select fields (Category, Industry, Stage, Revenue, FTEs) are NOT populated by this call
+
+**Step 2: Update Database Fields** (`Notion:notion-update-page`)
+- Populates multi-select properties
+- MUST be called after Step 1 completes
+- Uses the page_id returned from Step 1
+
+### Working Code Examples
+
+**Step 1: Create Page with Content**
+
+```json
+{
+  "parent": {
+    "data_source_id": "1a55d085-90e9-8063-9687-000b0f07dd0c"
+  },
+  "pages": [{
+    "content": "# Company Overview\n\n[Full markdown report content]...",
+    "properties": {
+      "Organization": "Company Name",
+      "userDefined:URL": "https://www.company.com"
+    }
+  }]
+}
+```
+
+**Response from Step 1:**
+```json
+{
+  "page_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "url": "https://notion.so/workspace/Company-Name-a1b2..."
+}
+```
+
+**Step 2: Update Multi-Select Fields**
+
+```json
+{
+  "page_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "command": "update_properties",
+  "properties": {
+    "Category": ["Healthcare Analytics", "AI", "Data Integration"],
+    "Industry": ["Healthcare"],
+    "Stage": ["Series B"],
+    "Revenue": ["$8M-$30M"],
+    "FTEs": ["50-100"]
+  }
+}
+```
+
+### Field Formatting Requirements
+
+**Multi-Select Fields** (Category, Industry, Stage, Revenue, FTEs):
+- Format: Array of strings `["Value1", "Value2"]`
+- Use exact values from your config.json categories
+- Case-sensitive matching
+- Maximum 4-5 categories recommended
+
+**Special Field Names:**
+- URL field: Use `"userDefined:URL"` in API (not `"URL"`)
+- Title field: Use `"Organization"` (or your configured field name)
+- Data source ID: UUID only (no `collection://` prefix in create-pages)
+
+### Common Mistakes to Avoid
+
+❌ **WRONG: Trying to set multi-select fields in Step 1**
+```json
+// This will NOT populate Category, Industry, etc.
+{
+  "pages": [{
+    "properties": {
+      "Organization": "Company",
+      "userDefined:URL": "https://company.com",
+      "Category": ["AI"],  // ← Silently ignored
+      "Industry": ["Healthcare"]  // ← Silently ignored
+    }
+  }]
+}
+```
+
+❌ **WRONG: Assuming Step 1 populates everything**
+```
+create-pages → ❌ Expects all fields populated (they're not!)
+```
+
+✅ **CORRECT: Two separate, sequential calls**
+```
+create-pages → (get page_id) → update-page with properties → ✅ All fields populated
+```
+
+### Verification After Both Steps
+
+After completing both operations, verify:
+- [ ] Page created successfully (Step 1 returned page_id and URL)
+- [ ] Content appears in Notion page
+- [ ] Organization name and URL properties set
+- [ ] Category field shows selected categories
+- [ ] Industry field shows selected industries
+- [ ] Stage field shows funding stage
+- [ ] Revenue field shows revenue range
+- [ ] FTEs field shows employee count range
+
+If any multi-select fields are empty after Step 2, check:
+1. Field names match your database exactly (case-sensitive)
+2. Values exist in your config.json categories array
+3. No typos in property names or values
+
+---
+
+[Rest of documentation continues below...]
+
+---
+
 This guide provides technical details for working with your Notion database and understanding the schema and field options for the Research Org Skill.
 
 ## Database Configuration
@@ -18,8 +142,6 @@ Your database configuration is stored in your local `config.json` file:
 ```
 
 **Important:** See `SETUP.md` for instructions on finding your database credentials.
-
----
 
 ## Database Fields and Schema
 
