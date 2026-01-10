@@ -48,19 +48,73 @@ The workflow combines web research, critical analysis, and Notion database integ
 
 **Step 0: [REQUIRED] Load Configuration & Parse Arguments**
 
-1. **Parse Command Arguments:**
-   - Extract the URL from arguments (first non-flag argument)
-   - Check for `--model` flag to determine which Claude model to use
-   - If `--model` present: use specified model (sonnet, opus, or haiku)
-   - If `--model` not present: use `research.defaultModel` from config.json (typically sonnet)
-   - Store the determined model and use it for ALL subsequent Task tool calls
+**1. PARSE COMMAND ARGUMENTS:**
 
-2. **Load Configuration File:**
-   Read `config.json` from this skill's directory to load:
-   - Notion database credentials (databaseId, dataSourceId)
-   - Valid category options for multi-select fields
-   - Database name and URL for reference
-   - Default model setting from `research.defaultModel`
+Parse the ARGUMENTS string to extract the URL and optional `--model` flag:
+
+```
+Example ARGUMENTS formats:
+- "https://camunda.com" → URL only, use default model
+- "https://camunda.com --model sonnet" → URL + explicit model
+- "https://camunda.com --model opus" → URL + explicit model
+- "https://camunda.com --model haiku" → URL + explicit model
+```
+
+**Parsing Logic:**
+- Regex: Extract URL (first argument that starts with https:// or http://)
+- Regex: Check if `--model` flag is present
+- If `--model` present: extract the model name (next word after `--model`)
+- If invalid model name (not sonnet/opus/haiku): Report error and stop
+- If `--model` not present: Will use default from config.json
+
+**PSEUDOCODE:**
+```
+arguments = <ARGUMENTS string from command>
+url = extract_url_from_arguments(arguments)  # First http(s):// URL
+model_flag_present = "--model" in arguments
+
+if model_flag_present:
+    model_name = extract_after_flag(arguments, "--model")
+    if model_name not in ["sonnet", "opus", "haiku"]:
+        ERROR: "Invalid model. Must be sonnet, opus, or haiku. Got: {model_name}"
+        STOP
+    determined_model = model_name
+else:
+    determined_model = <will get from config.json in step below>
+```
+
+**2. LOAD CONFIGURATION FILE:**
+
+Read `config.json` from this skill's directory to load:
+- Notion database credentials (databaseId, dataSourceId)
+- Valid category options for multi-select fields
+- Database name and URL for reference
+- Default model setting from `research.defaultModel`
+
+**3. DETERMINE FINAL MODEL:**
+
+```
+if determined_model is already set from --model flag:
+    use determined_model
+else:
+    determined_model = config.json["research"]["defaultModel"]
+
+Output confirmation: "Using {determined_model} model for research"
+```
+
+**4. VALIDATE URL:**
+
+Confirm the extracted URL is valid:
+- Starts with https:// or http://
+- Contains a domain name
+- If invalid: Report error and stop
+
+**5. STORE DETERMINED MODEL FOR ALL SUBSEQUENT STEPS:**
+
+🔴 **CRITICAL:** The `determined_model` value MUST be used in:
+- ALL `Task` tool calls (WebSearch agent, Explore agent, general-purpose agent, etc.)
+- Pass as `model: "<determined_model>"` parameter to Task tool
+- Document which model is being used in your initial output to user
 
 **Step 1: [REQUIRED] Check for Duplicates**
 
@@ -70,12 +124,26 @@ Check the database to ensure no duplicate entry exists (use the company URL as t
 
 **Step 2: [REQUIRED] Conduct Comprehensive Research**
 
-Research the company using web search and fetch tools. **Use the determined model from Step 0 for all research Task calls:**
-- Use `Task` tool with `subagent_type: Explore` for comprehensive codebase/market research with `model: <determined_model>`
-- Use `WebSearch` and `WebFetch` tools for gathering information from authoritative sources
+Research the company using web search and fetch tools. **ALWAYS use the determined model from Step 0:**
+
+**Task Tool Calls - ALWAYS include `model` parameter:**
+```
+Task(
+  description: "Research description",
+  subagent_type: "Explore|general-purpose|<other>",
+  prompt: "...",
+  model: "<determined_model>"  ← CRITICAL: Use determined model here
+)
+```
+
+**Research approach:**
+- For complex research: Use `Task` tool with `subagent_type: Explore` and `model: <determined_model>`
+- For quick facts: Use `WebSearch` and `WebFetch` tools (these don't require model selection)
 - **Collect and save URLs for ALL key sources** (you will link these in the report)
 - Focus on: company background, funding, products, market, competition, traction
 - Save URLs for: press releases, news articles, company blog posts, investor announcements, analyst reports
+
+**IMPORTANT:** Every Task tool call in this workflow should have `model: "<determined_model>"` to ensure consistent analysis quality throughout the research
 
 ---
 
@@ -91,6 +159,8 @@ Before writing a single word, read these reference files in order:
 4. **references/valuation_guide.md** - For funding round valuation estimation
 
 **Step 4: [REQUIRED] Write Report Following Exact Section Order**
+
+**BEFORE WRITING:** Confirm you have the `determined_model` from Step 0. You will write the report directly (not using Task tool) with your built-in intelligence enhanced by the model quality specified by the user.
 
 Write the report following the EXACT structure from references/section_guidelines.md (lines 44-71):
 
@@ -328,3 +398,96 @@ Uses Opus model for complex organizations requiring deeper analysis.
 research_org: https://www.example-company.com --model haiku
 ```
 Uses Haiku model for quick, lightweight research on straightforward companies.
+
+---
+
+## Implementation Reference: Argument Parsing
+
+When executing this skill, follow this pattern to parse arguments and determine the model:
+
+**Step 1: Extract URL**
+```javascript
+// Match first https:// or http:// URL
+const url_match = arguments.match(/https?:\/\/[^\s]+/);
+if (!url_match) {
+  console.error("ERROR: No valid URL found in arguments");
+  return;
+}
+const url = url_match[0];
+```
+
+**Step 2: Check for --model flag**
+```javascript
+const model_match = arguments.match(/--model\s+(\w+)/);
+const specified_model = model_match ? model_match[1] : null;
+```
+
+**Step 3: Validate model if specified**
+```javascript
+const valid_models = ["sonnet", "opus", "haiku"];
+if (specified_model && !valid_models.includes(specified_model)) {
+  console.error(`ERROR: Invalid model '${specified_model}'. Must be: ${valid_models.join(", ")}`);
+  return;
+}
+```
+
+**Step 4: Load config and determine final model**
+```javascript
+const config = load_json("./config.json");
+const default_model = config.research.defaultModel;
+const determined_model = specified_model || default_model;
+console.log(`Using ${determined_model} model for research`);
+```
+
+**Step 5: Use in Task calls**
+```javascript
+// All Task calls must include the model parameter
+Task({
+  description: "...",
+  subagent_type: "Explore",
+  prompt: "...",
+  model: determined_model  // ← CRITICAL: Always use determined model
+})
+```
+
+---
+
+## ARGUMENTS
+
+This skill receives arguments in the following format:
+
+**Single URL (uses default model from config):**
+```
+https://camunda.com
+```
+
+**URL with explicit model:**
+```
+https://camunda.com --model opus
+```
+
+**ARGUMENT PARSING:**
+
+When invoked, the ARGUMENTS string will contain:
+1. The company/organization URL (always present)
+2. Optional `--model` flag followed by model name
+
+**Valid Models:**
+- `sonnet` - Recommended for most comprehensive research
+- `opus` - Frontier model for complex analysis
+- `haiku` - Fast, lightweight research
+
+**Parsing Implementation:**
+1. Extract URL using regex: `https?://[^\s]+`
+2. Check if `--model` flag exists: `--model\s+(\w+)`
+3. Validate model is one of: sonnet, opus, haiku
+4. If invalid: Report error and stop
+5. If no model specified: Use config.json `research.defaultModel`
+6. Store determined model and use in ALL Task calls
+
+**Examples of ARGUMENTS:**
+- `https://camunda.com` → URL only
+- `https://camunda.com --model sonnet` → URL + sonnet model
+- `https://camunda.com --model opus` → URL + opus model
+- `https://camunda.com --model haiku` → URL + haiku model
+- `https://www.example.com --model invalid` → ERROR (invalid model)
