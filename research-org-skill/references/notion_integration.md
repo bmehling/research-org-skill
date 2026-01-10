@@ -52,11 +52,11 @@ When creating a Notion database entry, you MUST perform TWO separate operations:
   "page_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "command": "update_properties",
   "properties": {
-    "Category": ["Healthcare Analytics", "AI", "Data Integration"],
-    "Industry": ["Healthcare"],
-    "Stage": ["Series B"],
-    "Revenue": ["$8M-$30M"],
-    "FTEs": ["50-100"]
+    "Category": "[\"Healthcare Analytics\", \"AI\", \"Data Integration\"]",
+    "Industry": "[\"Healthcare\"]",
+    "Stage": "[\"Series B\"]",
+    "Revenue": "[\"$8M-$30M\"]",
+    "FTEs": "[\"50-100\"]"
   }
 }
 ```
@@ -64,11 +64,16 @@ When creating a Notion database entry, you MUST perform TWO separate operations:
 ### Field Formatting Requirements
 
 **Multi-Select Fields** (Category, Industry, Stage, Revenue, FTEs):
-- Format: Array of strings `["Value1", "Value2"]`
+- **CRITICAL FORMAT:** Multi-select values must be **JSON-stringified arrays**, not actual JSON arrays
+- Format: `"[\"Value1\", \"Value2\"]"` (note the outer quotes and escaped inner quotes)
+- ❌ WRONG: `["Value1", "Value2"]` (actual array - this will fail silently)
+- ✅ CORRECT: `"[\"Value1\", \"Value2\"]"` (stringified array)
 - Use exact values from your config.json categories
 - Case-sensitive matching
 - Maximum 4-5 categories recommended
 
+**Why Stringified Arrays?**
+The Notion MCP tool expects property values as strings. For multi-select fields, this means passing a JSON array that has been converted to a string. When you pass an actual array, it fails without a clear error message.
 **Special Field Names:**
 - URL field: Use `"userDefined:URL"` in API (not `"URL"`)
 - Title field: Use `"Organization"` (or your configured field name)
@@ -622,6 +627,64 @@ for i, section in enumerate(sections):
 1. Always include `\n\n` at start of `new_str`
 2. Ensure previous section ends with complete markdown (no open tables/lists)
 3. Test section boundaries individually if formatting issues appear
+
+#### ❌ What NOT to Do (Common Failures)
+
+**WRONG: Attempting to create page with full 10,000-word report in single call**
+```json
+{
+  "pages": [{
+    "content": "# Full Report\n\n[10,000+ words of markdown content here]",
+    "properties": {"Organization": "Company"}
+  }]
+}
+```
+**Result:** Request timeout, payload limit exceeded, or silently truncated content
+
+**WRONG: Creating page without properties, then trying to add properties later**
+```json
+// Step 1: Create without properties
+{"pages": [{"content": "...", "properties": {"Organization": "Name"}}]}
+
+// Step 2: Try to add properties separately
+{"page_id": "xxx", "properties": {"Category": ["AI"]}}
+// Result: Fields not updated if not done correctly
+```
+
+**WRONG: Using actual JSON arrays instead of JSON strings for multi-select**
+```json
+{
+  "properties": {
+    "Category": ["AI", "Healthcare"]  // ← WRONG: actual array
+  }
+}
+```
+**Result:** Fields silently ignored, no error message
+
+**RIGHT: Using JSON-stringified arrays**
+```json
+{
+  "properties": {
+    "Category": "[\"AI\", \"Healthcare\"]"  // ← CORRECT: stringified
+  }
+}
+```
+
+**WRONG: Inserting sections out of order or with duplicate selections**
+```json
+// Insert section 3 before section 2
+{"selection_with_ellipsis": "section 2 content", "new_str": "section 3..."}
+{"selection_with_ellipsis": "section 2 content", "new_str": "section 2..."}
+// Result: Section 3 appears before section 2
+```
+
+**RIGHT: Insert sequentially, use unique selection points**
+```json
+// First insert section 2 at known location
+{"selection_with_ellipsis": "end of section 1", "new_str": "section 2..."}
+// Then insert section 3 at new location
+{"selection_with_ellipsis": "end of section 2", "new_str": "section 3..."}
+```
 
 ---
 
