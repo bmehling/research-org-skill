@@ -6,8 +6,8 @@
     "databaseName": "Solutions & Vendors"
   },
   "research": {
-    "targetWordCount": "7000-10000",
-    "reportStyle": "contrary-research",
+    "targetWordCount": "3500-5000",
+    "defaultModel": "sonnet"
   },
   "example_reports": [
     "https://research.contrary.com/company/hippocratic-ai",
@@ -29,6 +29,7 @@
   "notes": {
     "databaseId": "Found in Notion URL: https://www.notion.so/{databaseId}",
     "dataSourceId": "Get from Notion API or database view settings",
+    "defaultModel": "Default Claude model (sonnet=best for most, opus=frontier analysis, haiku=fast). Override with: research_org: <url> --model opus",
     "categories": "Customize this list to match your Notion database's Category field options"
   }
 }
