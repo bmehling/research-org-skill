@@ -272,54 +272,111 @@ Read references/quality_checklist.md and verify EACH item below:
 
 ### Phase 4: Notion Database Entry Creation (Steps 7-8)
 
-**Step 7: [REQUIRED] Create Notion Page with Report Content**
+**Step 7: [REQUIRED] Create Notion Page with Properties and Overview (Chunked Content Strategy)**
 
-Use `Notion:notion-create-pages` to create the page:
+🔴 **CRITICAL:** The full comprehensive report (4,000-5,000+ words) MUST be added using chunked content approach to stay within Notion API payload limits. Do NOT attempt to add the entire report in a single API call.
+
+**7A: Create Page with Brief Overview**
+
+Use `Notion:notion-create-pages` with:
+- All database properties (Category, Industry, Stage, Revenue, FTEs) already populated in Step 5
+- Only a 2-3 paragraph overview (200-500 words) as initial content
 - Set parent to `data_source_id` from config.json
-- Include full report content in markdown format
-- Set page properties: Organization name and URL
+- Organization name and URL
 
 Example:
 ```json
 {
   "parent": {"data_source_id": "1a55d085-90e9-8063-9687-000b0f07dd0c"},
   "pages": [{
-    "content": "# Company Overview\n\n[full report markdown]...",
+    "content": "# Company Overview\n\nBrief 2-3 paragraph summary with key metrics and highlights.\n\nThis provides context while the full research is added in subsequent steps.",
     "properties": {
       "Organization": "Company Name",
-      "userDefined:URL": "https://company.com"
+      "userDefined:URL": "https://company.com",
+      "Category": "[\"AI\", \"Workflow Automation\"]",
+      "Industry": "[\"Horizontal\"]",
+      "Stage": "[\"Series B\"]",
+      "Revenue": "[\"$100M+\"]",
+      "FTEs": "[\"500+\"]"
     }
   }]
 }
 ```
 
-**Step 8: [REQUIRED] Update Database Fields**
+**CRITICAL PROPERTY FORMATTING:**
+- Multi-select fields MUST be JSON array strings: `"[\"Value1\", \"Value2\"]"` (with escaped quotes)
+- URL field is `"userDefined:URL"` in the API
+- Data source ID is UUID only (no `collection://` prefix)
+- Store the `page_id` returned from this call for Step 7B
 
-Use `Notion:notion-update-page` to populate the multi-select fields:
+**7B: Add Full Report in Sections**
 
-Example:
+Split the comprehensive report into 6-8 sections (~2,000-3,000 words each):
+
+```
+Section 1: Founding Story + Mission and Vision
+Section 2: Thesis + Business Model
+Section 3: Executive Team + Investors/Funding
+Section 4: Products and Services + Partnerships
+Section 5: Market Analysis + Competitors
+Section 6: Traction + Opportunities and Risks
+Section 7: SWOT Analysis
+```
+
+For each section, use `Notion:notion-update-page` with `insert_content_after` command:
+
 ```json
 {
-  "page_id": "<page_id_from_step_7>",
+  "page_id": "<page_id_from_7a>",
+  "command": "insert_content_after",
+  "selection_with_ellipsis": "context while the full research is added in subsequent steps.",
+  "new_str": "\n\n## Founding Story\n\nFull section content here (2,000-3,000 words)..."
+}
+```
+
+**For subsequent sections, use the last unique phrase from the previous section:**
+
+```json
+{
+  "page_id": "<page_id_from_7a>",
+  "command": "insert_content_after",
+  "selection_with_ellipsis": "...previous section's last unique phrase",
+  "new_str": "\n\n## Next Section Title\n\nNext section content..."
+}
+```
+
+**Implementation Guidelines:**
+- Process sections sequentially (don't insert out of order)
+- Use last 20-30 characters of previous section as `selection_with_ellipsis`
+- Always start `new_str` with `\n\n` for proper spacing
+- If a section fails to insert, the page still contains previous sections
+- Retry failed sections without losing progress
+
+See `references/notion_integration.md` "Creating Pages with Large Content" section for detailed examples.
+
+**Step 8: [REQUIRED] Update Database Fields (If Not Done in Step 7A)**
+
+If you haven't already populated all fields in Step 7A, use `Notion:notion-update-page`:
+
+```json
+{
+  "page_id": "<page_id_from_step_7a>",
   "command": "update_properties",
   "properties": {
-    "Category": ["Healthcare Analytics", "AI"],
-    "Industry": ["Healthcare"],
-    "Stage": ["Series B"],
-    "Revenue": ["$8M-$30M"],
-    "FTEs": ["50-100"]
+    "Category": "[\"AI\", \"Healthcare\"]",
+    "Industry": "[\"Healthcare\"]",
+    "Stage": "[\"Series B\"]",
+    "Revenue": "[\"$8M-$30M\"]",
+    "FTEs": "[\"50-100\"]"
   }
 }
 ```
 
-**IMPORTANT:** Creating the page (Step 7) does NOT automatically populate these fields. You MUST separately update them in Step 8.
-
-See references/notion_integration.md for detailed examples and field formatting.
-
 **Verify Success:**
-- Confirm both tool calls succeeded without errors
-- Note the page URL returned from Step 7
-- Note the field values you set in Step 8
+- Page created successfully (Step 7A)
+- All sections added successfully (Step 7B)
+- All properties populated (Step 8)
+- Note the final page URL for user summary
 
 ---
 
@@ -357,8 +414,8 @@ Example: https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_op
 **Important:** Replace ALL placeholders with actual values:
 - `[Company Name]` → actual company name
 - `[actual company URL]` → the actual URL (e.g., https://www.functionhealth.com)
-- `[actual Notion page URL]` → the Notion page URL from Step 7
-- All field values from Step 8
+- `[actual Notion page URL]` → the Notion page URL from Step 7A
+- All field values populated in Steps 7A/8
 
 No further summary is required.
 
