@@ -36,7 +36,7 @@ While reading/researching the company, highlight keywords that map to Categories
 
 **Step 2: Map Keywords to Specific Categories**
 
-Use the keyword-to-category mapping provided in references/notion_integration.md to convert identified keywords into specific Category selections.
+Using the keyword mappings above, convert identified keywords into specific Category selections.
 
 **Example: Cresta**
 - Product: "AI-powered contact center platform with real-time coaching for agents"
