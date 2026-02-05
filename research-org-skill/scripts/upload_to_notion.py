@@ -79,25 +79,29 @@ class NotionUploader:
             header_level = len(header_line) - len(header_line.lstrip('#'))
             title = header_line.lstrip('#').strip()
 
-            # If body is too large, split at paragraph boundaries
+            # If body is too large, split at paragraph boundaries.
+            # Only the first sub-chunk gets the title; subsequent ones omit it
+            # to avoid duplicate headers in Notion.
             if len(body) > 2000:
                 paragraphs = body.split('\n\n')
                 current_chunk = ""
+                first_chunk = True
                 for para in paragraphs:
                     if len(current_chunk) + len(para) > 2000:
                         if current_chunk:
                             chunks.append({
                                 "header_level": header_level,
-                                "title": title,
+                                "title": title if first_chunk else "",
                                 "content": current_chunk.strip()
                             })
+                            first_chunk = False
                         current_chunk = para
                     else:
                         current_chunk += "\n\n" + para if current_chunk else para
                 if current_chunk:
                     chunks.append({
                         "header_level": header_level,
-                        "title": title,
+                        "title": title if first_chunk else "",
                         "content": current_chunk.strip()
                     })
             else:
@@ -142,6 +146,13 @@ class NotionUploader:
 
         # Process content
         content = chunk["content"]
+
+        # Pre-process: ensure sub-headers (### and deeper) are their own
+        # paragraphs.  Without this, a ### heading followed immediately by
+        # bullets (no blank line) collapses into a single paragraph and the
+        # entire block is emitted as a heading in Notion.
+        content = re.sub(r'(?m)^(#{3,}\s+.+)$', r'\n\n\1\n\n', content)
+        content = re.sub(r'\n{3,}', '\n\n', content)  # collapse triple+ newlines
 
         # Split into paragraphs
         paragraphs = content.split('\n\n')
