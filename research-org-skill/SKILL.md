@@ -95,6 +95,10 @@ Follow the section guidlines: `references/section_guidelines.md`
   ## Key Opportunities
   ## Key Risks
   ## SWOT Analysis
+    ### Strengths
+    ### Weaknesses
+    ### Opportunities
+    ### Threats
 ```
 
 ### 6. Prepare Database Fields
