@@ -94,7 +94,14 @@ research-org/
        "defaultModel": "sonnet"
      }
    }
+
    ```
+
+4. **Package and add the Skill to Claude Code**
+ - The skill should added to ~/.claude/skills/research-org-skill
+ - Copy (recursively) the research-org-skill directory to ~/.claude/skills/research-org-skill
+ - If necessary, restart Claude Code
+ - Verify Claude has access via the /skills command
 
 ## Workflow Overview
 
@@ -122,7 +129,7 @@ The `research-org-skill/references/` directory contains detailed guides:
 
 ## Quality Standards
 
-All research reports must:
+All research reports should:
 
 - **Meet target word count** from config.json
 - **Include 15-30+ sources** cited throughout the report
