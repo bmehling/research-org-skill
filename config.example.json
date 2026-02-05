@@ -3,10 +3,11 @@
     "databaseId": "<YOUR_DATABASE_ID_HERE>",
     "databaseUrl": "https://www.notion.so/<YOUR_DATABASE_ID_HERE>",
     "dataSourceId": "<YOUR_DATA_SOURCE_ID_HERE>",
-    "databaseName": "Solutions & Vendors"
+    "databaseName": "<your_database_name>",
+    "notion_api": "<add_notion_api_key_here>"
   },
   "research": {
-    "targetWordCount": "3500-5000",
+    "targetWordCount": "2500-4000",
     "defaultModel": "sonnet"
   },
   "example_reports": [
