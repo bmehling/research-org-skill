@@ -5,7 +5,7 @@ This document provides detailed guidance for each section of the company researc
 ## Research Mantras
 
 Strong research combines:
-1. **Depth** - 7,000-10,000 word comprehensive report (each section includes target lengths)
+1. **Depth** - Meet word count range of targetWordCount from config.json (each section includes target lengths)
 2. **Accuracy** - Verifiable sources and citations throughout. Do not make claims that cannot be verified. Note when information is derived or estimated.
 3. **Balance** - Both positive (strengths/opportunities) and negative (weaknesses/risks) perspectives. Do not be biased.
 4. **Clarity** - Accessible prose that explains specialized concepts
@@ -14,6 +14,17 @@ Strong research combines:
 ## Citation and Reference Best Practices
 
 **Purpose:** Make research verifiable and allow readers to explore sources independently.
+
+Reference Links are REQUIRED throughout. Every major claim, metric, or fact must be linked to its source at the point where it's mentioned.
+
+**Examples of Required Links:**
+- Funding amounts: "raised [$53M Series A](https://techcrunch.com/...) in June 2024"
+- Partnerships: "partnered with [Equinox](https://www.prnewswire.com/...) in May 2024"  
+- Metrics: "According to [their S-1 filing](https://sec.gov/...), revenue grew 200%"
+- Competitors: "[Prenuvo](https://www.prenuvo.com) offers similar full-body MRI scans"
+- Market data: "The market will reach [$50B by 2028](https://gartner.com/report) per Gartner"
+
+**Target Link Density:** Aim for 15-30+ links distributed throughout the report. More is better than fewer.
 
 **Guidelines:**
 - **Link to primary sources** wherever possible:
@@ -44,6 +55,7 @@ Strong research combines:
 ---
 
 # 0. Structure
+This structure is the EXACT order that must be followed:
 
 # Company Overview
 ## Founding Story
@@ -73,97 +85,6 @@ Strong research combines:
 
 ---
 
-## ⚠️ CRITICAL REMINDERS BEFORE WRITING
-
-### Section Order is MANDATORY
-
-The structure above (lines 45-70) is the EXACT order that must be followed. Specifically:
-
-**Business Model MUST appear as section 1d (after Thesis, before Executive Team)**
-- ❌ WRONG: Business Model after SWOT Analysis or at end of report
-- ✅ CORRECT: Business Model appears after Thesis, before Executive Team
-
-**Report Structure:**
-```
-# Company Overview
-## Founding Story
-## Mission and Vision
-## Thesis
-## Business Model  ← MUST BE HERE (subsection 1d)
-
-# Executive Team  ← Next major section
-
-# Investors, Funding Rounds, and Valuation
-...
-```
-
-### Reference Links are REQUIRED Throughout
-
-Every major claim, metric, or fact must be linked to its source at the point where it's mentioned.
-
-**Examples of Required Links:**
-- Funding amounts: "raised [$53M Series A](https://techcrunch.com/...) in June 2024"
-- Partnerships: "partnered with [Equinox](https://www.prnewswire.com/...) in May 2024"  
-- Metrics: "According to [their S-1 filing](https://sec.gov/...), revenue grew 200%"
-- Competitors: "[Prenuvo](https://www.prenuvo.com) offers similar full-body MRI scans"
-- Market data: "The market will reach [$50B by 2028](https://gartner.com/report) per Gartner"
-
-**Target Link Density:** Aim for 15-30+ links distributed throughout the report. More is better than fewer.
-
-**See lines 14-35 above for complete citation guidelines.**
-
-### Funding Summary Positioning
-
-The funding/valuation summary MUST appear BELOW the funding table as a separate narrative section.
-
-**❌ WRONG Format:**
-```markdown
-<table>
-<tr><td>Series A</td><td>June 2023</td><td>$50M</td><td>$200M</td><td>Investor A</td></tr>
-<tr><td>Series B</td><td>Nov 2024</td><td>$100M</td><td>$500M</td><td>Investor B</td></tr>
-<tr><td colspan="5"><strong>Total Funding:</strong> $150M across 2 rounds</td></tr>  ← Inside table
-</table>
-```
-
-**✅ CORRECT Format:**
-```markdown
-<table header-row="true">
-<tr>
-<td>Round</td>
-<td>Date</td>
-<td>Amount</td>
-<td>Valuation</td>
-<td>Lead Investors</td>
-</tr>
-<tr>
-<td>Series A</td>
-<td>June 2023</td>
-<td>$50M</td>
-<td>$200M</td>
-<td>Investor A</td>
-</tr>
-<tr>
-<td>Series B</td>
-<td>Nov 2024</td>
-<td>$100M</td>
-<td>$500M</td>
-<td>Investor B (lead), Investor A</td>
-</tr>
-</table>
-
-← SUMMARY STARTS HERE, BELOW TABLE
-
-**Total Funding:** $150M across 2 rounds from June 2023 to November 2024
-
-**Lead Investors:** The company has attracted support from tier-1 venture firms including Investor B (known for enterprise software investments) and Investor A (early-stage specialist). Investor A participated in both rounds, demonstrating continued conviction.
-
-**Valuation Trajectory:** The company increased valuation by 2.5x from Series A to Series B over 17 months, suggesting strong revenue growth and investor confidence in the market opportunity. The premium valuation relative to peers reflects [specific competitive advantages or traction metrics]...
-
-[Continue with 2-3 more paragraphs of narrative analysis]
-```
-
----
-
 ## 1. Company Overview
 
 **Purpose:** Provide a clear, compelling summary of what the company does, who they serve, and their value proposition.
@@ -179,7 +100,7 @@ The funding/valuation summary MUST appear BELOW the funding table as a separate 
 - Focus on what makes them distinctive in their market
 - Include reference links to key sources (company website, prominent news articles, analyst reports)
 
-**Expected Length:** 2-4 paragraphs (400-600 words)
+**Expected Length:** 2-4 paragraphs
 
 ---
 
@@ -196,7 +117,7 @@ The funding/valuation summary MUST appear BELOW the funding table as a separate 
 - Write 2-3 paragraphs in narrative form
 - Include citations or links to founding announcements and early coverage
 
-**Expected Length:** 2-3 paragraphs (300-450 words)
+**Expected Length:** 2-3 paragraphs
 
 ---
 
@@ -213,7 +134,7 @@ The funding/valuation summary MUST appear BELOW the funding table as a separate 
 - Write 2-3 focused paragraphs
 - Link to official sources (company manifesto, founder interviews, mission statements)
 
-**Expected Length:** 1-2 paragraphs or a bulleted list (200-300 words)
+**Expected Length:** 1-2 paragraphs or a bulleted list
 
 ---
 
@@ -229,7 +150,7 @@ Write a compelling Company Thesis section that articulates why this company repr
 - Economic Disruption: Quantify the improvement in unit economics, speed, cost, or accessibility compared to traditional approaches. Use specific numbers (10x, 100x) and concrete before/after comparisons that demonstrate the magnitude of improvement.
 Synthesis: Ensure the thesis flows as a cohesive narrative that connects market opportunity → unique solution → right team → right time → validated traction → massive potential. Each element should reinforce the others to build conviction.
 
-**Expected Length:** 2-4 paragraphs (300-450 words)
+**Expected Length:** 2-4 paragraphs
 
 ---
 
@@ -337,8 +258,6 @@ Create a comprehensive funding table with columns:
 
 ### 3b. Funding Summary (Below Table)
 
-**⚠️ CRITICAL:** The funding/valuation summary MUST appear BELOW the table as narrative prose. Do NOT embed summary in table footer or final row. See example format in lines 100-115 above.
-
 Include a summary covering:
 - **Total Funding:** Total amount raised and number of rounds
 - **Lead Investors:** List prominent investors and their significance:
@@ -351,6 +270,11 @@ Include a summary covering:
   - Comparison to industry benchmarks
   - What valuation trends reveal about company progress
   - Investor sentiment and market positioning
+- ** Use of Funding**: If available, include how the company plans to deploy the new capital, such as:
+  - R&D
+  - Sales and marketing
+  - Geographic expansion
+  - Acquisitions
 
 **Expected Length:** 2-4 paragraphs of narrative analysis BELOW the table
 
@@ -460,6 +384,8 @@ Analyze what's driving adoption:
 
 ## 6e. Key Competitors (table)
 
+Identify competitors to the target company. Consider product and/or service offerings, categories, and target markets. Carefully evaluate each potential competitor -- are they specifically targeting the same customers, solving the same problems, or offering similar solutions? If they are simply in a similar market or industry, but not directly competing, do not include them.
+
 For each major competitor, include:
 - Company name (linked to their website)
 - Founded year and funding/valuation
@@ -485,19 +411,10 @@ For each major competitor, include:
 <td>Enterprise-focused platform</td>
 <td>Strong in healthcare vertical, raised $200M</td>
 </tr>
-</table>
-```
 
 ---
 
-## 6f. Competitive Positioning Matrix (optional)
-
-- Create a visual positioning grid (similar to Gartner Magic Quadrant) showing how company compares on key dimensions to its competitors 
-- Generate this as an image and include it inline within the report
-
----
-
-## 6g. Competitive Advantages
+## 6f. Competitive Advantages
 
 - What defensible advantages does the company have?
 - Data moats, brand, switching costs, technical depth, etc.
@@ -620,6 +537,6 @@ For each major competitor, include:
   - Technology disruption
   - Customer concentration
 
-**Expected Length:** 3-7 bullet points per subsection (Strengths, Weaknesses, Opportunities, Threats) with each bullet including a 1-4 word title (bolded) followed by 1-2 sentences summarizing the key points.
+**Expected Length:** 3-5 bullet points per subsection (Strengths, Weaknesses, Opportunities, Threats) with each bullet including a 1-4 word title (bolded) followed by 1-2 sentences summarizing the key points.
 
 ---
