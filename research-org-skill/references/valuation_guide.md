@@ -1,179 +1,55 @@
 # Valuation Estimation Guide
 
-This guide provides methodology for estimating missing funding valuations.
+When funding valuations aren't publicly disclosed, estimate them using raise-to-valuation ratios from disclosed rounds.
 
-## Valuation Estimation Methodology
+## Estimation Method
 
-### Overview
-
-Funding valuations are not always publicly disclosed, particularly for earlier-stage companies. When valuations are missing, we can estimate them using the raise-to-valuation ratios observed in disclosed rounds.
-
-**Key Principle:** Estimation should be transparent, methodical, and clearly marked as such in the research.
-
-### Valuation Estimation Workflow
-
-**Step 1: Identify All Known Valuations**
-
-From research, extract all rounds with disclosed valuations:
-
-```
-Example: Cresta funding data
-- Seed (2020): Amount unknown, Valuation unknown
-- Series A (2021): Amount unknown, Valuation unknown
-- Series B (2021): Amount unknown, Valuation unknown
-- Series C (March 2022): $80M raised, $1.6B valuation → Ratio: 1:20 (or 5% of valuation)
-- Series D (Nov 2024): $125M raised, Valuation unknown
-```
-
-**Step 2: Calculate Raise:Valuation Ratios**
-
-For each round with both raise amount and valuation, calculate the ratio:
-
+**Formula:**
 ```
 Ratio = Amount Raised / Post-Money Valuation
-
-Cresta Series C: $80M / $1.6B = 0.05 (or 5%, or "1:20")
+Estimated Valuation = Amount Raised / Ratio
 ```
 
-This means: In Series C, they raised capital equal to 5% of their post-money valuation.
-
-**Step 3: Determine Median or Average Ratio**
-
-If multiple rounds have disclosed valuations, calculate the median ratio:
-
+**Example:**
 ```
-Example with multiple known rounds:
-- Series A: $5M / $25M = 0.20 (20%)
-- Series B: $10M / $50M = 0.20 (20%)
-- Series C: $80M / $1.6B = 0.05 (5%)
-
-Median: 0.20 (ignoring outlier Series C with different market conditions)
+Known: Series C raised $80M at $1.6B valuation → Ratio = 0.05 (5%)
+Unknown: Series D raised $125M → Estimated = $125M / 0.05 = $2.5B
 ```
 
-**Step 4: Apply Ratio to Estimate Missing Valuations**
+**When multiple rounds have disclosed valuations:**
+- Calculate ratio for each
+- Use median ratio (exclude outliers like down rounds or unusual market conditions)
+- Apply median to estimate unknown rounds
 
-For rounds missing valuations, divide the raised amount by the median ratio:
+**Mark all estimates clearly:** Use `~$X (estimated)` format in tables.
 
+## Funding Table Format
+
+| Round | Date | Amount Raised | Post-Money Valuation | Lead Investors |
+|-------|------|---------------|---------------------|----------------|
+| Seed | Q1 2020 | $3M | ~$15M (estimated) | Investor Name |
+| Series A | Q3 2021 | $15M | $75M | Investor Name |
+| Series B | Q2 2023 | $50M | Not disclosed | Investor Name |
+
+**Valuation column formatting:**
+- Disclosed: `$1.6B`
+- Estimated: `~$1.0B (estimated)`
+- Unknown: `Not disclosed`
+- Down round: `$800M (down from $1.6B)`
+
+**Below the table, include:**
 ```
-Estimated Valuation = Amount Raised / Median Ratio
-
-If Seed was $2M with median ratio of 0.20:
-Estimated Valuation = $2M / 0.20 = $10M (estimated)
-
-If Series D was $125M and we use 0.20 ratio:
-Estimated Valuation = $125M / 0.20 = $625M (estimated)
-```
-
-**Note:** Some later-stage rounds may have different ratios due to market conditions (2021 vs. 2024). If possible, use the ratio from the most recent disclosed round for the most recent unknown rounds.
-
-### Special Cases
-
-**Series with Only One Known Data Point**
-
-If only one round has both raise and valuation data, use that ratio for all estimations. Mark these estimations with higher uncertainty:
-
-```
-Example: If only Series C has valuation data
-- Mark all estimates as "~$X (estimated from Series C ratio)"
-- Note in methodology that this is based on single data point
-- Consider whether Series C ratio is representative
-```
-
-**Rounds with Extreme Ratios**
-
-Some rounds may have unusual ratios due to:
-- Down rounds (company raised at lower valuation than previous round)
-- Strategic rounds with special terms
-- Acquisition scenarios
-
-When you encounter extreme ratios:
-1. Note them but potentially exclude from median calculation
-2. If down round is followed by recovery, use later ratios
-3. Document your methodology in the notes
-
-**Post-IPO or Recently Acquired Companies**
-
-If the company went public or was acquired:
-- Use actual market valuation (for public companies) or acquisition price (for acquired)
-- Mark clearly that valuation is from alternative source
-- Note the date of IPO/acquisition
-
-### Methodology Documentation
-
-In the funding table, include a note below explaining the estimation approach:
-
-```
-**Valuation Estimation Methodology:**
-Estimations for rounds lacking disclosed valuations were calculated using 
-the median raise:valuation ratio of 0.15 (15%) observed across disclosed rounds 
-(Series A: $5M/$25M, Series B: $10M/$50M). Series C ratio of 0.05 was excluded 
-as an outlier potentially reflecting 2022 market conditions. Estimated valuations 
-are marked with "~" and represent best-effort calculations from available data.
+**Total Funding:** $XXM across N rounds
+**Current Valuation:** ~$X.XB (estimated) or $X.XB (disclosed)
+**Key Investors:** Names...
 ```
 
-### Quality Indicators for Estimates
+## Confidence Levels
 
-After estimation, assess the quality:
+| Confidence | Criteria |
+|------------|----------|
+| High | 3+ disclosed rounds with consistent ratios |
+| Medium | 1-2 disclosed rounds, reasonable ratio |
+| Low | Single data point or major market shifts between rounds |
 
-**High Confidence Estimates (✓✓✓):**
-- Based on 3+ disclosed valuations with consistent ratios
-- Recent rounds have consistent patterns
-- Ratio is reasonable and not an extreme outlier
-
-**Medium Confidence Estimates (✓✓):**
-- Based on 1-2 disclosed valuations
-- Ratio seems reasonable but limited data points
-- Clear methodology documented
-
-**Low Confidence Estimates (✓):**
-- Based on single data point
-- Company experienced significant pivots
-- Market conditions very different from original round
-- Mark these clearly and note limitations
-
----
-
-## Part 3: Funding Table Format and Best Practices
-
-### Table Structure
-
-Create tables with these columns (in order):
-
-| Round | Date | Amount Raised | Post-Money Valuation | Lead Investors | Notes |
-|---|---|---|---|---|---|
-| Seed | Q1 2020 | $X | ~$Y (estimated) | Name | Context |
-
-### Valuation Column Details
-
-**Format Guidance:**
-- Disclosed valuations: `$1.6B`
-- Estimated valuations: `~$1.0B (estimated)`
-- Unknown valuations: `Not disclosed`
-- Down rounds: `$800M (down from $1.6B)`
-- Acquisition price: `$2.1B (acquisition)`
-
-**Dating the Valuation:**
-- Include the valuation date if different from round close date
-- Note historical valuations: `$1.6B (March 2022)`
-
-### Notes Column Examples
-
-```
-"Tiger Global led, with participation from Zoom, Genesys, Five9"
-"Down round following market correction; existing investors participated"
-"Strategic acquisition by Salesforce; all equity converted"
-"Includes $20M secondary sales from early investors"
-"Pro-rata round from existing investors"
-```
-
-### Total Funding Summary
-
-Below the table, include a summary line:
-
-```
-**Total Funding:** $276M across 7 rounds
-**Current Implied Valuation:** ~$2.0B (estimated from Series D round)
-**Key Investors:** Andreessen Horowitz, Greylock Partners, Sequoia Capital, ...
-```
-
----
+For low-confidence estimates, note limitations in the valuation analysis section.

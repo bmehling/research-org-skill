@@ -101,6 +101,48 @@ Follow the section guidlines: `references/section_guidelines.md`
     ### Threats
 ```
 
+### 5.5. Verify Word Count
+
+**CRITICAL:** Before proceeding, verify the report meets word count requirements.
+
+1. **Count words and check against config target:**
+```bash
+# Get target range from config.json
+TARGET_RANGE=$(grep -o '"targetWordCount"[[:space:]]*:[[:space:]]*"[^"]*"' config.json | cut -d'"' -f4)
+MIN_WORDS=$(echo $TARGET_RANGE | cut -d'-' -f1)
+MAX_WORDS=$(echo $TARGET_RANGE | cut -d'-' -f2)
+
+# Count words in report
+WORD_COUNT=$(wc -w < /tmp/research-report-{company}.md | tr -d ' ')
+
+echo "📊 Word count: $WORD_COUNT"
+echo "🎯 Target range: $TARGET_RANGE"
+
+if [ $WORD_COUNT -lt $MIN_WORDS ]; then
+    echo "⚠️  Under minimum - expand thin sections"
+elif [ $WORD_COUNT -gt $MAX_WORDS ]; then
+    echo "❌ OVER LIMIT - MUST revise before proceeding"
+else
+    echo "✅ Within target range"
+fi
+```
+
+2. **Revision strategy if over word count:**
+   - Review each section against paragraph guidelines in `references/section_guidelines.md`
+   - **Paragraph limits are MAXIMUMS, not targets** - aim for lower end of ranges
+   - Cut redundant analysis, excessive examples, and repetitive context
+   - Combine similar points and consolidate overlapping ideas
+   - Keep all citations and data; reduce explanatory prose
+   - Each paragraph should be 80-120 words (3-5 sentences maximum)
+
+3. **Common areas to trim:**
+   - Competitive Landscape: Often over-written with excessive competitor detail
+   - Market sections: Cut verbose market descriptions, keep quantitative data
+   - Opportunities/Risks: Be concise - 2-3 sentences per item maximum
+   - SWOT: Brief bullets only (1-2 sentences each)
+
+**Do NOT proceed to step 6 until word count is verified within range.**
+
 ### 6. Prepare Database Fields
 
 Determine values for:
