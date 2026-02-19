@@ -33,7 +33,7 @@ class NotionUploader:
         """Initialize uploader with API credentials
 
         Args:
-            api_key: Notion integration token (secret_xxx format)
+            api_key: Notion integration token (ntn_xxx format)
             page_id: Notion page UUID
         """
         self.api_key = api_key
@@ -441,31 +441,57 @@ class NotionUploader:
         print("Clearing existing page content...", end=" ", flush=True)
 
         try:
-            # Get all block children
-            url = f"{NOTION_BASE_URL}/blocks/{self.page_id}/children"
-            response = requests.get(url, headers=self.headers, timeout=30)
-
-            if response.status_code != 200:
-                print(f"✗ (failed to get blocks: HTTP {response.status_code})")
-                return False
-
-            blocks = response.json().get("results", [])
-
-            if not blocks:
-                print("(no content to clear) ✓")
-                return True
-
-            # Delete each block
             deleted = 0
-            for block in blocks:
-                block_id = block.get("id")
-                if block_id:
-                    delete_url = f"{NOTION_BASE_URL}/blocks/{block_id}"
-                    del_response = requests.delete(delete_url, headers=self.headers, timeout=10)
-                    if del_response.status_code == 200:
-                        deleted += 1
+            has_more = True
+            start_cursor = None
 
-            print(f"({deleted} blocks removed) ✓")
+            while has_more:
+                # Get block children (paginated, max 100 per request)
+                url = f"{NOTION_BASE_URL}/blocks/{self.page_id}/children"
+                params = {}
+                if start_cursor:
+                    params["start_cursor"] = start_cursor
+
+                response = requests.get(url, headers=self.headers, params=params, timeout=30)
+
+                if response.status_code != 200:
+                    print(f"✗ (failed to get blocks: HTTP {response.status_code})")
+                    return False
+
+                data = response.json()
+                blocks = data.get("results", [])
+                has_more = data.get("has_more", False)
+                start_cursor = data.get("next_cursor")
+
+                if not blocks:
+                    break
+
+                # Delete each block
+                for block in blocks:
+                    block_id = block.get("id")
+                    if block_id:
+                        delete_url = f"{NOTION_BASE_URL}/blocks/{block_id}"
+                        del_response = requests.delete(delete_url, headers=self.headers, timeout=10)
+                        if del_response.status_code == 200:
+                            deleted += 1
+
+                # After deleting, reset cursor since block IDs are now gone
+                has_more = False
+                # Re-check if more blocks remain
+                check = requests.get(
+                    f"{NOTION_BASE_URL}/blocks/{self.page_id}/children",
+                    headers=self.headers, timeout=30
+                )
+                if check.status_code == 200:
+                    remaining = check.json().get("results", [])
+                    if remaining:
+                        has_more = True
+                        start_cursor = None
+
+            if deleted == 0:
+                print("(no content to clear) ✓")
+            else:
+                print(f"({deleted} blocks removed) ✓")
             return True
 
         except Exception as e:
@@ -475,8 +501,8 @@ class NotionUploader:
     def upload_content(self, blocks: List[Dict]) -> Tuple[bool, List[str]]:
         """Upload content blocks to Notion page
 
-        Uploads blocks in batches with retry logic. Batches are limited
-        to 100 blocks per API call (Notion limit).
+        Uploads blocks in batches of 50 with retry logic (Notion limit
+        is 100; 50 is conservative for retry safety).
 
         Args:
             blocks: List of Notion block dicts

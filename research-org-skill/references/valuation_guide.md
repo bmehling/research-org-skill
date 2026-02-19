@@ -25,16 +25,41 @@ Unknown: Series D raised $125M → Estimated = $125M / 0.05 = $2.5B
 
 ## Funding Table Format
 
-| Round | Date | Amount Raised | Post-Money Valuation | Lead Investors |
-|-------|------|---------------|---------------------|----------------|
-| Seed | Q1 2020 | $3M | ~$15M (estimated) | Investor Name |
-| Series A | Q3 2021 | $15M | $75M | Investor Name |
-| Series B | Q2 2023 | $50M | Not disclosed | Investor Name |
+Always use HTML `<table>` format (not pipe tables) for proper Notion rendering:
+
+```markdown
+<table header-row="true">
+<tr>
+<td>Round</td>
+<td>Date</td>
+<td>Amount Raised</td>
+<td>Post-Money Valuation</td>
+<td>Lead Investors</td>
+<td>Notes</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>Q1 2020</td>
+<td>$3M</td>
+<td>~$15M (estimated)</td>
+<td>Investor Name</td>
+<td>First institutional round</td>
+</tr>
+<tr>
+<td>Series A</td>
+<td>Q3 2021</td>
+<td>$15M</td>
+<td>$75M</td>
+<td>Investor Name</td>
+<td></td>
+</tr>
+</table>
+```
 
 **Valuation column formatting:**
 - Disclosed: `$1.6B`
 - Estimated: `~$1.0B (estimated)`
-- Unknown: `Not disclosed`
+- Unknown: `Not available`
 - Down round: `$800M (down from $1.6B)`
 
 **Below the table, include:**

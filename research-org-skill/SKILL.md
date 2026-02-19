@@ -107,7 +107,7 @@ Follow the section guidelines: `references/section_guidelines.md`
 
 Determine values for:
 - **Categories** — 1-4 from `references/category_guide.md`
-- **Industry** — Healthcare, Horizontal, Legal, etc.
+- **Industry** — from `industries` array in config.json
 - **Stage** — Seed, Series A, Series B, etc.
 - **Revenue** — Estimate or "Not available"
 - **FTEs** — Estimate or "Not available"
@@ -169,6 +169,8 @@ The script automatically:
 - Converts markdown to Notion blocks
 - Uploads in batches with retry logic
 - Sets the company favicon icon
+
+**Note:** If re-uploading to an existing page (e.g., after a failure), add `--clear` to remove existing content first.
 
 3. **Clean up:**
 ```bash

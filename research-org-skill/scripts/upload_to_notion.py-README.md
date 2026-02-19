@@ -17,8 +17,8 @@ Uploads large markdown research reports to Notion pages with custom icons.
 pip3 install -r requirements.txt
 
 # 2. Set up your Notion API key in config.json
-#    Edit ~/.claude/skills/research-org-skill/config.json and add:
-#    "notion_api": "secret_xxx..."
+#    Edit config.json in the skill directory and add:
+#    "notion_api": "ntn_xxx..."
 #    (Get your token from https://www.notion.so/my-integrations)
 ```
 
@@ -81,8 +81,8 @@ Setting page icon... ✓
 
 **Error Handling:**
 
-- **Config not found**: Check that config.json exists in `~/.claude/skills/research-org-skill/`
-- **API key not set**: Add your Notion integration token to config.json (see README.md)
+- **Config not found**: Check that config.json exists in the skill directory
+- **API key not set**: Add your Notion integration token (ntn_xxx format) to config.json
 - **Content file not found**: Verify the markdown file path is correct
 - **Upload fails**: Script will retry up to 3 times before giving up
 
@@ -104,4 +104,3 @@ python3 upload_to_notion.py \
 
 - Python 3.7+
 - `requests>=2.31.0` - HTTP client for Notion API
-- `markdown-it-py>=3.0.0` - Markdown parsing

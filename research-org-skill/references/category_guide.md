@@ -83,7 +83,7 @@ Before publishing research, verify:
 - ✓ At least one category selected
 - ✓ Categories are based on explicit product features mentioned in research
 - ✓ Categories are consistent with similar companies in database
-- ✓ No more than 4-5 categories (more becomes less useful)
+- ✓ No more than 4 categories (more becomes less useful)
 - ✓ Primary category clearly reflects main offering
 
 ---

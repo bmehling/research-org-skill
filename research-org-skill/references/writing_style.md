@@ -17,7 +17,7 @@ Research credibility depends on verifiable sources. Every major claim, metric, o
 
 ### Link Density Target
 
-**Aim for 15-30+ links distributed throughout your report.** More is better than fewer.
+**Aim for 25-40+ links distributed throughout your report.** More is better than fewer.
 
 ### What to Link
 
@@ -298,11 +298,10 @@ Appropriate for:
 - Key metrics over time (columns: Period, Metric 1, Metric 2, etc.)
 
 **Format Guidelines:**
-- Include header rows
+- Always use HTML `<table header-row="true">` format (not pipe tables) for proper Notion rendering
 - Keep column descriptions concise but clear
 - Use consistent formatting across similar tables
 - Include notes column when context is important
-- Right-align numeric data, left-align text
 - Never use tables as a lazy way to avoid writing analysis
 
 **Use Lists Carefully**
@@ -314,13 +313,7 @@ Appropriate for:
   - Customer segments (with brief description)
 - Even in lists, each item should be 1-2 sentences with context, not just a phrase
 
-**Example of Effective Table:**
-
-| Round | Date | Amount Raised | Valuation | Lead Investors | Notes |
-|-------|------|---------------|-----------|----------------|-------|
-| Seed | Q1 2020 | $2M | $10M | Angel investors | Internal funding, founder-led |
-| Series A | Q3 2021 | $5M | $25M | Investor A, Investor B | Growth round, expanded team |
-| Series B | Q2 2023 | $15M | ~$90M | Investor C (lead) | Estimated based on 6x ratio from Series A |
+**Example:** See `references/valuation_guide.md` and `references/section_guidelines.md` for HTML table format examples.
 
 ---
 

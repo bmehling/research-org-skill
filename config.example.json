@@ -23,10 +23,20 @@
     "Healthcare",
     "SaaS"
   ],
+  "industries": [
+    "Healthcare",
+    "Horizontal",
+    "Legal",
+    "Fintech",
+    "Defense",
+    "Energy",
+    "Education"
+  ],
   "notes": {
     "databaseId": "Found in Notion URL: https://www.notion.so/{databaseId}",
     "dataSourceId": "Get from Notion API or database view settings",
     "defaultModel": "Default Claude model (sonnet=best for most, opus=frontier analysis, haiku=fast). Override with: research_org: <url> --model opus",
-    "categories": "Customize this list to match your Notion database's Category field options"
+    "categories": "Customize this list to match your Notion database's Category field options",
+    "industries": "Customize this list to match your Notion database's Industry field options"
   }
 }

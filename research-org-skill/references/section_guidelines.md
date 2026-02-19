@@ -18,7 +18,7 @@ Reference links are REQUIRED throughout. Every major claim, metric, or fact must
 ---
 
 # 0. Structure
-This structure is the EXACT order that must be followed:
+This structure is the EXACT order that must be followed. The numbered labels (1a, 6b, etc.) in this guide are for reference only — the report itself should use the exact headers shown below:
 
 # Company Overview
 ## Founding Story
