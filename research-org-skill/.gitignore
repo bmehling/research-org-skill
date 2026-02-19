@@ -1,5 +1,6 @@
 # Configuration & Credentials (NEVER commit these!)
 config.json
+.claude/settings.local.json
 .env
 .env.local
 .env.*.local
