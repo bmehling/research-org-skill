@@ -47,11 +47,6 @@ Reference Links are REQUIRED throughout. Every major claim, metric, or fact must
 
 ---
 
-# Example research reports to use as a reference
- - reference the ```example_reports``` array in the config.json file. Read each listed example for context. If the example is in Notion, use your Notion tool to access the report. If the example is elsewhere, use your web browser to access the report.
- - the examples provide desired tone, voice, and target content
- - note: the structure of the examples may differ from the report sequence and structure prescribed here. Use the structure outlined in this document
-
 ---
 
 # 0. Structure

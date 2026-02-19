@@ -10,10 +10,6 @@
     "targetWordCount": "2500-4000",
     "defaultModel": "sonnet"
   },
-  "example_reports": [
-    "https://research.contrary.com/company/hippocratic-ai",
-    "<other example report url>"
-  ],
   "categories": [
     "AI",
     "Voice",

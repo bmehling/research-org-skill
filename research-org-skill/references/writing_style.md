@@ -2,6 +2,11 @@
 
 This guide establishes the tone, style, and analytical depth expected for research reports. The goal is to produce professional, credible research that serves as authoritative reference material.
 
+- Include specific data points with source links
+- Present balanced analysis (strengths and challenges)
+- Use clear, professional prose
+- When information is unavailable, note this rather than speculating
+
 ---
 
 ## Reference Links - Required Throughout Report
@@ -62,6 +67,8 @@ Research credibility depends on verifiable sources. Every major claim, metric, o
 ### Formatting Reference Links
 
 Use markdown link syntax: `[descriptive text](URL)`
+
+If the descriptive text is meant to be bolded, use `**[descriptive text](URL)**` (bold wraps the entire link).
 
 **Good Examples:**
 
@@ -143,15 +150,6 @@ Sources:
 - Academic research papers
 - Industry association reports
 
-### Verification Tips
-
-Before finalizing your report:
-
-1. **Count your links**: Use Find function (Ctrl/Cmd+F) and search for `](http` to count markdown links
-2. **Check distribution**: Ensure links appear in every major section, not clustered
-3. **Test links**: Verify URLs are not broken (especially for press releases and news articles)
-4. **Update dates**: Include publication dates for time-sensitive sources
-
 ### Example: Well-Linked Paragraph
 
 **Good density and distribution:**
@@ -186,11 +184,11 @@ Before finalizing your report:
 **Professional and Analytical**
 - Write from a position of informed expertise without promotional language
 - Avoid being overly academic or using unnecessary jargon
-- Be direct and clear—assume reader has business acumen but may not know company specifics
+- Be direct and clear -- assume reader has business acumen but may not know company specifics
 
 **Balanced and Objective**
 - Present both strengths and challenges for each company
-- Acknowledge areas where information is limited or uncertain
+- Clearly articulate areas where information is limited or uncertain
 - Avoid hero worship or excessive criticism
 - Ground opinions in specific evidence
 
@@ -397,6 +395,24 @@ When discussing competitors:
 
 ---
 
+## Exemplar Excerpts
+
+These short passages illustrate the target tone, data density, and analytical style for reports.
+
+**Company Introduction — lead with what the company does, then establish the problem:**
+> "Hippocratic AI is on a mission to build the first safety-focused LLM designed for healthcare. The population of people in the US aged 65 and above is expected to grow by 48% by 2032, creating acute demand for clinical support that existing workforce pipelines cannot meet."
+
+**Funding & Valuation — present amount, timing, and valuation together:**
+> "Lovable closed its $330M Series B in December 2025 at a $6.6B valuation, led by Accel and Khosla Ventures. The company reached unicorn status just eight months after launch, with revenue accelerating from $4M ARR in its first month to $200M ARR within twelve months."
+
+**Risk Framing — use conditional language and connect to specific competitive dynamics:**
+> "If foundation models achieve sufficient safety compliance and become widely licensed, Hippocratic's specialized model advantage could erode. The platform's proprietary value lies in prompt engineering and integration orchestration, but if base model capabilities commoditize, maintaining competitive moats becomes challenging."
+
+**Competitive Positioning — name competitors and explain why the difference matters:**
+> "Glass Health emphasizes diagnostic AI with a case-centric focus, while OpenEvidence is question-centric. This distinction affects customer use cases: Glass Health targets diagnosticians seeking help with differential reasoning, while OpenEvidence serves broader clinical decision support needs."
+
+---
+
 ## Common Pitfalls to Avoid
 
 **Avoid Promotional Language**
@@ -419,20 +435,3 @@ When discussing competitors:
 - Instead of "The company operates in multiple markets," say "The company operates in Medicare Advantage, commercial health plan, and employer segments"
 - Instead of "The platform integrates with major EMRs," name which EMRs (Epic, Cerner, etc.)
 
----
-
-## Style Checklist Before Publishing
-
-- [ ] Does the opening paragraph clearly establish what the company does?
-- [ ] **Have I included 15-30+ reference links distributed throughout the report?**
-- [ ] **Are funding amounts, partnerships, metrics, and competitors linked to sources?**
-- [ ] Are key claims supported by data, examples, or sources?
-- [ ] Have I avoided speculation and clearly noted information gaps?
-- [ ] Is the tone professional and balanced?
-- [ ] Are metrics current and dated?
-- [ ] Have I used concrete examples rather than generalizations?
-- [ ] Is the analysis deeper than just listing facts?
-- [ ] Does each section flow logically to the next?
-- [ ] Are tables and formatting appropriate and effective?
-- [ ] Have I maintained consistent terminology throughout?
-- [ ] Is the SWOT analysis substantiated by the research above it?
