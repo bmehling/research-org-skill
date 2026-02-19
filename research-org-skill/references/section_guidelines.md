@@ -13,39 +13,7 @@ Strong research combines:
 
 ## Citation and Reference Best Practices
 
-**Purpose:** Make research verifiable and allow readers to explore sources independently.
-
-Reference Links are REQUIRED throughout. Every major claim, metric, or fact must be linked to its source at the point where it's mentioned.
-
-**Examples of Required Links:**
-- Funding amounts: "raised [$53M Series A](https://techcrunch.com/...) in June 2024"
-- Partnerships: "partnered with [Equinox](https://www.prnewswire.com/...) in May 2024"  
-- Metrics: "According to [their S-1 filing](https://sec.gov/...), revenue grew 200%"
-- Competitors: "[Prenuvo](https://www.prenuvo.com) offers similar full-body MRI scans"
-- Market data: "The market will reach [$50B by 2028](https://gartner.com/report) per Gartner"
-
-**Target Link Density:** Aim for 15-30+ links distributed throughout the report. More is better than fewer.
-
-**Guidelines:**
-- **Link to primary sources** wherever possible:
-  - Company website sections
-  - Official press releases (PR Newswire, Business Wire, etc.)
-  - Investor announcements (Crunchbase, investor websites)
-  - Analyst reports (Gartner, Forrester, etc. with dates)
-  - News articles (TechCrunch, VentureBeat, etc.)
-  - Academic papers or technical blogs for technical claims
-- **Format citations** clearly:
-  - Use markdown link syntax: `[source description](URL)`
-  - Include publication name and date for news/reports
-  - Example: "According to [PR Newswire announcement](URL) from March 2022, the company raised $80M Series C"
-- **Distribute links throughout** rather than clustering at end:
-  - Link at the point where fact is mentioned, not separately
-  - This makes verification easier during reading
-- **Balance with readability:**
-  - Don't link every sentence; link key claims, metrics, and pivotal facts
-  - Group related claims under one link when appropriate
-
----
+Reference links are REQUIRED throughout. Every major claim, metric, or fact must be linked to its source inline. See `references/writing_style.md` for detailed citation formatting, link density targets, and examples.
 
 ---
 
@@ -59,15 +27,17 @@ This structure is the EXACT order that must be followed:
 ## Business Model
 # Executive Team
 # Investors, Funding Rounds, and Valuation
-## Funding rounds table and summary
-## Valuation narrative & investor outlook
+## Funding Rounds (table)
+## Valuation Analysis (narrative below table)
 # Products and Services
 # Notable Partnerships and Customers
 # Market
 ## Customer
-## Market size
-## Competitive landscape
-## Competitors
+## Market Size and Opportunity
+## Market Dynamics and Trends
+## Competitive Landscape Overview
+## Key Competitors (table)
+## Competitive Advantages
 ## Traction
 # Opportunities and Risks
 ## Key Opportunities
@@ -406,6 +376,8 @@ For each major competitor, include:
 <td>Enterprise-focused platform</td>
 <td>Strong in healthcare vertical, raised $200M</td>
 </tr>
+</table>
+```
 
 ---
 
@@ -419,7 +391,7 @@ For each major competitor, include:
 
 ---
 
-## 7. Traction
+## 6g. Traction
 
 **Purpose:** Demonstrate momentum and successful execution.
 
@@ -444,11 +416,11 @@ For each major competitor, include:
 
 ---
 
-## 8. Opportunities and Risks
+## 7. Opportunities and Risks
 
 ---
 
-## 8a. Key Opportunities
+## 7a. Key Opportunities
 
 **Purpose:** Identify 3-5 major growth opportunities and strategic options.
 
@@ -472,7 +444,7 @@ For each major competitor, include:
 
 ---
 
-## 8b. Key Risks
+## 7b. Key Risks
 
 **Purpose:** Identify material risks to the company's success.
 
@@ -499,33 +471,33 @@ For each major competitor, include:
 
 ---
 
-## 9. SWOT Analysis
+## 8. SWOT Analysis
 
 **Purpose:** Synthesize strengths, weaknesses, opportunities, and threats.
 
 **Guidelines:**
 
-### 9a. Strengths: Internal capabilities, assets, competitive advantages
+### 8a. Strengths: Internal capabilities, assets, competitive advantages
   - Proprietary technology
   - Team depth/expertise
   - Customer relationships/references
   - Data or information advantages
   - Brand or market position
 
-### 9b. Weaknesses: Internal limitations or gaps
+### 8b. Weaknesses: Internal limitations or gaps
   - Execution gaps
   - Resource constraints
   - Limited market presence
   - Product gaps vs. competitors
   - Dependency on key people/technologies
 
-### 9c. Opportunities: External positive factors (from earlier opportunities section)
+### 8c. Opportunities: External positive factors (from earlier opportunities section)
   - Market growth
   - Adjacency expansion
   - Partnership/ecosystem plays
   - Strategic acquisition targets
   
-### 9d. Threats: External negative factors (from earlier risks section)
+### 8d. Threats: External negative factors (from earlier risks section)
   - Competitive threats
   - Market downturns
   - Regulatory changes
