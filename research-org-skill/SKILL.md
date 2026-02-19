@@ -1,6 +1,7 @@
 ---
 name: research-org-skill
 description: Comprehensive company and organization research workflow for any industry or sector. Creates Notion database entries with structured research reports following a balanced, objective, and analytical tone. Requires configuration with your Notion database.
+allowed-tools: WebSearch, WebFetch, Bash(python3:*), Bash(wc:*), Bash(grep:*), Bash(cat:*), Bash(rm:*), mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 
 ---
 
