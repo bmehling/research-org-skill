@@ -1,7 +1,7 @@
 ---
 name: research-org-skill
 description: Comprehensive company and organization research workflow for any industry or sector. Creates Notion database entries with structured research reports following a balanced, objective, and analytical tone. Requires configuration with your Notion database.
-allowed-tools: WebSearch, WebFetch, Bash(python3:*), Bash(wc:*), Bash(grep:*), Bash(cat:*), Bash(rm:*), mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
+allowed-tools: Read, Write, WebSearch, WebFetch, Bash(python3:*), Bash(wc:*), Bash(grep:*), Bash(cat:*), Bash(rm:*), mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 
 ---
 
@@ -45,12 +45,12 @@ Query the Notion database for existing entries with the same URL. If duplicate e
 
 ### 3. Conduct Research
 
-Research the company using web search and fetch tools. Pass the determined model to all Task calls:
+Research the company using web search and fetch tools. Always use `haiku` for the research Task — it's sufficient for web scraping and saves cost. The `--model` flag applies to the main agent only (writing, analysis):
 
 ```
 Task(
-  subagent_type: "Explore",
-  model: <determined_model>,
+  subagent_type: "general-purpose",
+  model: "haiku",
   prompt: "..."
 )
 ```
