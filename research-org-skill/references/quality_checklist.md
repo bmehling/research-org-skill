@@ -6,30 +6,14 @@ This checklist provides **executable verification steps** to ensure reports meet
 
 ## Step 1: Verify Word Count
 
-**Target Range:** Defined in `config.json` under `research.targetWordCount`
+**Target Range:** Defined in `config.json` under `research.targetWordCount` (you read this in Step 1 of the workflow)
 
 **Verification:**
 ```bash
-# Read target range from config.json
-TARGET_RANGE=$(grep -o '"targetWordCount"[[:space:]]*:[[:space:]]*"[^"]*"' config.json | cut -d'"' -f4)
-MIN_WORDS=$(echo $TARGET_RANGE | cut -d'-' -f1)
-MAX_WORDS=$(echo $TARGET_RANGE | cut -d'-' -f2)
-
-# Count words in report
-WORD_COUNT=$(wc -w < /tmp/research-report-{company}.md | tr -d ' ')
-
-echo "Word count: $WORD_COUNT"
-echo "Target range: $TARGET_RANGE (from config.json)"
-
-if [ $WORD_COUNT -lt $MIN_WORDS ]; then
-    echo "WARNING: Under minimum ($MIN_WORDS). Consider expanding thin sections."
-elif [ $WORD_COUNT -gt $MAX_WORDS ]; then
-    echo "OVER LIMIT: Exceeds maximum ($MAX_WORDS). MUST revise before proceeding."
-    echo "   Review section_guidelines.md paragraph limits and trim accordingly."
-else
-    echo "Word count within target range"
-fi
+wc -w < /tmp/research-report-{company}.md
 ```
+
+Check the output against the `targetWordCount` range from config.json. If over the maximum, trim before proceeding.
 
 **Revision strategy if over limit:**
 - Paragraph limits in section_guidelines.md are MAXIMUMS, not targets — aim for lower end
@@ -45,16 +29,10 @@ fi
 
 **Verification:**
 ```bash
-LINK_COUNT=$(grep -oP '\[[^\]]+?\]\(http' /tmp/research-report-{company}.md | wc -l | tr -d ' ')
-echo "Link count: $LINK_COUNT"
-echo "Target: 25-40+ (from writing_style.md)"
-
-if [ $LINK_COUNT -lt 25 ]; then
-    echo "WARNING: Below minimum citations (25). Add more source links."
-else
-    echo "Link count meets target"
-fi
+grep -o '\[[^]]*\](http' /tmp/research-report-{company}.md | wc -l
 ```
+
+If under 25, add more source links before proceeding.
 
 **Action if under minimum:**
 - Review writing_style.md citation guidelines
@@ -76,22 +54,12 @@ fi
 
 **Verification:**
 ```bash
-# Check for required headers
-for section in "# Company Overview" "# Executive Team" "# Investors, Funding Rounds, and Valuation" "# Products and Services" "# Notable Partnerships and Customers" "# Market" "# Opportunities and Risks"; do
-    if grep -q "^$section" /tmp/research-report-{company}.md; then
-        echo "Found: $section"
-    else
-        echo "Missing: $section"
-    fi
-done
+grep "^# " /tmp/research-report-{company}.md
+grep "^## SWOT Analysis" /tmp/research-report-{company}.md
+grep "^### " /tmp/research-report-{company}.md
 ```
 
-**SWOT Structure:**
-- [ ] ## SWOT Analysis exists
-- [ ] ### Strengths subsection
-- [ ] ### Weaknesses subsection
-- [ ] ### Opportunities subsection
-- [ ] ### Threats subsection
+Confirm all top-level (`#`) sections are present, `## SWOT Analysis` exists, and all four SWOT `###` subsections (Strengths, Weaknesses, Opportunities, Threats) appear.
 
 ---
 

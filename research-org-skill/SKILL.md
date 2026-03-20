@@ -1,7 +1,7 @@
 ---
 name: research-org-skill
 description: Comprehensive company and organization research workflow for any industry or sector. Creates Notion database entries with structured research reports following a balanced, objective, and analytical tone. Requires configuration with your Notion database.
-allowed-tools: Read, Write, WebSearch, WebFetch, Bash(python3:*), Bash(wc:*), Bash(grep:*), Bash(cat:*), Bash(rm:*), mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
+allowed-tools: Read, Write, Edit, Task, ToolSearch, WebSearch, WebFetch, Bash, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 
 ---
 
@@ -66,6 +66,8 @@ Before writing, read all of these reference files:
 4. `references/valuation_guide.md` — Funding valuation estimation
 
 ### 5. Write Report
+
+**⚠️ WORD COUNT: Target 3000–3500 words.** The hard max is 4000 words. Writing long and then trimming requires many iterations of tedious editing — write tight from the start. Use the LOWER end of each section's expected length range. Do not write elaborate paragraphs where concise ones suffice.
 
 Follow the section guidelines: `references/section_guidelines.md`
 
@@ -149,17 +151,13 @@ Store the returned `page_id` for uploading the full report.
 
 The Notion MCP has payload limits for large content. Use the helper script to upload reliably:
 
-1. **Write report to temp file:**
-```bash
-cat > /tmp/research-report-{company}.md << 'EOF'
-# {Company Name} Research Report
-[Full markdown content]
-EOF
-```
+1. **Write report to temp file** using the Write tool (not Bash):
+   - File path: `/tmp/research-report-{company}.md`
+   - Content: the full report markdown
 
-2. **Run the upload script** (from skill directory):
+2. **Run the upload script** using the skill's base directory (shown at the top of this skill when loaded):
 ```bash
-python3 scripts/upload_to_notion.py \
+python3 {skill_base_dir}/scripts/upload_to_notion.py \
   --page-id {page_id} \
   --content /tmp/research-report-{company}.md \
   --company-url {url}
