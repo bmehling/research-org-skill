@@ -1,168 +1,168 @@
-# Research Org - Claude AI Skill for Company Research
+# Research Org Skill
 
-A Claude AI skill that conducts company research and automatically integrates findings into your Notion database. Generates structured research reports with extensive citations and automated Notion database population.
+> A Claude Code skill that conducts comprehensive company research and automatically publishes structured reports to your Notion database. Generates cited, analyst-quality intelligence reports with product tables, competitive landscapes, and market analysis — all from a single command.
 
-## Key Features
+## Overview
 
-- **Structured Workflow**: 9-step guided process from research planning through Notion integration
-- **Quality Assurance**: Built-in checklists ensure all reports meet quality standards before publishing
-- **Notion Integration**: Automatic database entry creation with proper field categorization
-- **Citation Management**: Markdown-formatted source links distributed throughout reports
-- **Duplicate Detection**: Prevents duplicate research by checking existing Notion entries
-- **Professional Output**: Reports follow specific structural requirements (Company Overview → Executive Team → Funding → Products → Market → Opportunities/Risks)
-- **Configurable**: Customizable Notion database credentials and category definitions
+Research Org automates the end-to-end workflow of company research: web scraping, data synthesis, report writing, quality validation, and Notion publishing. It produces structured reports following a consistent format (Company Overview, Products & Services, Market Analysis, Competitive Landscape, etc.) with inline citations throughout. Reports can be generated in full mode (3,000-3,500 words) or lite mode (1,200-1,500 words) depending on the depth needed.
 
-## Project Structure
-
-```
-research-org/
-├── README.md                          # This file
-├── config.example.json                # Configuration template
-└── research-org-skill/                # Main skill directory
-    ├── .gitignore                     # Git configuration
-    ├── config.json                    # Active configuration (credentials & settings)
-    ├── SKILL.md                       # Complete workflow documentation
-    ├── LICENSE.txt                    # Creative Commons BY-SA license
-    ├── scripts/                       # Helper scripts
-    │   ├── upload_to_notion.py        # Chunked report upload to Notion
-    │   ├── upload_to_notion.py-README.md
-    │   └── requirements.txt           # Python dependencies
-    └── references/                    # Reference documentation
-        ├── section_guidelines.md      # Required report sections and ordering
-        ├── writing_style.md           # Tone and analytical approach
-        ├── category_guide.md          # Product categorization methodology
-        ├── valuation_guide.md         # Funding valuation estimation
-        └── quality_checklist.md       # Pre-submission validation
-```
-
-## Configuration
+## 🏗️ Setup & Configuration
 
 ### Prerequisites
 
-- Claude Code access with the ability to use skills
-- A Notion workspace and database
-- Notion API token
+- [Claude Code](https://claude.ai/claude-code) with skills support
+- A [Notion](https://www.notion.so/) workspace and database
+- A Notion MCP server ([Notion MCP](https://www.npmjs.com/package/@anthropic-ai/notion-mcp-server) or equivalent)
+- Python 3.9+
 
-### Setup Steps
+### 1. Create a Notion Database
 
-1. **Create a Notion Database**
-   - Set up a Notion database in your workspace for research reports
-   - Required fields:
-     - Organization / Company Name (Title)
-     - Category (Multi-select)
-     - URL (URL)
-     - Industry (Multi-select)
-     - Stage (Multi-select)
-     - Revenue (Multi-select)
-     - FTEs (Multi-select)
-     - Created time
-     - Created by
-     - Last edited time
-   - Add your preferred values to each multi-select property. Some examples:
+Set up a database in your Notion workspace with the following fields:
 
-     **Industry:** Horizontal, Healthcare, Legal, Lab Sciences, Manufacturing, FinTech, Consulting, Energy, EdTech, Education
+| Field | Type | Notes |
+|-------|------|-------|
+| Organization | Title | Company name (primary field) |
+| URL | URL | Company website |
+| Category | Multi-select | Product categories (e.g., AI, Voice, Analytics) |
+| Industry | Multi-select | Vertical focus (e.g., Healthcare, Horizontal, Fintech) |
+| Stage | Multi-select | Funding stage (e.g., Seed, Series A, Series B) |
+| Revenue | Multi-select | Revenue range (e.g., $1M-$8M, $30M-$100M, Not available) |
+| FTEs | Multi-select | Employee count range (e.g., 10-50, 100-250, Not available) |
 
-     **Stage:** Seed, Series A, Series B, Series C, Series D, Series E, Series F, Series G, Growth, Bootstrapped, Acquired, Merger
+Populate each multi-select field with the values that make sense for your research focus.
 
-     **Revenue:** < $1M, $1M-$8M, $8M-$30M, $30M-$100M, $100M-$200M, $200M-$500M, $500M-$750M, > $1B, > $2B, > $5B, > $10B, Not available
+### 2. Get Notion Credentials
 
-     **FTEs:** <10, 10-50, 50-100, 100-250, 250-500, 500-1000, >1000, >5000, Not available
+1. Create an internal integration at [Notion Integrations](https://www.notion.so/my-integrations)
+   - Grant it database read/write permissions at minimum
+2. Copy your **Internal Integration Token**
+3. Find your **Database ID** from the database URL: `https://www.notion.so/workspace/{DATABASE_ID}?v=...`
+4. Find your **Data Source ID** via the database's 3-dot menu → Data sources → Copy data source ID
 
-2. **Get Notion Credentials**
-   - Create an internal Notion integration in your [Notion settings](https://www.notion.so/my-integrations)
-     - Be sure to configure the key with permissions to database (at least)
-   - Copy your Internal Integration Token
-   - Find your Notion Database ID by
-     - opening your database and extracting the ID from the URL
-       - Example URL: `https://www.notion.so/workspace/[DATABASE_ID]?v=<DATABASE_ID>`
-     - OR databases 3-dot menu: Datasources -> Copy data source ID
+### 3. Configure the Skill
 
-3. **Configure the Skill**
-   - Copy `config.example.json` to `config.json`
-   - Edit `config.json` with your credentials and preferences:
-   ```json
-   {
-     "notion": {
-       "databaseId": "<your_database_id>",
-       "databaseUrl": "<your_database_url>",
-       "dataSourceId": "<your_data_source_id>",
-       "databaseName": "<your_database_name>",
-       "notion_api": "<your_notion_key>"
-     },
-     "research": {
-       "targetWordCount": "2500-4000",
-       "defaultModel": "sonnet"
-     }
-   }
+Copy the example config and fill in your credentials:
 
-   ```
+```bash
+cp config.example.json research-org-skill/config.json
+```
 
-4. **Package and add the Skill to Claude Code**
- - The skill should added to ~/.claude/skills/research-org-skill
- - Copy (recursively) the research-org-skill directory to ~/.claude/skills/research-org-skill
- - If necessary, restart Claude Code
- - Verify Claude has access via the /skills command
+Edit `research-org-skill/config.json`:
 
-## Workflow Overview
+```json
+{
+  "notion": {
+    "databaseId": "<your_database_id>",
+    "databaseUrl": "https://www.notion.so/<your_database_id>",
+    "dataSourceId": "<your_data_source_id>",
+    "databaseName": "<your_database_name>",
+    "notion_api": "<your_integration_token>"
+  },
+  "research": {
+    "targetWordCount": "2500-4000",
+    "liteWordCount": "1200-2000",
+    "defaultModel": "sonnet"
+  },
+  "categories": ["AI", "Voice", "Analytics", "..."],
+  "industries": ["Healthcare", "Horizontal", "Fintech", "..."]
+}
+```
 
-Research Org follows a structured 9-step workflow:
+Customize the `categories` and `industries` arrays to match the multi-select values in your Notion database.
 
-1. **Load Configuration** — Read config, parse URL and optional `--model` flag
-2. **Check for Duplicates** — Query Notion database to prevent duplicate entries
-3. **Conduct Research** — Web search and fetch across company background, funding, products, market, and competition
-4. **Review Reference Files** — Load section guidelines, writing style, category guide, and valuation guide
-5. **Write Report** — Draft full report following section structure and citation guidelines
-6. **Prepare Database Fields** — Determine Categories, Industry, Stage, Revenue, and FTEs
-7. **Run Quality Checklist** — Validate report against quality_checklist.md before publishing
-8. **Create Notion Entry** — Create page with overview, upload full report via helper script, set all properties
-9. **Display Summary** — Show completion summary with link to Notion entry
+### 4. Install the Skill
 
-## Reference Materials
+```bash
+# Copy the skill to Claude Code's skills directory
+cp -r research-org-skill ~/.claude/skills/research-org-skill
 
-The `research-org-skill/references/` directory contains detailed guides:
+# Install Python dependencies (used by the Notion upload script)
+pip install -r ~/.claude/skills/research-org-skill/scripts/requirements.txt
+```
 
-- **section_guidelines.md** — Exact section order and formatting requirements
-- **writing_style.md** — Tone, voice, and analytical standards
-- **quality_checklist.md** — Pre-submission validation requirements
-- **valuation_guide.md** — Company valuation estimation methodology
-- **category_guide.md** — Product categorization approach
+Restart Claude Code if needed, then verify with `/skills`.
 
-## Quality Standards
+### 5. Set Up Notion MCP
 
-All research reports should:
+The skill requires a Notion MCP server for database operations. Follow the setup instructions for your Notion MCP provider to connect it to Claude Code.
 
-- **Meet target word count** from config.json
-- **Include 15-30+ sources** cited throughout the report
-- **Include all required sections**: Company Overview, Executive Team, Funding, Products, Market, Opportunities/Risks
-- **Maintain professional tone** — balanced, objective, and analytical
-- **Use accurate citations** with proper markdown links
-- **Avoid duplicates** — existing companies are checked before research begins
+## 🛠️ Usage
+
+Trigger the skill with `/research-org-skill` followed by a company URL:
+
+```
+/research-org-skill https://example.com
+```
+
+### Options
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--lite` | Shorter report (1,200-1,500 words), omits funding, exec team, SWOT | `/research-org-skill --lite https://example.com` |
+| `--model MODEL` | Override the default model (`sonnet`, `opus`, `haiku`) | `/research-org-skill --model opus https://example.com` |
+
+Flags can be combined:
+
+```
+/research-org-skill --lite --model haiku https://example.com
+```
+
+### Workflow
+
+The skill follows a 9-step process:
+
+1. **Load Configuration** — Read config, parse URL, flags
+2. **Check for Duplicates** — Query Notion to prevent duplicate entries
+3. **Conduct Research** — Web search and fetch (uses haiku for cost efficiency)
+4. **Review Reference Files** — Load section guidelines, writing style, and category guides
+5. **Write Report** — Draft report following section structure and citation guidelines
+6. **Prepare Database Fields** — Determine Categories, Industry, Stage, Revenue, FTEs
+7. **Run Quality Checklist** — Validate word count, citations, structure, and writing quality
+8. **Create Notion Entry** — Create page, upload report, set properties and icon
+9. **Display Summary** — Show completion summary with Notion link
+
+## 📂 Project Structure
+
+```
+research-org/
+├── README.md                              # This file
+├── config.example.json                    # Configuration template
+└── research-org-skill/                    # Main skill directory
+    ├── SKILL.md                           # Skill definition and workflow
+    ├── config.json                        # Active configuration (gitignored)
+    ├── LICENSE.txt                        # CC BY-SA 4.0
+    ├── scripts/
+    │   ├── upload_to_notion.py            # Chunked report upload to Notion
+    │   ├── upload_to_notion.py-README.md  # Upload script documentation
+    │   └── requirements.txt              # Python dependencies
+    └── references/
+        ├── section_guidelines.md          # Report section order, structure, and length
+        ├── writing_style.md               # Tone, citation standards, and examples
+        ├── category_guide.md              # Product categorization methodology
+        ├── valuation_guide.md             # Funding valuation estimation
+        └── quality_checklist.md           # Pre-publish validation steps
+```
+
+## 📖 How It Works
+
+**`SKILL.md`** is the core skill definition. It contains YAML frontmatter (name, description, allowed tools) and the full 9-step workflow that Claude follows when the skill is invoked.
+
+**`references/`** contains the editorial guidelines that shape report quality:
+
+- **section_guidelines.md** — Defines the exact section order, expected content, table formats (including product overview tables with Pattern A/B), and length targets for both full and lite modes
+- **writing_style.md** — Sets the professional, analytical tone; citation density targets (25-40+ links per report); and examples of good vs. poor writing
+- **category_guide.md** — Guides selection of product categories and industry tags for Notion database fields
+- **valuation_guide.md** — Methodology for estimating company valuations when not publicly available
+- **quality_checklist.md** — Executable verification steps (word count, link count, structure, field completeness) run before every Notion upload
+
+**`scripts/upload_to_notion.py`** handles the Notion upload. It chunks reports by header, converts markdown to Notion blocks (including HTML tables, inline formatting, and links), and uploads in batches with retry logic. It also sets the company's favicon as the page icon.
+
+## ↖ Dependencies
+
+- **Python 3.9+** with `requests` library (for the Notion upload script)
+- **Notion MCP server** — provides `notion-search`, `notion-fetch`, `notion-create-pages`, `notion-update-page` tools
+- **Claude Code** with skills support and web search/fetch capabilities
 
 ## License
 
-This project is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** license. You are free to:
-- Use and modify the project
-- Redistribute the project with attribution
-- Share modifications with the same license
-
-See `research-org-skill/LICENSE.txt` for details.
-
-## Support
-
-For detailed workflow instructions and best practices, see:
-- `research-org-skill/SKILL.md` — Complete workflow documentation
-- `research-org-skill/references/` — Reference guides
-
-For configuration troubleshooting:
-1. Verify Claude Code has access to the skill using the /skills command
-2. Verify Notion API token is valid
-3. Ensure database ID is correct (test by viewing in browser)
-4. Confirm integration has permission to edit database
-5. Check that all required fields exist in your Notion database
-6. Verify the python helper script executes successfully
-
----
-
-**Version**: 1.0
-**Last Updated**: 2026-02-04
-**License**: CC BY-SA 4.0
+This project is licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**. See [`LICENSE.txt`](research-org-skill/LICENSE.txt) for details.

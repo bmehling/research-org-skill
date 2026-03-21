@@ -17,6 +17,35 @@ Reference links are REQUIRED throughout. Every major claim, metric, or fact must
 
 ---
 
+## Lite Mode Structure
+
+When invoked with `--lite`, include ONLY the following sections (in this order).
+All standard writing and citation guidelines still apply.
+
+```
+# Company Overview
+## Mission and Vision
+# Products and Services
+# Notable Partnerships and Customers
+# Market
+## Customer
+## Market Size and Opportunity
+## Market Dynamics and Trends
+## Competitive Landscape Overview
+## Key Competitors (table)
+## Competitive Advantages
+## Traction
+```
+
+**Length guidance for lite mode:**
+- Company Overview: 1–2 paragraphs (intro only; no Founding Story, Thesis, or Business Model)
+- Mission and Vision: 1 paragraph
+- Products and Services: Product overview table + 1–2 paragraphs of narrative
+- Notable Partnerships and Customers: 2–3 paragraphs
+- Each Market subsection: aim for the LOWER end of its normal expected length
+
+---
+
 # 0. Structure
 This structure is the EXACT order that must be followed. The numbered labels (1a, 6b, etc.) in this guide are for reference only — the report itself should use the exact headers shown below:
 
@@ -247,20 +276,51 @@ Include a summary covering:
 
 ## 4. Products and Services
 
-**Purpose:** Detail what the company offers and how their solutions work.
+**Purpose:** Detail what the company offers and how their solutions work. Lead with a structured product overview table, followed by narrative.
 
-**Guidelines:**
-- Describe each major product or service offering
-- Explain key features and capabilities
+**Product Overview Table:**
+
+Choose the table pattern that best fits the company's product structure:
+
+**Pattern A — Multiple Distinct Products (catalog matrix):**
+Use when the company offers separate, standalone products or services.
+
+```html
+<table header-row="true">
+<tr><th>Product</th><th>Description</th><th>Key Features</th><th>Target User</th><th>Pricing</th></tr>
+<tr><td>Product Name</td><td>One-line description</td><td>3-5 bullet features</td><td>Who it's for</td><td>$X/mo or "Not publicly available"</td></tr>
+</table>
+```
+
+**Pattern B — Tiered Products (comparison matrix):**
+Use when the company offers the same core product in multiple tiers or plans.
+
+```html
+<table header-row="true">
+<tr><th>Feature / Attribute</th><th>Tier 1 Name</th><th>Tier 2 Name</th><th>Tier 3 Name</th></tr>
+<tr><td>Description</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>Key Features</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>Target User</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>Pricing</td><td>$X/mo</td><td>$Y/mo</td><td>Contact sales</td></tr>
+</table>
+```
+
+**Rules for choosing the pattern:**
+- If the company has 2+ distinct products serving different needs → Pattern A
+- If the company has a single product with tiered plans (free/pro/enterprise, basic/premium, etc.) → Pattern B
+- If both apply (e.g., multiple products each with tiers), use Pattern A for the product catalog and note tier details in the Description or Key Features columns
+- When pricing is not publicly available, write "Not publicly available" — never leave the cell blank
+
+**Narrative Guidelines (below the table):**
+- Explain key features and capabilities in more depth than the table allows
 - Detail the technology stack or approach where relevant
 - Describe the user experience or customer journey
 - Highlight unique or innovative aspects of their offerings
 - Include specific examples of use cases
 - Note any integrations or platform partnerships
-- Organize by product line if they have multiple offerings
 - Include links to product pages, demos, or technical documentation
 
-**Expected Length:** 4-8 paragraphs
+**Expected Length:** Product overview table + 2-4 paragraphs of narrative (lite: table + 1-2 paragraphs)
 
 ---
 

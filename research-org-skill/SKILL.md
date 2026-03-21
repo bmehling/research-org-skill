@@ -1,7 +1,7 @@
 ---
 name: research-org-skill
 description: Comprehensive company and organization research workflow for any industry or sector. Creates Notion database entries with structured research reports following a balanced, objective, and analytical tone. Requires configuration with your Notion database.
-allowed-tools: Read, Write, Edit, Task, ToolSearch, WebSearch, WebFetch, Bash, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
+allowed-tools: Read, Write, Edit, Agent, Task, TaskCreate, TaskUpdate, TaskGet, TaskList, ToolSearch, WebSearch, WebFetch, Bash, Glob, Grep, mcp__notion__notion-search, mcp__notion__notion-fetch, mcp__notion__notion-create-pages, mcp__notion__notion-update-page, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 
 ---
 
@@ -12,19 +12,22 @@ Comprehensive research workflow for creating detailed company intelligence repor
 ## Command
 
 ```
-research_org: <url> [--model MODEL]
+research_org: <url> [--model MODEL] [--lite]
 ```
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
 | `<url>` | Yes | Company website URL to research |
 | `--model` | No | Model to use: `sonnet` (default), `opus` (complex), `haiku` (quick) |
+| `--lite` | No | Generate a shorter product/market-focused report (omits funding, exec team, SWOT) |
 
 **Examples:**
 ```
 research_org: https://camunda.com
 research_org: https://camunda.com --model opus
 research_org: https://camunda.com --model haiku
+research_org: https://camunda.com --lite
+research_org: https://camunda.com --lite --model haiku
 ```
 
 ---
@@ -37,7 +40,8 @@ research_org: https://camunda.com --model haiku
 2. Extract URL from arguments (first `https://` or `http://` match)
 3. If `--model` flag present, validate it's `sonnet`, `opus`, or `haiku`
 4. Determine final model: `--model` value or `config.research.defaultModel`
-5. Use this model in ALL subsequent `Task` tool calls
+5. If `--lite` flag present, set lite mode = true. Use `config.research.liteWordCount` as the word count target instead of `targetWordCount`
+6. Use this model in ALL subsequent `Task` tool calls
 
 ### 2. Check for Duplicates
 
@@ -57,6 +61,8 @@ Task(
 
 Focus on: company background, funding history, products, market position, competition, traction. **Save source URLs** for citations in the report.
 
+For product/pricing research, actively look for `/pricing`, `/plans`, `/products`, and `/features` pages on the company's website. Capture: product names, one-line descriptions, key features (3-5 per product), target users, pricing (exact figures or tiers), and whether the company uses tiered plans vs. distinct products. This structured product data will be used to build a product overview table in the report.
+
 ### 4. Review Reference Files
 
 Before writing, read all of these reference files:
@@ -67,14 +73,37 @@ Before writing, read all of these reference files:
 
 ### 5. Write Report
 
-**⚠️ WORD COUNT: Target 3000–3500 words.** The hard max is 4000 words. Writing long and then trimming requires many iterations of tedious editing — write tight from the start. Use the LOWER end of each section's expected length range. Do not write elaborate paragraphs where concise ones suffice.
-
 Follow the section guidelines: `references/section_guidelines.md`
 
  - match the section structure
  - review the purpose of each section and sub-section
  - follow the section's prompt, examples, and suggested length
  - follow citation guidance
+
+**If lite mode (`--lite`):**
+
+**⚠️ WORD COUNT: Target 1200–1500 words.** Hard max is 2000 words. Write to the LOWER end — aim for 1200–1500 words.
+
+Use the lite structure from `references/section_guidelines.md` (see "Lite Mode Structure" section):
+
+```
+# Company Overview
+  ## Mission and Vision
+# Products and Services
+# Notable Partnerships and Customers
+# Market
+  ## Customer
+  ## Market Size and Opportunity
+  ## Market Dynamics and Trends
+  ## Competitive Landscape Overview
+  ## Key Competitors (table)
+  ## Competitive Advantages
+  ## Traction
+```
+
+**If full mode (default):**
+
+**⚠️ WORD COUNT: Target 3000–3500 words.** The hard max is 4000 words. Writing long and then trimming requires many iterations of tedious editing — write tight from the start. Use the LOWER end of each section's expected length range. Do not write elaborate paragraphs where concise ones suffice.
 
 ```
 # Company Overview
@@ -118,6 +147,8 @@ Determine values for:
 ### 7. Run Quality Checklist
 
 **CRITICAL:** Before creating the database entry, run ALL verification steps in `references/quality_checklist.md` (word count, citation links, structure, database fields, writing quality). Do NOT proceed to step 8 until all checks pass.
+
+**Note:** In lite mode, the word count target is `config.research.liteWordCount` (not `targetWordCount`).
 
 ### 8. Create Notion Entry
 

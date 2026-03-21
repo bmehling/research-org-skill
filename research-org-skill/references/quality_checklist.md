@@ -6,7 +6,7 @@ This checklist provides **executable verification steps** to ensure reports meet
 
 ## Step 1: Verify Word Count
 
-**Target Range:** Defined in `config.json` under `research.targetWordCount` (you read this in Step 1 of the workflow)
+**Target Range:** `research.targetWordCount` from config.json, or `research.liteWordCount` if running in lite mode (both read in Step 1 of the workflow)
 
 **Verification:**
 ```bash
@@ -47,7 +47,7 @@ If under 25, add more source links before proceeding.
 - [ ] Company Overview (with Founding Story, Mission/Vision, Thesis, Business Model)
 - [ ] Executive Team
 - [ ] Investors, Funding Rounds, and Valuation
-- [ ] Products and Services
+- [ ] Products and Services (with product overview table)
 - [ ] Notable Partnerships and Customers
 - [ ] Market (with Customer, Market Size and Opportunity, Market Dynamics and Trends, Competitive Landscape Overview, Key Competitors table, Competitive Advantages, Traction)
 - [ ] Opportunities and Risks (with Key Opportunities, Key Risks, SWOT Analysis)
