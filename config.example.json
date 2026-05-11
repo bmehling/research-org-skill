@@ -33,12 +33,25 @@
     "Energy",
     "Education"
   ],
+  "compliance": [
+    "HIPAA",
+    "SOC2",
+    "ISO27001",
+    "HITRUST",
+    "PCI DSS",
+    "FedRamp",
+    "GDPR",
+    "CCPA",
+    "CPRA",
+    "None Identified"
+  ],
   "notes": {
     "databaseId": "Found in Notion URL: https://www.notion.so/{databaseId}",
     "dataSourceId": "Get from Notion API or database view settings",
     "defaultModel": "Default Claude model (sonnet=best for most, opus=frontier analysis, haiku=fast). Override with: research_org: <url> --model opus",
     "liteWordCount": "Word count target for --lite mode reports",
     "categories": "Customize this list to match your Notion database's Category field options",
-    "industries": "Customize this list to match your Notion database's Industry field options"
+    "industries": "Customize this list to match your Notion database's Industry field options",
+    "compliance": "Regulatory controls (HIPAA), compliance frameworks (SOC2), and 3rd-party accreditations the company holds. Customize to match your Notion database's Compliance field options."
   }
 }

@@ -59,7 +59,9 @@ Task(
 )
 ```
 
-Focus on: company background, funding history, products, market position, competition, traction. **Save source URLs** for citations in the report.
+Focus on: company background, funding history, products, market position, competition, traction, and **compliance posture** (regulatory controls like HIPAA, compliance frameworks like SOC2, and 3rd-party accreditations like The Joint Commission). **Save source URLs** for citations in the report.
+
+For compliance, check `/trust`, `/security`, `/compliance`, `/legal`, and footer links on the company's website. Look for badges/attestations on the homepage. Cross-reference with third-party trust portals (e.g., Vanta, Drata public pages). Only record certifications with credible evidence — do not assume HIPAA compliance just because a vendor sells to healthcare. If nothing is found after a focused search, use `None Identified`.
 
 For product/pricing research, actively look for `/pricing`, `/plans`, `/products`, and `/features` pages on the company's website. Capture: product names, one-line descriptions, key features (3-5 per product), target users, pricing (exact figures or tiers), and whether the company uses tiered plans vs. distinct products. This structured product data will be used to build a product overview table in the report.
 
@@ -143,6 +145,7 @@ Determine values for:
 - **Stage** — Seed, Series A, Series B, etc.
 - **Revenue** — Estimate or "Not available"
 - **FTEs** — Estimate or "Not available"
+- **Compliance** — 0+ from `compliance` array in config.json (HIPAA, SOC2, ISO27001, HITRUST, PCI DSS, FedRamp, GDPR, CCPA, CPRA, PIPEDA, PHIPA, CASA, JTC Telehealth, FDA 21 CFR Part 11). Only include items with credible evidence from the company's trust/security/compliance pages or third-party attestations. Use `None Identified` if no evidence is found.
 
 ### 7. Run Quality Checklist
 
@@ -168,7 +171,8 @@ Use `Notion:notion-create-pages` with a brief 2-3 paragraph overview and all pro
       "Industry": "[\"Horizontal\"]",
       "Stage": "[\"Series B\"]",
       "Revenue": "[\"$100M+\"]",
-      "FTEs": "[\"500+\"]"
+      "FTEs": "[\"500+\"]",
+      "Compliance": "[\"SOC2\", \"HIPAA\"]"
     }
   }]
 }
@@ -224,6 +228,7 @@ If properties weren't set during page creation, use `Notion:notion-update-page` 
 - **FTEs:** [FTEs or "Not available"]
 - **Industry:** [industry]
 - **Categories:** [categories]
+- **Compliance:** [compliance items, or "None Identified"]
 
 **View Entry:** [[Company Name]](notion-page-url)
 ```

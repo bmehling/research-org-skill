@@ -71,6 +71,7 @@ Verify values determined for:
 - [ ] **Stage** — Determined from funding or "Not available"
 - [ ] **Revenue** — Estimated from research or "Not available"
 - [ ] **FTEs** — Estimated from research or "Not available"
+- [ ] **Compliance** — 0+ from `compliance` array in config.json, evidenced by trust/security/compliance pages or third-party attestations. Use `None Identified` if no evidence found.
 
 ---
 
