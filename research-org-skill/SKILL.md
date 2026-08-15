@@ -98,7 +98,7 @@ Follow the section guidelines: `references/section_guidelines.md`
 
 **If lite mode (`--lite`):**
 
-**⚠️ WORD BUDGET: use the Lite Mode column of the word budget table in `references/section_guidelines.md`.** Section budgets sum to ~1,340 words; with table content the finished report should measure ~1,500. Validation band is 1,200–2,000 words. Write each section to its stated budget rather than drafting long and trimming.
+**⚠️ WORD BUDGET: use the Lite Mode column of the word budget table in `references/section_guidelines.md`.** Section prose sums to ~1,340 words, tables add ~400, so the finished report should measure ~1,740. Validation band is 1,200–2,000 words. Respect the table row and cell caps in `section_guidelines.md`, and write each section to its stated budget rather than drafting long and trimming.
 
 Use the lite structure from `references/section_guidelines.md` (see "Lite Mode Structure" section):
 
@@ -119,9 +119,11 @@ Use the lite structure from `references/section_guidelines.md` (see "Lite Mode S
 
 **If full mode (default):**
 
-**⚠️ WORD BUDGET: use the Full Mode column of the word budget table in `references/section_guidelines.md`.** Each section carries its own `**Word Budget:**` line. Section budgets sum to ~3,330 words; with table content the finished report should measure ~3,700. Validation band is 3,200–4,000 words.
+**⚠️ WORD BUDGET: use the Full Mode column of the word budget table in `references/section_guidelines.md`.** Each section carries its own `**Word Budget:**` line. Section prose sums to ~3,120 words, tables add ~550, so the finished report should measure ~3,670. Validation band is 3,200–4,000 words.
 
-Write each section to its stated budget as you draft it. Drafting long and trimming afterward costs many iterations of tedious editing. Check the mid-draft checkpoint after the Market section.
+**Budget the tables too.** Table cell text escapes the section budgets but still counts toward the total, and it is the most common cause of overrun. `references/section_guidelines.md` sets row caps and per-cell word limits for the Funding, Product Overview, and Key Competitors tables. Respect them: more rows than the cap means rank and cut, not extend.
+
+Write each section to its stated budget as you draft it. Drafting long and trimming afterward costs many iterations of tedious editing. Run the mid-draft checkpoint after the Market section, when all three tables are written.
 
 ```
 # Company Overview

@@ -6,34 +6,48 @@ This document provides detailed guidance for each section of the company researc
 
 **This table is the authority on length.** Each section below also carries a `**Word Budget:**` line with the same number. Write to the budget, not to a paragraph count. Paragraph counts are unenforceable and historically caused every report to overshoot the maximum and require a long trimming pass.
 
-Budgets cover PROSE only. Table cell text, HTML markup, and link URLs are excluded and do not count against a section's budget.
+Section budgets cover PROSE only. HTML markup and link URLs never count. Table cell text does not count against a *section* budget either, but it is not free — tables carry their own budget, below.
 
 **This file is the single source of truth for report length.** config.json holds no length settings. If you change a section budget here, update the totals and validation bands below to match.
 
 ### Validation Bands
 
-The quality checklist measures the finished report with markup and URLs stripped, but table cell text still counts. So the measured total runs above the sum of section budgets by roughly the volume of the tables.
+The quality checklist measures the finished report with markup and URLs stripped, but **table cell text still counts**. So the measured total runs above the sum of section budgets by the volume of the tables. Both halves must be budgeted or the total drifts.
 
-| Mode | Section budgets | Table allowance | Expected measurement | Validation band |
+| Mode | Section budgets | Table budget | Expected measurement | Validation band |
 |---|---|---|---|---|
-| Full | 3,330 | ~350 | ~3,680 | **3,200–4,000** |
-| Lite | 1,340 | ~150 | ~1,490 | **1,200–2,000** |
+| Full | 3,120 | ~550 | ~3,670 | **3,200–4,000** |
+| Lite | 1,340 | ~400 | ~1,740 | **1,200–2,000** |
 
-### Full Mode (total ~3,330 words; hard max 4,000)
+### Table Budgets
+
+Tables are the most common cause of overrun, because their cell text escapes the per-section budgets while still counting toward the total. **These caps are limits, not targets.** Cap row counts and per-cell length:
+
+| Table | Max rows | Long cell | Cap | Other cells |
+|---|---|---|---|---|
+| Funding Rounds | 6 | Notes ≤ 20 words | ~120 | ≤ 6 words |
+| Product Overview | 6 | Key Features ≤ 25 words | ~250 | ≤ 12 words |
+| Key Competitors | 8 | Key Differentiators ≤ 25 words | ~300 | ≤ 8 words |
+
+If a company has more products or competitors than the row cap allows, **rank and cut** rather than extending the table. Eight well-chosen competitors beat twelve padded ones, and the narrative below the table is where nuance belongs.
+
+Do not compensate for a trimmed table by expanding the prose beneath it. The section budget is unchanged either way.
+
+### Full Mode (prose total ~3,120 words; measured hard max 4,000)
 
 | Section | Words | Section | Words |
 |---|---|---|---|
-| Company Overview | 180 | Customer | 180 |
-| Founding Story | 150 | Market Size and Opportunity | 180 |
-| Mission and Vision | 100 | Market Dynamics and Trends | 180 |
-| Thesis | 220 | Competitive Landscape Overview | 150 |
-| Business Model | 220 | Competitive Advantages | 150 |
-| Executive Team | 180 | Traction | 180 |
-| Valuation Analysis | 200 | Key Opportunities | 180 |
-| Products and Services | 180 | Key Risks | 180 |
-| Partnerships and Customers | 220 | SWOT Analysis | 300 |
+| Company Overview | 170 | Customer | 170 |
+| Founding Story | 150 | Market Size and Opportunity | 170 |
+| Mission and Vision | 100 | Market Dynamics and Trends | 170 |
+| Thesis | 200 | Competitive Landscape Overview | 150 |
+| Business Model | 200 | Competitive Advantages | 150 |
+| Executive Team | 160 | Traction | 170 |
+| Valuation Analysis | 180 | Key Opportunities | 170 |
+| Products and Services | 180 | Key Risks | 170 |
+| Partnerships and Customers | 200 | SWOT Analysis | 260 |
 
-### Lite Mode (total ~1,340 words; hard max 2,000)
+### Lite Mode (prose total ~1,340 words; measured hard max 2,000)
 
 | Section | Words | Section | Words |
 |---|---|---|---|
@@ -43,7 +57,9 @@ The quality checklist measures the finished report with markup and URLs stripped
 | Partnerships and Customers | 160 | Competitive Advantages | 110 |
 | Customer | 130 | Traction | 140 |
 
-**Mid-draft checkpoint:** after finishing the Market section, the draft should be at roughly 2,400 words (full) or 1,100 (lite). If it is materially over, tighten what exists before writing Opportunities and Risks. Trimming a finished report costs far more than trimming a partial one.
+**Mid-draft checkpoint:** after finishing the Market section — which is past all three tables — measure the partial draft with the Step 1 command in `quality_checklist.md`. It should read roughly **2,850 words (full)** or **1,300 (lite)**. Materially over means the remaining sections will not fit; tighten what exists before writing Opportunities and Risks. Trimming a finished report costs far more than trimming a partial one.
+
+**Why these numbers:** an earlier version budgeted prose only and guessed a ~350-word table allowance. Real tables ran closer to 550-700, so reports cleared their section budgets and still failed the band, needing four or more trim passes. Budgeting both halves and capping cells is what keeps a first draft inside the band.
 
 ---
 
@@ -134,7 +150,7 @@ This structure is the EXACT order that must be followed. The numbered labels (1a
 - Focus on what makes them distinctive in their market
 - Include reference links to key sources (company website, prominent news articles, analyst reports)
 
-**Word Budget:** 180 words
+**Word Budget:** 170 words
 
 ---
 
@@ -184,7 +200,7 @@ Write a compelling Company Thesis section that articulates why this company repr
 - Economic Disruption: Quantify the improvement in unit economics, speed, cost, or accessibility compared to traditional approaches. Use specific numbers (10x, 100x) and concrete before/after comparisons that demonstrate the magnitude of improvement.
 Synthesis: Ensure the thesis flows as a cohesive narrative that connects market opportunity → unique solution → right team → right time → validated traction → massive potential. Each element should reinforce the others to build conviction.
 
-**Word Budget:** 220 words
+**Word Budget:** 200 words
 
 ---
 
@@ -211,7 +227,7 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 - Discuss competitive pricing and positioning
 - Include links to pricing pages or case studies that reveal business model
 
-**Word Budget:** 220 words. The bullet list above is a checklist of what to look for, not a list of topics that each require their own paragraph. Cover what the research actually surfaced and state plainly when a metric is undisclosed.
+**Word Budget:** 200 words. The bullet list above is a checklist of what to look for, not a list of topics that each require their own paragraph. Cover what the research actually surfaced and state plainly when a metric is undisclosed.
 
 ---
 
@@ -232,7 +248,7 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 - Explain how executive team composition strengthens company positioning
 - Include LinkedIn profile links where relevant for verification
 
-**Word Budget:** 180 words total. Roughly 50-60 words per executive, which covers 3 leaders. If the company has more, prioritize CEO, CTO, and the most strategically relevant third; list the remainder by name and title only.
+**Word Budget:** 160 words total. Roughly 50 words per executive, which covers 3 leaders. If the company has more, prioritize CEO, CTO, and the most strategically relevant third; list the remainder by name and title only.
 
 ---
 
@@ -310,7 +326,7 @@ Include a summary covering:
   - Geographic expansion
   - Acquisitions
 
-**Word Budget:** 200 words of narrative analysis BELOW the table (table content is excluded)
+**Word Budget:** 180 words of narrative analysis BELOW the table (the table has its own budget — see Table Budgets)
 
 ---
 
@@ -360,7 +376,7 @@ Use when the company offers the same core product in multiple tiers or plans.
 - Note any integrations or platform partnerships
 - Include links to product pages, demos, or technical documentation
 
-**Word Budget:** 180 words of narrative below the table (lite: 150). Table content is excluded, so put product detail in table cells rather than repeating it in prose.
+**Word Budget:** 180 words of narrative below the table (lite: 150). Put product detail in table cells rather than repeating it in prose, but respect the ~250-word Product Overview cap in Table Budgets — cells are cheaper than prose, not free.
 
 ---
 
@@ -383,7 +399,7 @@ Use when the company offers the same core product in multiple tiers or plans.
 - Explain what customer composition reveals about go-to-market strategy
 - Include press releases or case study links
 
-**Word Budget:** 220 words (lite: 160). Lead with the 2-3 most significant customers and compress the rest into a single sentence of names.
+**Word Budget:** 200 words (lite: 160). Lead with the 2-3 most significant customers and compress the rest into a single sentence of names.
 
 ---
 
@@ -402,7 +418,7 @@ Describe the ideal customer:
 - Budget range or typical deal size (if known)
 - Examples of customer types already won
 
-**Word Budget:** 180 words (lite: 130)
+**Word Budget:** 170 words (lite: 130)
 
 ---
 
@@ -416,7 +432,7 @@ Provide quantitative market analysis:
 - Market segmentation (by vertical, geography, company size, etc.)
 - Cited sources and links to market research reports
 
-**Word Budget:** 180 words (lite: 140)
+**Word Budget:** 170 words (lite: 140)
 
 ---
 
@@ -429,7 +445,7 @@ Analyze what's driving adoption:
 - Consolidation trends
 - Link to relevant industry reports and analyses
 
-**Word Budget:** 180 words (lite: 140)
+**Word Budget:** 170 words (lite: 140)
 
 ---
 
@@ -512,7 +528,7 @@ For each major competitor, include:
 - Date all metrics and note sources
 - Include links to press releases and announcements supporting key milestones
 
-**Word Budget:** 180 words (lite: 140)
+**Word Budget:** 170 words (lite: 140)
 
 ---
 
@@ -540,7 +556,7 @@ For each major competitor, include:
 - Write objectively, not as marketing
 - Ground opportunities in company strengths and market trends identified in earlier sections
 
-**Word Budget:** 180 words. Cover 3-4 opportunities at roughly 45-60 words each, using a bolded lead-in per opportunity rather than a full paragraph of setup.
+**Word Budget:** 170 words. Cover 3-4 opportunities at roughly 45-60 words each, using a bolded lead-in per opportunity rather than a full paragraph of setup.
 
 ---
 
@@ -567,7 +583,7 @@ For each major competitor, include:
 - Write objectively and balanced
 - Avoid speculation; ground in evidence
 
-**Word Budget:** 180 words. Cover 4-5 risks at roughly 35-45 words each, with probability and impact stated inline in the bolded lead-in.
+**Word Budget:** 170 words. Cover 4-5 risks at roughly 35-45 words each, with probability and impact stated inline in the bolded lead-in.
 
 ---
 
@@ -604,6 +620,6 @@ For each major competitor, include:
   - Technology disruption
   - Customer concentration
 
-**Word Budget:** 300 words total across all four subsections. That is 4 bullets per subsection at roughly 18-20 words each: a 1-4 word bolded title followed by ONE sentence. Do not restate reasoning already given in Key Opportunities and Key Risks; SWOT is a synthesis, so it should compress rather than repeat.
+**Word Budget:** 260 words total across all four subsections. That is 4 bullets per subsection at roughly 16 words each: a 1-4 word bolded title followed by ONE sentence. Do not restate reasoning already given in Key Opportunities and Key Risks; SWOT is a synthesis, so it should compress rather than repeat.
 
 ---

@@ -6,7 +6,9 @@ This checklist provides **executable verification steps** to ensure reports meet
 
 ## Step 1: Verify Word Count
 
-**Validation Band:** 3,200–4,000 words (full mode) or 1,200–2,000 words (lite mode). These bands and the per-section budgets they derive from live in `references/section_guidelines.md`, which is the single source of truth for report length. config.json holds no length settings.
+**Validation Band:** 3,200–4,000 words (full mode) or 1,200–2,000 words (lite mode). These bands and the per-section and table budgets they derive from live in `references/section_guidelines.md`, which is the single source of truth for report length. config.json holds no length settings.
+
+**Run this mid-draft, not just at the end.** After finishing the Market section — past all three tables — measure the partial draft with the same command below. Expect roughly **2,850 words (full)** or **1,300 (lite)**. Materially over means the remaining sections will not fit, and fixing it then costs one edit instead of four. Catching overrun only at Step 1 is what produces multi-pass trimming.
 
 **Verification:**
 
