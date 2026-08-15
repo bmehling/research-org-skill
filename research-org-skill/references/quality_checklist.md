@@ -6,14 +6,26 @@ This checklist provides **executable verification steps** to ensure reports meet
 
 ## Step 1: Verify Word Count
 
-**Target Range:** `research.targetWordCount` from config.json, or `research.liteWordCount` if running in lite mode (both read in Step 1 of the workflow)
+**Validation Band:** 3,200–4,000 words (full mode) or 1,200–2,000 words (lite mode). These bands and the per-section budgets they derive from live in `references/section_guidelines.md`, which is the single source of truth for report length. config.json holds no length settings.
 
 **Verification:**
+
+Count PROSE only. A plain `wc -w` counts HTML table markup (`<tr>`, `</tr>`, `<table header-row="true">`) and link URLs as words, which inflates the total by several hundred and triggers unnecessary trimming. Strip both first.
+
+Note the space in `s/<[^>]*>/ /g`. Tags must be replaced with a space, not deleted, or adjacent cells written on one line (`<td>Eleos</td><td>eleos.health</td>`) get glued into a single word and the table undercounts.
+
+Link URLs are stripped but link TEXT is kept, since it is prose the reader reads. `[$53M in Series A](url)` counts as four words.
+
+```bash
+sed -E 's/<[^>]*>/ /g; s/\]\([^)]*\)/]/g' /tmp/research-report-{company}.md | wc -w
+```
+
+Check the output against the validation band above. If over the maximum, trim before proceeding. If under the minimum, sections were likely skipped or underdeveloped; compare against the per-section budgets to find which.
+
+To see how much of the total is markup rather than prose, compare against the raw count:
 ```bash
 wc -w < /tmp/research-report-{company}.md
 ```
-
-Check the output against the `targetWordCount` range from config.json. If over the maximum, trim before proceeding.
 
 **Revision strategy if over limit:**
 - Paragraph limits in section_guidelines.md are MAXIMUMS, not targets — aim for lower end

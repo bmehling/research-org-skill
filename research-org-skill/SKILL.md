@@ -40,7 +40,7 @@ research_org: https://camunda.com --lite --model haiku
 2. Extract URL from arguments (first `https://` or `http://` match)
 3. If `--model` flag present, validate it's `sonnet`, `opus`, or `haiku`
 4. Determine final model: `--model` value or `config.research.defaultModel`
-5. If `--lite` flag present, set lite mode = true. Use `config.research.liteWordCount` as the word count target instead of `targetWordCount`
+5. If `--lite` flag present, set lite mode = true (this selects the Lite Mode column of the word budget in `references/section_guidelines.md`)
 6. Use this model in ALL subsequent `Task` tool calls
 
 ### 2. Check for Duplicates
@@ -84,7 +84,7 @@ Follow the section guidelines: `references/section_guidelines.md`
 
 **If lite mode (`--lite`):**
 
-**⚠️ WORD COUNT: Target 1200–1500 words.** Hard max is 2000 words. Write to the LOWER end — aim for 1200–1500 words.
+**⚠️ WORD BUDGET: use the Lite Mode column of the word budget table in `references/section_guidelines.md`.** Section budgets sum to ~1,340 words; with table content the finished report should measure ~1,500. Validation band is 1,200–2,000 words. Write each section to its stated budget rather than drafting long and trimming.
 
 Use the lite structure from `references/section_guidelines.md` (see "Lite Mode Structure" section):
 
@@ -105,7 +105,9 @@ Use the lite structure from `references/section_guidelines.md` (see "Lite Mode S
 
 **If full mode (default):**
 
-**⚠️ WORD COUNT: Target 3000–3500 words.** The hard max is 4000 words. Writing long and then trimming requires many iterations of tedious editing — write tight from the start. Use the LOWER end of each section's expected length range. Do not write elaborate paragraphs where concise ones suffice.
+**⚠️ WORD BUDGET: use the Full Mode column of the word budget table in `references/section_guidelines.md`.** Each section carries its own `**Word Budget:**` line. Section budgets sum to ~3,330 words; with table content the finished report should measure ~3,700. Validation band is 3,200–4,000 words.
+
+Write each section to its stated budget as you draft it. Drafting long and trimming afterward costs many iterations of tedious editing. Check the mid-draft checkpoint after the Market section.
 
 ```
 # Company Overview
@@ -151,7 +153,7 @@ Determine values for:
 
 **CRITICAL:** Before creating the database entry, run ALL verification steps in `references/quality_checklist.md` (word count, citation links, structure, database fields, writing quality). Do NOT proceed to step 8 until all checks pass.
 
-**Note:** In lite mode, the word count target is `config.research.liteWordCount` (not `targetWordCount`).
+**Note:** In lite mode, validate against the lite band (1,200–2,000) rather than the full band (3,200–4,000). Both are stated in `references/section_guidelines.md`.
 
 ### 8. Create Notion Entry
 

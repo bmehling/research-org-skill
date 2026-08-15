@@ -2,10 +2,55 @@
 
 This document provides detailed guidance for each section of the company research report. Follow these guidelines to ensure comprehensive, well-structured research that provides strategic value.
 
+## Word Budget
+
+**This table is the authority on length.** Each section below also carries a `**Word Budget:**` line with the same number. Write to the budget, not to a paragraph count. Paragraph counts are unenforceable and historically caused every report to overshoot the maximum and require a long trimming pass.
+
+Budgets cover PROSE only. Table cell text, HTML markup, and link URLs are excluded and do not count against a section's budget.
+
+**This file is the single source of truth for report length.** config.json holds no length settings. If you change a section budget here, update the totals and validation bands below to match.
+
+### Validation Bands
+
+The quality checklist measures the finished report with markup and URLs stripped, but table cell text still counts. So the measured total runs above the sum of section budgets by roughly the volume of the tables.
+
+| Mode | Section budgets | Table allowance | Expected measurement | Validation band |
+|---|---|---|---|---|
+| Full | 3,330 | ~350 | ~3,680 | **3,200–4,000** |
+| Lite | 1,340 | ~150 | ~1,490 | **1,200–2,000** |
+
+### Full Mode (total ~3,330 words; hard max 4,000)
+
+| Section | Words | Section | Words |
+|---|---|---|---|
+| Company Overview | 180 | Customer | 180 |
+| Founding Story | 150 | Market Size and Opportunity | 180 |
+| Mission and Vision | 100 | Market Dynamics and Trends | 180 |
+| Thesis | 220 | Competitive Landscape Overview | 150 |
+| Business Model | 220 | Competitive Advantages | 150 |
+| Executive Team | 180 | Traction | 180 |
+| Valuation Analysis | 200 | Key Opportunities | 180 |
+| Products and Services | 180 | Key Risks | 180 |
+| Partnerships and Customers | 220 | SWOT Analysis | 300 |
+
+### Lite Mode (total ~1,340 words; hard max 2,000)
+
+| Section | Words | Section | Words |
+|---|---|---|---|
+| Company Overview | 160 | Market Size and Opportunity | 140 |
+| Mission and Vision | 90 | Market Dynamics and Trends | 140 |
+| Products and Services | 150 | Competitive Landscape Overview | 120 |
+| Partnerships and Customers | 160 | Competitive Advantages | 110 |
+| Customer | 130 | Traction | 140 |
+
+**Mid-draft checkpoint:** after finishing the Market section, the draft should be at roughly 2,400 words (full) or 1,100 (lite). If it is materially over, tighten what exists before writing Opportunities and Risks. Trimming a finished report costs far more than trimming a partial one.
+
+---
+
 ## Research Mantras
 
 Strong research combines:
-1. **Depth** - Meet word count range of targetWordCount from config.json (each section includes target lengths)
+1. **Depth** - Meet the per-section word budgets above
 2. **Accuracy** - Verifiable sources and citations throughout. Do not make claims that cannot be verified. Note when information is derived or estimated.
 3. **Balance** - Both positive (strengths/opportunities) and negative (weaknesses/risks) perspectives. Do not be biased.
 4. **Clarity** - Accessible prose that explains specialized concepts
@@ -37,12 +82,7 @@ All standard writing and citation guidelines still apply.
 ## Traction
 ```
 
-**Length guidance for lite mode:**
-- Company Overview: 1–2 paragraphs (intro only; no Founding Story, Thesis, or Business Model)
-- Mission and Vision: 1 paragraph
-- Products and Services: Product overview table + 1–2 paragraphs of narrative
-- Notable Partnerships and Customers: 2–3 paragraphs
-- Each Market subsection: aim for the LOWER end of its normal expected length
+**Length guidance for lite mode:** use the Lite Mode column of the Word Budget table above. Each section below also carries its lite budget in parentheses on the `**Word Budget:**` line. Lite mode omits Founding Story, Thesis, Business Model, Executive Team, Funding, and Opportunities/Risks entirely.
 
 ---
 
@@ -94,7 +134,7 @@ This structure is the EXACT order that must be followed. The numbered labels (1a
 - Focus on what makes them distinctive in their market
 - Include reference links to key sources (company website, prominent news articles, analyst reports)
 
-**Expected Length:** 2-4 paragraphs
+**Word Budget:** 180 words
 
 ---
 
@@ -111,7 +151,7 @@ This structure is the EXACT order that must be followed. The numbered labels (1a
 - Write 2-3 paragraphs in narrative form
 - Include citations or links to founding announcements and early coverage
 
-**Expected Length:** 2-3 paragraphs
+**Word Budget:** 150 words
 
 ---
 
@@ -128,7 +168,7 @@ This structure is the EXACT order that must be followed. The numbered labels (1a
 - Write 2-3 focused paragraphs
 - Link to official sources (company manifesto, founder interviews, mission statements)
 
-**Expected Length:** 1-2 paragraphs or a bulleted list
+**Word Budget:** 100 words
 
 ---
 
@@ -144,7 +184,7 @@ Write a compelling Company Thesis section that articulates why this company repr
 - Economic Disruption: Quantify the improvement in unit economics, speed, cost, or accessibility compared to traditional approaches. Use specific numbers (10x, 100x) and concrete before/after comparisons that demonstrate the magnitude of improvement.
 Synthesis: Ensure the thesis flows as a cohesive narrative that connects market opportunity → unique solution → right team → right time → validated traction → massive potential. Each element should reinforce the others to build conviction.
 
-**Expected Length:** 2-4 paragraphs
+**Word Budget:** 220 words
 
 ---
 
@@ -171,7 +211,7 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 - Discuss competitive pricing and positioning
 - Include links to pricing pages or case studies that reveal business model
 
-**Expected Length:** 4-8 paragraphs
+**Word Budget:** 220 words. The bullet list above is a checklist of what to look for, not a list of topics that each require their own paragraph. Cover what the research actually surfaced and state plainly when a metric is undisclosed.
 
 ---
 
@@ -192,7 +232,7 @@ Synthesis: Ensure the thesis flows as a cohesive narrative that connects market 
 - Explain how executive team composition strengthens company positioning
 - Include LinkedIn profile links where relevant for verification
 
-**Expected Length:** Varies (typically 1 paragraph per executive)
+**Word Budget:** 180 words total. Roughly 50-60 words per executive, which covers 3 leaders. If the company has more, prioritize CEO, CTO, and the most strategically relevant third; list the remainder by name and title only.
 
 ---
 
@@ -270,7 +310,7 @@ Include a summary covering:
   - Geographic expansion
   - Acquisitions
 
-**Expected Length:** 2-4 paragraphs of narrative analysis BELOW the table
+**Word Budget:** 200 words of narrative analysis BELOW the table (table content is excluded)
 
 ---
 
@@ -320,7 +360,7 @@ Use when the company offers the same core product in multiple tiers or plans.
 - Note any integrations or platform partnerships
 - Include links to product pages, demos, or technical documentation
 
-**Expected Length:** Product overview table + 2-4 paragraphs of narrative (lite: table + 1-2 paragraphs)
+**Word Budget:** 180 words of narrative below the table (lite: 150). Table content is excluded, so put product detail in table cells rather than repeating it in prose.
 
 ---
 
@@ -343,7 +383,7 @@ Use when the company offers the same core product in multiple tiers or plans.
 - Explain what customer composition reveals about go-to-market strategy
 - Include press releases or case study links
 
-**Expected Length:** 4-8 paragraphs
+**Word Budget:** 220 words (lite: 160). Lead with the 2-3 most significant customers and compress the rest into a single sentence of names.
 
 ---
 
@@ -362,7 +402,7 @@ Describe the ideal customer:
 - Budget range or typical deal size (if known)
 - Examples of customer types already won
 
-**Expected Length:** 4-6 paragraphs
+**Word Budget:** 180 words (lite: 130)
 
 ---
 
@@ -376,7 +416,7 @@ Provide quantitative market analysis:
 - Market segmentation (by vertical, geography, company size, etc.)
 - Cited sources and links to market research reports
 
-**Expected Length:** 4-6 paragraphs
+**Word Budget:** 180 words (lite: 140)
 
 ---
 
@@ -389,7 +429,7 @@ Analyze what's driving adoption:
 - Consolidation trends
 - Link to relevant industry reports and analyses
 
-**Expected Length:** 4-6 paragraphs
+**Word Budget:** 180 words (lite: 140)
 
 ---
 
@@ -403,7 +443,7 @@ Analyze what's driving adoption:
   - Potential future competitors (platform players, adjacent vendors)
 - Explain competitive dynamics and market maturity
 
-**Expected Length:** 2-4 paragraphs
+**Word Budget:** 150 words (lite: 120)
 
 ---
 
@@ -447,7 +487,7 @@ For each major competitor, include:
 - Data moats, brand, switching costs, technical depth, etc.
 - How sustainable are these advantages?
 
-**Expected Length:** 2-3 paragraphs
+**Word Budget:** 150 words (lite: 110)
 
 ---
 
@@ -472,7 +512,7 @@ For each major competitor, include:
 - Date all metrics and note sources
 - Include links to press releases and announcements supporting key milestones
 
-**Expected Length:** 3-5 paragraphs
+**Word Budget:** 180 words (lite: 140)
 
 ---
 
@@ -500,7 +540,7 @@ For each major competitor, include:
 - Write objectively, not as marketing
 - Ground opportunities in company strengths and market trends identified in earlier sections
 
-**Expected Length:** 2-4 paragraphs
+**Word Budget:** 180 words. Cover 3-4 opportunities at roughly 45-60 words each, using a bolded lead-in per opportunity rather than a full paragraph of setup.
 
 ---
 
@@ -527,7 +567,7 @@ For each major competitor, include:
 - Write objectively and balanced
 - Avoid speculation; ground in evidence
 
-**Expected Length:** 2-4 paragraphs
+**Word Budget:** 180 words. Cover 4-5 risks at roughly 35-45 words each, with probability and impact stated inline in the bolded lead-in.
 
 ---
 
@@ -564,6 +604,6 @@ For each major competitor, include:
   - Technology disruption
   - Customer concentration
 
-**Expected Length:** 3-5 bullet points per subsection (Strengths, Weaknesses, Opportunities, Threats) with each bullet including a 1-4 word title (bolded) followed by 1-2 sentences summarizing the key points.
+**Word Budget:** 300 words total across all four subsections. That is 4 bullets per subsection at roughly 18-20 words each: a 1-4 word bolded title followed by ONE sentence. Do not restate reasoning already given in Key Opportunities and Key Risks; SWOT is a synthesis, so it should compress rather than repeat.
 
 ---
