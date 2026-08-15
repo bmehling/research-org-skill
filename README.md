@@ -76,11 +76,26 @@ Customize the `categories` and `industries` arrays to match the multi-select val
 # Copy the skill to Claude Code's skills directory
 cp -r research-org-skill ~/.claude/skills/research-org-skill
 
+# Install the research subagents (REQUIRED — see below)
+mkdir -p ~/.claude/agents
+cp agents/*.md ~/.claude/agents/
+
 # Install Python dependencies (used by the Notion upload script)
 pip install -r ~/.claude/skills/research-org-skill/scripts/requirements.txt
 ```
 
 Restart Claude Code if needed, then verify with `/skills`.
+
+**The agents step is not optional.** The research workflow dispatches two subagents that Claude Code discovers from `~/.claude/agents/`, outside the skill directory:
+
+| Agent | Model | Job |
+|---|---|---|
+| `research-scout` | haiku | Web retrieval — fetch pages, quote figures, cite URLs |
+| `research-analyst` | sonnet | Competitive landscape and market sizing |
+
+Both are restricted to `WebSearch` and `WebFetch`, so they cannot write files or reach your Notion database. That restriction is deliberate: it makes the research step structurally read-only instead of relying on the prompt to ask nicely.
+
+Skip this step and the workflow falls back to a general-purpose agent with a read-only instruction in its prompt. It still runs, but the restriction becomes advisory rather than enforced.
 
 ### 5. Set Up Notion MCP
 

@@ -49,15 +49,29 @@ Query the Notion database for existing entries with the same URL. If duplicate e
 
 ### 3. Conduct Research
 
-Research the company using web search and fetch tools. Always use `haiku` for the research Task — it's sufficient for web scraping and saves cost. The `--model` flag applies to the main agent only (writing, analysis):
+Dispatch **two subagents in parallel**, split by whether the work needs judgment. Both are read-only (`WebSearch` and `WebFetch` only) and cannot write files or touch Notion. The `--model` flag applies to the main agent only; each subagent's model comes from its own definition.
 
 ```
-Task(
-  subagent_type: "general-purpose",
-  model: "haiku",
-  prompt: "..."
-)
+Agent(subagent_type: "research-scout",   prompt: "...")   # haiku  — retrieval
+Agent(subagent_type: "research-analyst", prompt: "...")   # sonnet — judgment
 ```
+
+| Agent | Model | Scope |
+|---|---|---|
+| `research-scout` | haiku | Company background, founders, funding rounds, products and pricing, compliance, customers, traction. Mechanical extraction — fetch the page, quote the figure, cite the URL. |
+| `research-analyst` | sonnet | Competitive landscape and market sizing. Deciding who actually competes and which market figures are defensible needs judgment that retrieval-grade models get wrong. |
+
+**Do not ask the scout to analyze.** Its failures come from being asked to judge credibility, decide what counts as a customer, or assemble competitor sets. Ask it for facts and URLs; do the analysis yourself or route it to the analyst.
+
+**If either agent type is unavailable** (the definitions live in `~/.claude/agents/`, outside this skill — see README), fall back to `subagent_type: "general-purpose"` with an explicit read-only instruction in the prompt: no file writes, no Notion tools, WebSearch and WebFetch only, return text. The tool restriction is then advisory rather than enforced, so verification in the next step matters more.
+
+**Verify before writing — subagent output is leads, not facts.** Observed failures across runs: fabricated customer logos that appeared nowhere on the company's site, and a garbled figure ($5.15B where the source said $5.1B). Before drafting, confirm with your own WebFetch:
+
+- Every named customer, against the company's own customers or case study page
+- Every headline metric and funding figure, against the primary announcement
+- Every compliance claim, against `/security`, `/trust`, or `/legal`
+
+When a claim exists only in the company's own marketing, attribute it as such in the report rather than stating it as fact.
 
 Focus on: company background, funding history, products, market position, competition, traction, and **compliance posture** (regulatory controls like HIPAA, compliance frameworks like SOC2, and 3rd-party accreditations like The Joint Commission). **Save source URLs** for citations in the report.
 
