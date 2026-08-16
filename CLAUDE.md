@@ -85,6 +85,25 @@ Two details that look like typos but aren't:
 - Tags are replaced with a **space**, not deleted. Deleting them glues adjacent cells written on one line (`<td>Eleos</td><td>eleos.health</td>`) into a single word, and tables undercount.
 - Link **text** is kept, only the URL is stripped. Link text is prose the reader reads.
 
+## The JavaScript shell: a 200 that isn't a page
+
+WebFetch does not run JavaScript. A client-side-rendered page returns HTTP 200 with only its static shell — a title and header — and **no error**. It looks like a real page that happens to say nothing, which is the shape that manufactures false readings in both directions.
+
+Compare the failure modes seen across runs:
+
+| Response | Announces itself? |
+|---|---|
+| 403, 402, timeout | Yes — obviously go find another route |
+| **200 + shell** | **No** |
+
+**Trust centers are the standing case.** `trust.<company>.com` is nearly always Vanta, Drata, or SafeBase, all JS apps. So compliance — the one field most dependent on reading a specific page — is exactly where this bites.
+
+When a compliance page returns a shell, load it in Chrome (`tabs_context_mcp` → `navigate` → `get_page_text` → `tabs_close_mcp`). That step belongs to the **main agent**, never the subagents: their `WebSearch`/`WebFetch` restriction is what closed the scope-overrun problem, and browser automation would hand a haiku agent a general-purpose click-and-type surface. Do not relax it to solve this.
+
+**The backstop matters more than the escalation:** never write a certification into the Compliance field from a page nobody read. An unreadable page supports neither recording the certification nor `None Identified`.
+
+Reducto is the worked example. The scout reported SOC 2, ISO 27001, GDPR, and HIPAA from the trust center; those went into Notion. Loading the page in Chrome showed **SOC 2 and HIPAA only** — plus a SOC 2 Type 2 report, a penetration test, and the subprocessor list (AWS, Google Cloud, OpenAI, Anthropic), none of which any fetch had surfaced.
+
 ## Subagent output is leads, not facts
 
 The tool restriction above closes the scope-overrun failure. It does **not** close the accuracy ones — a restricted agent can still misreport what it read. Verify directly with WebFetch before writing:

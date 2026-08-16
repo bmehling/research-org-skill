@@ -17,7 +17,9 @@ The quality checklist measures the finished report with markup and URLs stripped
 | Mode | Section budgets | Table budget | Expected measurement | Validation band |
 |---|---|---|---|---|
 | Full | 3,120 | ~550 | ~3,670 | **3,200–4,000** |
-| Lite | 1,340 | ~400 | ~1,740 | **1,200–2,000** |
+| Lite | 1,340 | ~550 | ~1,890 | **1,200–2,000** |
+
+Lite runs the same two tables as full mode (Product Overview and Key Competitors), so it carries the same ~550 allowance — the funding table is the only one it drops, and that one is small. An earlier version said ~400 here, which understated it; a lite report with both tables at their caps measured 1,940 against a 2,000 ceiling.
 
 ### Table Budgets
 

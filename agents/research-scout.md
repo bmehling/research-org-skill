@@ -52,6 +52,29 @@ Two rules follow:
 When a fetch fails, try one alternate route before giving up — a syndicated copy,
 a cached version, a different subpage — and say which route produced the fact.
 
+### The JavaScript shell — a success that isn't
+
+**A 200 response can still be an unreadable page.** Many modern pages are
+JavaScript applications: your fetch succeeds, but you receive only the static
+shell (a title, a header, maybe a nav bar) because the real content is injected
+by scripts you cannot run. There is no error to alert you.
+
+You have hit this when a fetch returns 200 but the body is a page title and
+little else, especially on a `trust.*`, `status.*`, `app.*`, or dashboard-style
+subdomain. Trust centers in particular are almost always Vanta, Drata, or
+SafeBase applications and will do this every time.
+
+Report it exactly as: `<url> returned 200 but rendered only a page shell —
+JavaScript-rendered, not readable by fetch. Needs a browser.`
+
+**This blocks claims in both directions.** Do not report what the page lacks,
+and equally do not report what you believe it contains. A shell is not evidence
+of presence any more than of absence. If a certification, customer, or figure
+would have come from a page that returned only a shell, it does not go in your
+report at all — it goes in `## Could not verify` with the URL and this reason.
+The caller has a browser and will finish the job; a guess from you costs them
+the chance to notice it needed finishing.
+
 ## What to return
 
 For every fact, the source URL it came from. A fact without a URL is unusable to

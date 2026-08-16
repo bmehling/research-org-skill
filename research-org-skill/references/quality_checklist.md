@@ -85,7 +85,13 @@ Verify values determined for:
 - [ ] **Stage** — Determined from funding or "Not available"
 - [ ] **Revenue** — Estimated from research or "Not available"
 - [ ] **FTEs** — Estimated from research or "Not available"
-- [ ] **Compliance** — 0+ from `compliance` array in config.json, evidenced by trust/security/compliance pages or third-party attestations. Use `None Identified` if no evidence found.
+- [ ] **Compliance** — 0+ from `compliance` array in config.json, evidenced by trust/security/compliance pages or third-party attestations.
+
+**Every value here must trace to a page that was actually read.** Not a search snippet, not a subagent's summary of a page it could not render, not an inference from the industry served. A trust center returning 200 with only a page shell is unread — escalate to the browser (SKILL.md step 3) or leave the certification out.
+
+Use `None Identified` only when the relevant pages were reached and named nothing. If they could not be reached, that is neither evidence of certification nor of its absence: record only what was read, and state the gap in the report.
+
+*This check exists because a run recorded ISO 27001 and GDPR from a Vanta trust center no fetch could render. The live page listed SOC 2 and HIPAA only.*
 
 ---
 

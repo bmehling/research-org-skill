@@ -65,7 +65,7 @@ Agent(subagent_type: "research-analyst", prompt: "...")   # sonnet — judgment
 
 **If either agent type is unavailable** (the definitions live in `~/.claude/agents/`, outside this skill — see README), fall back to `subagent_type: "general-purpose"` with an explicit read-only instruction in the prompt: no file writes, no Notion tools, WebSearch and WebFetch only, return text. The tool restriction is then advisory rather than enforced, so verification in the next step matters more.
 
-**Verify before writing — subagent output is leads, not facts.** Observed failures across runs: fabricated customer logos that appeared nowhere on the company's site, and a garbled figure ($5.15B where the source said $5.1B). Before drafting, confirm with your own WebFetch:
+**Verify before writing — subagent output is leads, not facts.** Observed failures across runs: fabricated customer logos that appeared nowhere on the company's site, a garbled figure ($5.15B where the source said $5.1B), and two certifications reported from a trust center the scout could not actually read. Before drafting, confirm with your own WebFetch:
 
 - Every named customer, against the company's own customers or case study page
 - Every headline metric and funding figure, against the primary announcement
@@ -73,9 +73,21 @@ Agent(subagent_type: "research-analyst", prompt: "...")   # sonnet — judgment
 
 When a claim exists only in the company's own marketing, attribute it as such in the report rather than stating it as fact.
 
+**Escalate to the browser when a page is JavaScript-rendered.** A fetch that returns 200 with only a page title and header has not failed loudly — it has handed you a shell while the real content waits on scripts that never ran. Trust centers are the common case: `trust.<company>.com` is nearly always a Vanta, Drata, or SafeBase application, and WebFetch will return a header every time.
+
+When a compliance-bearing page returns a shell, load it in Chrome instead. Load the tools in one call:
+
+```
+ToolSearch("select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__tabs_close_mcp")
+```
+
+Then `tabs_context_mcp{createIfEmpty:true}` → `navigate` → `get_page_text` → `tabs_close_mcp`. Close the tab when done. This is a main-agent step: the scout and analyst are restricted to WebSearch and WebFetch on purpose, and that restriction should not be relaxed to solve this.
+
+**The backstop, whether or not the browser is available:** never write a certification into the Compliance database field that came from a page nobody could read. If Chrome is unavailable or permission is declined, record only what was actually read and state the rest as unverified in the report. An unreadable page is not evidence in either direction — it does not support recording a certification, and it does not support `None Identified` either.
+
 Focus on: company background, funding history, products, market position, competition, traction, and **compliance posture** (regulatory controls like HIPAA, compliance frameworks like SOC2, and 3rd-party accreditations like The Joint Commission). **Save source URLs** for citations in the report.
 
-For compliance, check `/trust`, `/security`, `/compliance`, `/legal`, and footer links on the company's website. Look for badges/attestations on the homepage. Cross-reference with third-party trust portals (e.g., Vanta, Drata public pages). Only record certifications with credible evidence — do not assume HIPAA compliance just because a vendor sells to healthcare. If nothing is found after a focused search, use `None Identified`.
+For compliance, check `/trust`, `/security`, `/compliance`, `/legal`, and footer links on the company's website. Look for badges/attestations on the homepage. **Third-party trust portals (Vanta, Drata, SafeBase) are JavaScript applications and cannot be read by fetch** — reaching one means switching to the browser path above, not treating the shell as the answer. Quote the exact wording, since "SOC 2 Type 2 certified", "follows the criteria set forth by the SOC 2 Framework", and "SOC 2 aligned" are three different claims. Only record certifications with credible evidence — do not assume HIPAA compliance just because a vendor sells to healthcare. Use `None Identified` only when the relevant pages were actually read and named nothing, never when they could not be reached.
 
 For product/pricing research, actively look for `/pricing`, `/plans`, `/products`, and `/features` pages on the company's website. Capture: product names, one-line descriptions, key features (3-5 per product), target users, pricing (exact figures or tiers), and whether the company uses tiered plans vs. distinct products. This structured product data will be used to build a product overview table in the report.
 
