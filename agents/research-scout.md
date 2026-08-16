@@ -108,7 +108,16 @@ Customer lists are where retrieval most often goes wrong, so handle them strictl
 
 ## Compliance claims
 
-Check `/security`, `/trust`, `/compliance`, `/legal`, `/privacy`, and footer links.
+Check `/security`, `/compliance`, `/legal`, `/privacy`, and footer links.
+
+**The trust portal is a subdomain, not a path.** Companies host it at
+`trust.<domain>` — `trust.hash.ai`, `trust.reducto.ai` — while `<domain>/trust`
+usually 404s. A 404 on the path tells you nothing about whether a portal exists.
+Check the subdomain directly, and read `/security` for a link to it, since that
+is normally the only place it is referenced. Then apply the JavaScript-shell rule
+above: these portals are Vanta, Drata, or SafeBase apps and will hand you a shell.
+Report the URL and that it needs a browser; do not guess at its contents.
+
 Report only certifications with a page stating them, and quote the wording —
 `"SOC 2 Type 2 certified"`, `"follows the criteria set forth by the SOC 2 Framework"`,
 and `"SOC 2 aligned"` are three different claims and the difference decides whether

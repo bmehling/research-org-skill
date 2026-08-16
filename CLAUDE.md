@@ -98,7 +98,11 @@ Compare the failure modes seen across runs:
 
 **Trust centers are the standing case.** `trust.<company>.com` is nearly always Vanta, Drata, or SafeBase, all JS apps. So compliance — the one field most dependent on reading a specific page — is exactly where this bites.
 
-When a compliance page returns a shell, load it in Chrome (`tabs_context_mcp` → `navigate` → `get_page_text` → `tabs_close_mcp`). That step belongs to the **main agent**, never the subagents: their `WebSearch`/`WebFetch` restriction is what closed the scope-overrun problem, and browser automation would hand a haiku agent a general-purpose click-and-type surface. Do not relax it to solve this.
+**Find the portal first — it's a subdomain.** It lives at `trust.<domain>` (`trust.hash.ai`, `trust.reducto.ai`); `<domain>/trust` usually 404s and proves nothing either way. `/security` is normally the only page linking to it.
+
+When a compliance page returns a shell, load it in Chrome (`tabs_context_mcp` → `navigate` → `get_page_text` → `tabs_close_mcp`), and **wait-and-retry on an empty first read**: `get_page_text` often returns `No text content found` before the app renders. On `trust.hash.ai` the first read returned nothing and a 4-second wait returned the full certification list. Treating that first empty read as "no content" reproduces the exact false negative the escalation exists to prevent.
+
+That step belongs to the **main agent**, never the subagents: their `WebSearch`/`WebFetch` restriction is what closed the scope-overrun problem, and browser automation would hand a haiku agent a general-purpose click-and-type surface. Do not relax it to solve this.
 
 **The backstop matters more than the escalation:** never write a certification into the Compliance field from a page nobody read. An unreadable page supports neither recording the certification nor `None Identified`.
 

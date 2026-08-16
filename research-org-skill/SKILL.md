@@ -69,7 +69,7 @@ Agent(subagent_type: "research-analyst", prompt: "...")   # sonnet — judgment
 
 - Every named customer, against the company's own customers or case study page
 - Every headline metric and funding figure, against the primary announcement
-- Every compliance claim, against `/security`, `/trust`, or `/legal`
+- Every compliance claim, against `/security`, `/legal`, and the `trust.<domain>` portal
 
 When a claim exists only in the company's own marketing, attribute it as such in the report rather than stating it as fact.
 
@@ -83,11 +83,13 @@ ToolSearch("select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome
 
 Then `tabs_context_mcp{createIfEmpty:true}` → `navigate` → `get_page_text` → `tabs_close_mcp`. Close the tab when done. This is a main-agent step: the scout and analyst are restricted to WebSearch and WebFetch on purpose, and that restriction should not be relaxed to solve this.
 
+**Wait and retry before concluding the page is empty.** `get_page_text` frequently returns `No text content found` on the first call because the app has not finished rendering. That is the same false negative the escalation exists to prevent, one layer deeper. When it happens, `computer{action:"wait", duration:4}` then read again. On `trust.hash.ai` the first read returned nothing and the retry returned the full certification list. Treat an empty first read as "not yet rendered," never as "no content."
+
 **The backstop, whether or not the browser is available:** never write a certification into the Compliance database field that came from a page nobody could read. If Chrome is unavailable or permission is declined, record only what was actually read and state the rest as unverified in the report. An unreadable page is not evidence in either direction — it does not support recording a certification, and it does not support `None Identified` either.
 
 Focus on: company background, funding history, products, market position, competition, traction, and **compliance posture** (regulatory controls like HIPAA, compliance frameworks like SOC2, and 3rd-party accreditations like The Joint Commission). **Save source URLs** for citations in the report.
 
-For compliance, check `/trust`, `/security`, `/compliance`, `/legal`, and footer links on the company's website. Look for badges/attestations on the homepage. **Third-party trust portals (Vanta, Drata, SafeBase) are JavaScript applications and cannot be read by fetch** — reaching one means switching to the browser path above, not treating the shell as the answer. Quote the exact wording, since "SOC 2 Type 2 certified", "follows the criteria set forth by the SOC 2 Framework", and "SOC 2 aligned" are three different claims. Only record certifications with credible evidence — do not assume HIPAA compliance just because a vendor sells to healthcare. Use `None Identified` only when the relevant pages were actually read and named nothing, never when they could not be reached.
+For compliance, check `/security`, `/compliance`, `/legal`, and footer links on the company's website, plus the **`trust.<domain>` subdomain** — that is where trust portals live (`trust.hash.ai`, `trust.reducto.ai`), while `<domain>/trust` usually 404s and proves nothing. `/security` is normally the only page that links to it. Look for badges/attestations on the homepage. **Third-party trust portals (Vanta, Drata, SafeBase) are JavaScript applications and cannot be read by fetch** — reaching one means switching to the browser path above, not treating the shell as the answer. Quote the exact wording, since "SOC 2 Type 2 certified", "follows the criteria set forth by the SOC 2 Framework", and "SOC 2 aligned" are three different claims. Only record certifications with credible evidence — do not assume HIPAA compliance just because a vendor sells to healthcare. Use `None Identified` only when the relevant pages were actually read and named nothing, never when they could not be reached.
 
 For product/pricing research, actively look for `/pricing`, `/plans`, `/products`, and `/features` pages on the company's website. Capture: product names, one-line descriptions, key features (3-5 per product), target users, pricing (exact figures or tiers), and whether the company uses tiered plans vs. distinct products. This structured product data will be used to build a product overview table in the report.
 
