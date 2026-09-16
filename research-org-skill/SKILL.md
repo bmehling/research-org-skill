@@ -222,9 +222,9 @@ The Notion MCP has payload limits for large content. Use the helper script to up
    - File path: `/tmp/research-report-{company}.md`
    - Content: the full report markdown
 
-2. **Run the upload script** using the skill's base directory (shown at the top of this skill when loaded):
+2. **Run the upload script** using the skill's base directory (shown at the top of this skill when loaded). Invoke it with `/usr/bin/python3`, not bare `python3`: the Homebrew interpreter on PATH has no `requests` module and fails at import, while the system Python has it. The urllib3 LibreSSL warning it prints is harmless.
 ```bash
-python3 {skill_base_dir}/scripts/upload_to_notion.py \
+/usr/bin/python3 {skill_base_dir}/scripts/upload_to_notion.py \
   --page-id {page_id} \
   --content /tmp/research-report-{company}.md \
   --company-url {url}

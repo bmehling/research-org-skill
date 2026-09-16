@@ -25,7 +25,7 @@ pip3 install -r requirements.txt
 **Usage:**
 
 ```bash
-python3 upload_to_notion.py \
+/usr/bin/python3 upload_to_notion.py \
   --page-id <notion-page-id> \
   --content <path-to-markdown-file> \
   --company-url <company-website-url>
@@ -41,7 +41,7 @@ python3 upload_to_notion.py \
 **Example:**
 
 ```bash
-python3 upload_to_notion.py \
+/usr/bin/python3 upload_to_notion.py \
   --page-id "2f15d568-90e9-81u6-9fac-eff492d320cb" \
   --content "/tmp/company-report.md" \
   --company-url "https://company.com/"
@@ -91,7 +91,7 @@ Setting page icon... ✓
 The skill calls this script automatically in Step 8 of the workflow:
 
 ```bash
-python3 upload_to_notion.py \
+/usr/bin/python3 upload_to_notion.py \
   --page-id {page_id_from_mcp} \
   --content /tmp/research-report-{timestamp}.md \
   --company-url {company_url}

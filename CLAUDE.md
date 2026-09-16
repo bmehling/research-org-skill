@@ -9,13 +9,13 @@ The skill lives in two independent directories. They are **not** symlinks, and e
 | Location | Role |
 |---|---|
 | `~/.claude/skills/research-org-skill/` | Installed copy. This is what Claude Code actually loads and runs. |
-| `~/Projects/research-org/research-org-skill/` | Git repo. This is what gets committed. |
+| `~/cc-projects/research-org-skill/research-org-skill/` | Git repo. This is what gets committed. |
 
 **Workflow: develop in the installed copy, then sync back to the repo before committing.** Editing the installed copy is what lets you test a change by invoking the skill. Skipping the sync means the fix works on this machine and exists nowhere else.
 
 ```bash
 A=~/.claude/skills/research-org-skill
-B=~/Projects/research-org/research-org-skill
+B=~/cc-projects/research-org-skill/research-org-skill
 cp "$A/SKILL.md" "$B/SKILL.md"
 cp "$A/references/"*.md "$B/references/"
 cp "$A/scripts/"* "$B/scripts/"
@@ -24,7 +24,7 @@ cp "$A/scripts/"* "$B/scripts/"
 Always verify before committing. Anything other than the expected noise means an unsynced change:
 
 ```bash
-diff -rq ~/.claude/skills/research-org-skill ~/Projects/research-org/research-org-skill
+diff -rq ~/.claude/skills/research-org-skill ~/cc-projects/research-org-skill/research-org-skill
 # Expected leftovers only: .DS_Store, .claude/, .cpa-workflow-artifacts/
 ```
 
@@ -34,7 +34,7 @@ diff -rq ~/.claude/skills/research-org-skill ~/Projects/research-org/research-or
 
 Any time you add, remove, or rename a config key, change it in three places:
 1. `~/.claude/skills/research-org-skill/config.json` (the live copy that runs)
-2. `~/Projects/research-org/research-org-skill/config.json` (working copy, still untracked)
+2. `~/cc-projects/research-org-skill/research-org-skill/config.json` (working copy, still untracked)
 3. `config.example.json` (repo root, **tracked**, the only one anyone cloning will see)
 
 Miss step 3 and a fresh clone inherits keys the skill no longer reads.
