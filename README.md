@@ -113,7 +113,7 @@ Trigger the skill with `/research-org-skill` followed by a company URL:
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--lite` | Shorter report (1,200-1,500 words), omits funding, exec team, SWOT | `/research-org-skill --lite https://example.com` |
+| `--lite` | Shorter report (1,200-2,000 words), omits funding, exec team, SWOT | `/research-org-skill --lite https://example.com` |
 | `--model MODEL` | Override the default model (`sonnet`, `opus`, `haiku`) | `/research-org-skill --model opus https://example.com` |
 | `--update` | Refresh an existing entry in place (see below) | `/research-org-skill --update https://example.com` |
 | `--stale` | List entries whose research has gone stale. Takes no URL | `/research-org-skill --stale --months 12` |
@@ -163,7 +163,7 @@ The skill follows a 9-step process:
 
 1. **Load Configuration** — Read config, parse URL, flags
 2. **Resolve the Target Entry** — Query Notion to prevent duplicate entries, or in update mode, locate the existing one
-3. **Conduct Research** — Web search and fetch (uses haiku for cost efficiency)
+3. **Conduct Research** — Two read-only subagents in parallel: `research-scout` (haiku) for retrieval, `research-analyst` (sonnet) for competitors and market sizing. Their output is verified before writing
 4. **Review Reference Files** — Load section guidelines, writing style, and category guides
 5. **Write Report** — Draft report following section structure and citation guidelines
 6. **Prepare Database Fields** — Determine Categories, Industry, Stage, Revenue, FTEs
@@ -219,6 +219,8 @@ research-org/
 Only pages that could possibly be stale are read individually, so the scan cost stays well below one request per row, and it drops further as entries get updated.
 
 **`scripts/check_links.py`** checks a report's citations for rot, reading either a local markdown draft or a published Notion page. It classifies each link and, importantly, separates **DEAD** (404, 410, or a host that no longer resolves) from **BLOCKED** (401, 403, 429, 999 — the server refused an automated request). Only DEAD is actionable; paywalled research firms, LinkedIn, and PitchBook return BLOCKED routinely and their pages are usually fine. Runs automatically during `--update`; useful standalone at any time.
+
+The checker sends a full browser header set, which clears some blocks on its own. What still blocks is bot detection (a JavaScript challenge or a login wall), not AI detection. Hosts behind a login (LinkedIn, PitchBook, Crunchbase, Gartner, Forrester, CB Insights) are labeled `login wall`. The skill retries a BLOCKED link in Chrome only when it is the sole source for a load-bearing fact and is not login-walled, since a login wall renders a sign-in page that looks like success. The host list is `LOGIN_WALLED` in the script.
 
 ```bash
 /usr/bin/python3 research-org-skill/scripts/check_links.py --page-id <notion-page-id>
