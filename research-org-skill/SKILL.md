@@ -12,14 +12,18 @@ Comprehensive research workflow for creating detailed company intelligence repor
 ## Command
 
 ```
-research_org: <url> [--model MODEL] [--lite]
+research_org: <url> [--model MODEL] [--lite] [--update]
+research_org: --stale [--months N]
 ```
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
-| `<url>` | Yes | Company website URL to research |
+| `<url>` | Yes | Company website URL to research. In update mode, accepts the Notion page URL as well |
 | `--model` | No | Model to use: `sonnet` (default), `opus` (complex), `haiku` (quick) |
 | `--lite` | No | Generate a shorter product/market-focused report (omits funding, exec team, SWOT) |
+| `--update` | No | Refresh an existing entry: regenerate the report, research changes since it was last researched, and rewrite the page in place |
+| `--stale` | No | List entries whose research has gone stale, ranked. Takes no URL. Read-only |
+| `--months N` | No | Staleness threshold for `--stale` (default 6) |
 
 **Examples:**
 ```
@@ -28,11 +32,40 @@ research_org: https://camunda.com --model opus
 research_org: https://camunda.com --model haiku
 research_org: https://camunda.com --lite
 research_org: https://camunda.com --lite --model haiku
+research_org: https://camunda.com --update
+research_org: https://app.notion.com/p/abc123 --update
+research_org: --stale
+research_org: --stale --months 12
 ```
 
 ---
 
+## Stale Sweep Mode (`--stale`)
+
+An update flag nobody remembers to run is a flag that never runs. This mode produces the worklist. It takes **no URL**, writes nothing, and does not follow the workflow below.
+
+```bash
+/usr/bin/python3 {skill_base_dir}/scripts/find_stale.py --months {N}
+```
+
+The script ranks entries by how long since they were researched, reading each report's metadata line where one exists and falling back to the page's creation date where it does not. Entries staged `Defunct` or `Acquired` are excluded, because their reports are frozen by design and do not go stale.
+
+**Do not just relay the table.** The script ranks by age alone, which is the one thing it can measure and the least interesting input. Add the judgment it cannot:
+
+- **Weight by stage.** A Seed or Series A company at 9 months is more likely to have changed materially than a Public or Bootstrapped one at 18. Early-stage entries should rise above older but slower-moving ones.
+- **Flag thin entries for a fresh run, not an update.** An entry with no Stage, no Compliance, and a short report is often a stub. `--update` regenerates against current guidelines, which usually fixes it, but say when a full fresh run is the better call.
+- **Read the model tag.** An entry written by a materially weaker model is a re-run candidate rather than an update candidate, because its gaps are as likely to be analysis failures as real absences.
+- **Group, do not list.** Ten rows a person will act on beats a hundred they will not. Lead with a handful worth doing now and say how many remain.
+
+Then offer to run the updates, and **run them one at a time**. Each is a full research run with its own approval gate, so batching them without asking would queue up a long series of writes the user has not seen.
+
+If the sweep dates most entries by creation time, say so: those ages are upper bounds, and they will become exact once each entry has been through one update.
+
+---
+
 ## Workflow
+
+The steps below cover create mode and update mode. `--stale` does not use them.
 
 ### 1. Load Configuration
 
@@ -41,13 +74,42 @@ research_org: https://camunda.com --lite --model haiku
 3. If `--model` flag present, validate it's `sonnet`, `opus`, or `haiku`
 4. Determine final model: `--model` value or `config.research.defaultModel`
 5. If `--lite` flag present, set lite mode = true (this selects the Lite Mode column of the word budget in `references/section_guidelines.md`)
-6. Use this model in ALL subsequent `Task` tool calls
+6. If `--update` flag present, set update mode = true and read `references/update_guide.md` before doing anything else. Update mode changes steps 2, 3, 5, 7, 8, and 9
+7. If `--stale` flag present, skip this workflow entirely and follow the Stale Sweep Mode section above. No URL is required in that mode
+8. Use this model in ALL subsequent `Task` tool calls
 
-### 2. Check for Duplicates
+### 2. Resolve the Target Entry
 
-Query the Notion database for existing entries with the same URL. If duplicate exists, stop and ask user for guidance.
+**Create mode (default).** Query the data source for existing entries with the same URL. If a duplicate exists, stop and ask the user for guidance.
+
+**Update mode (`--update`).** The opposite test: you need to *find* the entry, and finding nothing is the failure.
+
+1. If the argument is a Notion page URL or ID, fetch that page directly.
+2. Otherwise query the data source on the `URL` property.
+3. If that returns nothing, fall back to a title search on `Organization` using the domain's root word. **A rebranded company will not match on URL, and this is the path that finds it.**
+4. On a fuzzy or title match, show the candidate's name, URL, and created date, and confirm before proceeding. Never update a row you matched loosely without asking.
+5. If nothing is found, stop. Do not fall through to creating a new entry — that is a different action than the one requested.
+
+Then build the fact ledger from the existing page and establish the baseline date, per Steps B and C of `references/update_guide.md`. The ledger is what makes the rest of the run cheap, and the baseline date is what bounds the research.
+
+Also run the link checker against the existing page before researching — it is the cheapest signal available:
+
+```bash
+/usr/bin/python3 {skill_base_dir}/scripts/check_links.py --page-id {page_id}
+```
+
+Replace every `DEAD` citation during the regeneration. **Never drop a citation that came back `BLOCKED`**: a 403 or 999 means the server refused a bot, not that the page is gone. Retry one in Chrome only when it is the sole source for a load-bearing fact and is not labeled `login wall`; the full rule is in `references/quality_checklist.md`, Step 2b. A `REDIRECT` to a new host is often the first trace of a rebrand.
 
 ### 3. Conduct Research
+
+**In update mode, scope the research first.** Classify the change event (Step D of `references/update_guide.md`), then bound the work:
+
+- **Always dispatch the scout**, with a brief that states the baseline date, lists the ledger's current facts, and asks only for what changed since then. Asking it to report "unchanged" against a known fact is far cheaper than asking it to rediscover the fact.
+- **Dispatch the analyst only if** the competitor table is more than 12 months old, a listed competitor had an M&A or shutdown event, or the company pivoted or rebranded into a different market. Otherwise carry the competitor table forward with its dates visible.
+- **Always re-check the company's own pages yourself** — homepage, `/pricing`, `/security`, `/about`, and the trust portal. They are cheap, high-yield, and where drift shows first.
+- **Watch for silent removals.** A dropped certification, a vanished customer logo, or a retired pricing tier announces nothing. The ledger is what makes them visible.
+
+Everything below applies to both modes.
 
 Dispatch **two subagents in parallel**, split by whether the work needs judgment. Both are read-only (`WebSearch` and `WebFetch` only) and cannot write files or touch Notion. The `--model` flag applies to the main agent only; each subagent's model comes from its own definition.
 
@@ -100,8 +162,23 @@ Before writing, read all of these reference files:
 2. `references/writing_style.md` — Tone, style and approach
 3. `references/category_guide.md` — Product categorization
 4. `references/valuation_guide.md` — Funding valuation estimation
+5. `references/update_guide.md` — **Update mode only.** Event playbooks, changelog format, approval gate
 
 ### 5. Write Report
+
+**In update mode, regenerate the full report against current guidelines**, carrying forward facts that still hold rather than re-deriving them. A patch-only update preserves prose written against a superseded standard, so the oldest entries would stay the worst ones forever.
+
+Open the regenerated report with the metadata line and a `# What Changed — [date]` section, capped at 200 words including the report history list. Each history line records the model and the agents that produced that generation, as `[opus-5, scout]`. Format and rules are in `references/update_guide.md`, Step G. Always include an "Unchanged" line: a reader needs to know what was checked and found stable.
+
+**Terminal events are the exception.** If the company shut down, went bankrupt, or was absorbed into an acquirer, do NOT regenerate. Freeze the existing body as a historical record, add the closing changelog entry, and flip the properties. See the Terminal events playbook.
+
+**Every report opens with a metadata line**, in both modes. Create mode writes `*Research completed: {date} [{model}, {agents}]*` above the first heading. Without it, the next `--update` has no baseline and re-searches from the page's creation date. Format in `references/section_guidelines.md` under Report Preamble.
+
+**Cross-link competitors already in the database.** Before writing the Key Competitors table, fetch the data source's `Organization` and `URL` columns in a single paginated pass, then match each competitor locally by domain and then by name. Link matched names to their Notion pages in the Company cell, keep the website in the URL cell, and report the coverage count in the summary.
+
+Note the property name differs by interface: it is `userDefined:URL` through the Notion MCP tools and plain `URL` through the REST API.
+
+**Rewrite page links to the `/p/` form.** The SQL query's `url` column comes back as `https://app.notion.com/<id>`, which returns 404. The working link is `https://app.notion.com/p/<id>`. `check_links.py` reports the broken form as `DEAD`, which is accurate.
 
 Follow the section guidelines: `references/section_guidelines.md`
 
@@ -174,20 +251,32 @@ Write each section to its stated budget as you draft it. Drafting long and trimm
 Determine values for:
 - **Categories** — 1-4 from `references/category_guide.md`
 - **Industry** — from `industries` array in config.json
-- **Stage** — Seed, Series A, Series B, etc.
+- **Stage** — Seed, Series A, Series B, etc. Also available: `Acquired`, `Public` (post-IPO), `Defunct` (shut down or bankrupt), `Merger`, `Bootstrapped`, `Growth`, `Stealth`
 - **Revenue** — Estimate or "Not available"
 - **FTEs** — Estimate or "Not available"
 - **Compliance** — 0+ from `compliance` array in config.json (HIPAA, SOC2, ISO27001, HITRUST, PCI DSS, FedRamp, GDPR, CCPA, CPRA, PIPEDA, PHIPA, CASA, JTC Telehealth, FDA 21 CFR Part 11). Only include items with credible evidence from the company's trust/security/compliance pages or third-party attestations. Use `None Identified` if no evidence is found.
 
 ### 7. Run Quality Checklist
 
-**CRITICAL:** Before creating the database entry, run ALL verification steps in `references/quality_checklist.md` (word count, citation links, structure, database fields, writing quality). Do NOT proceed to step 8 until all checks pass.
+**CRITICAL:** Before creating the database entry, run ALL verification steps in `references/quality_checklist.md` (word count, citation links, dead-link check, structure, database fields, writing quality). Do NOT proceed to step 8 until all checks pass.
 
 **Note:** In lite mode, validate against the lite band (1,200–2,000) rather than the full band (3,200–4,000). Both are stated in `references/section_guidelines.md`.
 
-### 8. Create Notion Entry
+**Note:** In update mode the changelog is measured along with everything else, so the upper bound rises by 200: **3,200–4,200 (full)** and **1,200–2,200 (lite)**. A frozen terminal-event report is exempt from the word-count and structure checks; say so in the summary rather than reporting a failed check.
 
-**Create Page with Overview**
+### 8. Create or Update the Notion Entry
+
+**Update mode: show the diff and wait for approval before writing.**
+
+Never write to Notion before the user says yes. An update overwrites a page that may carry another person's annotations, and a property flip propagates into every filtered view of the database. Show the full "What Changed" section and a property table (old → new, marking changed rows), then stop. Do not show the regenerated prose unless asked. Flag any *removal* explicitly — a dropped certification is the change most likely to be a research miss rather than a real event.
+
+On approval, upload to the existing `page_id` **with `--clear`**, which is mandatory in update mode: without it the new report appends beneath the old one and the page ends up holding two reports. Pass the **current** URL as `--company-url` so a rebrand refreshes the favicon. Then update properties with `notion-update-page`. Full sequence in `references/update_guide.md`, Step I.
+
+Notion page history retains prior versions, so a bad update is recoverable.
+
+---
+
+**Create mode: Create Page with Overview**
 
 Use `Notion:notion-create-pages` with a brief 2-3 paragraph overview and all properties:
 
@@ -264,5 +353,9 @@ If properties weren't set during page creation, use `Notion:notion-update-page` 
 
 **View Entry:** [[Company Name]](notion-page-url)
 ```
+
+Include the competitor coverage line in both modes, for example "3 of 8 competitors are already in the database; 5 are not." The missing names are a ready-made research backlog of companies already judged relevant.
+
+**In update mode**, report instead: what changed, what was checked and found unchanged, which properties moved, whether the analyst ran, any dead citations replaced, and anything that could not be verified. An update that found nothing is a valid outcome — say "no material changes since [date]" plainly rather than manufacturing significance.
 
 ---

@@ -18,6 +18,10 @@ The quality checklist measures the finished report with markup and URLs stripped
 |---|---|---|---|---|
 | Full | 3,120 | ~550 | ~3,670 | **3,200–4,000** |
 | Lite | 1,340 | ~550 | ~1,890 | **1,200–2,000** |
+| Full + `--update` | 3,120 | ~550 | ~3,870 | **3,200–4,200** |
+| Lite + `--update` | 1,340 | ~550 | ~2,090 | **1,200–2,200** |
+
+Update mode adds a changelog above the report, capped at 200 words including the report history list. It is measured along with everything else, so only the upper bound moves.
 
 Lite runs the same two tables as full mode (Product Overview and Key Competitors), so it carries the same ~550 allowance — the funding table is the only one it drops, and that one is small. An earlier version said ~400 here, which understated it; a lite report with both tables at their caps measured 1,940 against a 2,000 ceiling.
 
@@ -101,6 +105,51 @@ All standard writing and citation guidelines still apply.
 ```
 
 **Length guidance for lite mode:** use the Lite Mode column of the Word Budget table above. Each section below also carries its lite budget in parentheses on the `**Word Budget:**` line. Lite mode omits Founding Story, Thesis, Business Model, Executive Team, Funding, and Opportunities/Risks entirely.
+
+---
+
+## Report Preamble
+
+**Every report carries a metadata line** above the first content heading, in both create and update mode. This line is what a later `--update` reads to bound its searches and to judge whether the report is worth regenerating, so a report without it forces the next update to re-search from the page's creation date.
+
+**Create mode** carries the line alone:
+
+```markdown
+*Research completed: 2026-09-17 [fable-5.1, scout+analyst]*
+
+# Company Overview
+...
+```
+
+**Update mode** adds `Last updated:` and a changelog:
+
+```markdown
+*Research completed: 2026-09-17. Last updated: 2027-03-04.*
+
+# What Changed — March 4, 2027
+
+**Funding.** One short paragraph per change, bolded lead-in, linked to its source.
+
+**Unchanged.** Always present. States what was checked and found stable.
+
+**Report history**
+- 2026-09-17 — initial report [fable-5.1, scout+analyst]
+- 2027-03-04 — updated [opus-5, scout]
+
+# Company Overview
+...
+```
+
+### The bracket tag
+
+Each entry records **which model wrote it** and **which agents ran**, comma separated.
+
+- **Model** — the model that actually wrote the report, as the session reports it (for example `opus-5.5`). Do not copy `--model` or `config.research.defaultModel` into the tag: the main agent runs on whatever model the session uses, and a tag that records the requested model instead of the real one defeats its purpose. This matters because a report written by a weaker model may deserve a full re-run rather than an update, and without the tag there is no way to tell which those are.
+- **Agents** — `scout`, `scout+analyst`, or `none`. The most recent `scout+analyst` entry is how the next update computes the competitor table's age against the 12-month threshold.
+
+On a legacy report with no tag, write `[model unknown, agents unknown]` for the original entry rather than guessing.
+
+**Word Budget:** 200 words for the changelog and history combined. The metadata line itself is not budgeted.
 
 ---
 
@@ -476,6 +525,17 @@ For each major competitor, include:
 - Key differentiators vs. the company being researched
 - Links to competitor websites and key resources
 
+**Cross-link competitors that are already in the database.** Before writing the table, fetch the data source's `Organization` and `URL` columns in a single paginated pass and match each competitor against it locally, by domain first and then by name. Where a competitor already has its own entry:
+
+- **Company cell** links to that competitor's Notion page, in the form `https://app.notion.com/p/<32-hex-id>`. The SQL `url` column returns `https://app.notion.com/<id>` with no `/p/`, and that form returns 404. Rewrite it before writing the link
+- **URL cell** always keeps the competitor's website
+
+This makes the database navigable between related entries without any schema change. The whole-table fetch costs a handful of paginated calls regardless of how many competitors there are, which beats one lookup per competitor and keeps costing the same as the table grows. A competitor not in the database is written as plain text.
+
+**Report the coverage in the run summary**, for example "3 of 8 competitors are already in the database; 5 are not." The names that are missing are the most useful research backlog you can produce, because they are companies you have already judged relevant.
+
+*Optional:* if a self-relation property (a relation pointing back at this same data source) exists, populate it with the matched competitors as well. The database's existing `Linked Org` and `Projects` relations point at a different database and are **not** suitable for this. Do not create the property; the skill never edits the schema.
+
 **Table Format Example:**
 
 ```markdown
@@ -488,11 +548,18 @@ For each major competitor, include:
 <td>Key Differentiators</td>
 </tr>
 <tr>
-<td>Competitor A</td>
+<td><a href="https://notion.so/competitor-a-page-id">Competitor A</a></td>
 <td>competitora.com</td>
 <td>2019</td>
 <td>Enterprise-focused platform</td>
 <td>Strong in healthcare vertical, raised $200M</td>
+</tr>
+<tr>
+<td>Competitor B</td>
+<td>competitorb.com</td>
+<td>2021</td>
+<td>Mid-market self-serve</td>
+<td>Not yet in the database, so no internal link</td>
 </tr>
 </table>
 ```
